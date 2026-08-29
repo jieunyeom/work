@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>이커머스 업무 지도</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+:root{
+  --canvas:#F4F1FA;
+  --fg:#332F3A;
+  --muted:#635F69;
+  --accent:#7C3AED;
+  --accent-lite:#A78BFA;
+  --pink:#DB2777;
+  --sky:#0EA5E9;
+  --emerald:#10B981;
+  --amber:#F59E0B;
+  --recess:#EFEBF5;
+
+  --head:Nunito,"Pretendard Variable",Pretendard,-apple-system,sans-serif;
+  --body:"DM Sans","Pretendard Variable",Pretendard,-apple-system,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --clayCard:
+    16px 16px 32px rgba(160,150,180,.20),
+    -10px -10px 24px rgba(255,255,255,.9),
+    inset 6px 6px 12px rgba(139,92,246,.03),
+    inset -6px -6px 12px rgba(255,255,255,1);
+  --clayCardHover:
+    22px 26px 44px rgba(160,150,180,.28),
+    -12px -12px 28px rgba(255,255,255,.95),
+    inset 6px 6px 12px rgba(139,92,246,.04),
+    inset -6px -6px 12px rgba(255,255,255,1);
+  --clayButton:
+    12px 12px 24px rgba(139,92,246,.30),
+    -8px -8px 16px rgba(255,255,255,.4),
+    inset 4px 4px 8px rgba(255,255,255,.4),
+    inset -4px -4px 8px rgba(0,0,0,.1);
+  --clayButtonHover:
+    16px 18px 32px rgba(139,92,246,.38),
+    -8px -8px 18px rgba(255,255,255,.5),
+    inset 4px 4px 8px rgba(255,255,255,.45),
+    inset -4px -4px 8px rgba(0,0,0,.1);
+  --clayPressed:
+    inset 10px 10px 20px #d9d4e3,
+    inset -10px -10px 20px #ffffff;
+  --claySoft:
+    10px 10px 22px rgba(160,150,180,.16),
+    -7px -7px 18px rgba(255,255,255,.9);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--canvas);color:var(--fg);font-family:var(--body);
+  font-size:16px;line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;text-align:left}
+:focus-visible{outline:0;box-shadow:0 0 0 4px rgba(124,58,237,.3)!important;border-radius:20px}
+h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
+
+/* ===== blobs ===== */
+.blobs{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.blob{position:absolute;height:60vh;width:60vh;border-radius:9999px;filter:blur(80px)}
+.b1{background:rgba(139,92,246,.14);top:-12%;left:-16%;animation:cfloat 8s ease-in-out infinite}
+.b2{background:rgba(236,72,153,.12);top:22%;right:-20%;animation:cfloatAlt 10s ease-in-out infinite 2s}
+.b3{background:rgba(14,165,233,.12);bottom:-14%;left:-8%;animation:cfloat 12s ease-in-out infinite 4s}
+.b4{background:rgba(16,185,129,.10);bottom:8%;right:-12%;animation:cfloatAlt 9s ease-in-out infinite 1s}
+@keyframes cfloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(2deg)}}
+@keyframes cfloatAlt{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-15px) rotate(-2deg)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+
+/* ===== shell ===== */
+.shell{max-width:520px;margin:0 auto;padding:0 18px}
+.screen{display:none;padding-bottom:130px}
+.screen.on{display:block;animation:in .4s ease both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.top{padding-top:34px}
+
+/* ===== type ===== */
+.eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;margin:0 0 16px}
+h1{font-size:38px;line-height:1.18;font-weight:900;letter-spacing:-.035em;margin:0 0 16px}
+h2{font-size:27px;line-height:1.28;font-weight:800;letter-spacing:-.03em;margin:0 0 12px}
+h3{font-size:20px;font-weight:800;margin:0 0 12px}
+.lede{color:var(--muted);font-size:16px;line-height:1.68;margin:0;font-weight:500}
+.mini-lede{color:var(--muted);font-size:14px;font-weight:500;margin:0}
+
+/* ===== cards ===== */
+.card{background:rgba(255,255,255,.72);backdrop-filter:blur(20px);border-radius:32px;
+  box-shadow:var(--clayCard);padding:24px;transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.card.lift:hover{transform:translateY(-8px);box-shadow:var(--clayCardHover)}
+.core{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;border-radius:32px;
+  padding:26px 24px;box-shadow:var(--clayButton);margin-top:26px}
+.core .k{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.12em;
+  opacity:.75;text-transform:uppercase;margin-bottom:10px}
+.core p{margin:0;font-family:var(--head);font-size:19px;font-weight:800;line-height:1.5;letter-spacing:-.02em}
+.core b{color:#FDE68A}
+.sect{margin-top:44px}
+
+/* ===== 혜택 바 ===== */
+.offer{display:flex;gap:16px;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,#DDF56A,#C7E93F);border-radius:32px;padding:22px 24px;
+  margin-top:28px;box-shadow:16px 16px 32px rgba(160,180,80,.28),
+  -10px -10px 24px rgba(255,255,255,.9),inset -6px -6px 12px rgba(255,255,255,.5)}
+.offer-l{list-style:none;margin:0;padding:0;flex:1;min-width:0}
+.offer-l li{font-family:var(--head);font-size:14.5px;font-weight:800;color:#2E3A0B;
+  letter-spacing:-.025em;padding-left:26px;position:relative;margin-bottom:9px;line-height:1.4}
+.offer-l li:last-child{margin-bottom:0}
+.offer-l li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;
+  border-radius:9999px;background:#fff;color:#65A30D;font-size:11px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 7px rgba(120,140,50,.25)}
+.offer-r{flex:none;text-align:right}
+.offer-sub{display:block;font-family:var(--head);font-size:12px;font-weight:800;color:#5A6B18}
+.offer-p{display:block;font-family:var(--head);font-size:44px;font-weight:900;
+  letter-spacing:-.05em;line-height:1.05;color:#1F2A05;margin:2px 0 8px}
+.offer-bd{display:inline-block;font-family:var(--head);font-size:11px;font-weight:800;
+  color:#DDF56A;background:#1F2A05;padding:6px 13px;border-radius:9999px}
+
+/* ===== 고민 인용 ===== */
+.pain-h{margin-top:46px}
+.pain-h h2{margin:0}
+.pain{margin-top:20px}
+.pain p{margin:0 0 12px;background:var(--recess);box-shadow:var(--clayPressed);
+  border-radius:24px;padding:18px 20px;font-size:15px;line-height:1.65;color:var(--muted);
+  font-weight:500;transition:.35s}
+.pain p:last-child{margin-bottom:0}
+.pain p:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--claySoft)}
+.pain b{color:var(--fg);font-weight:700}
+
+.lede b{color:var(--fg);font-weight:700}
+
+/* ===== NumberedGain (01~04) ===== */
+.gain{display:flex;gap:16px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);
+  border-radius:28px;box-shadow:var(--claySoft);padding:20px 22px;margin-bottom:12px;transition:.35s}
+.gain:hover{transform:translateY(-4px);box-shadow:var(--clayCardHover)}
+.gain-n{font-family:var(--head);font-size:22px;font-weight:900;color:#D6D0E2;flex:none;
+  line-height:1.1;letter-spacing:-.04em}
+.gain-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.03em;
+  line-height:1.4;margin-bottom:6px}
+.gain-d{font-size:14px;line-height:1.65;color:var(--muted);font-weight:500}
+.gain.hero{background:linear-gradient(135deg,#DDF56A,#C7E93F);
+  box-shadow:16px 16px 32px rgba(160,180,80,.28),-10px -10px 24px rgba(255,255,255,.9)}
+.gain.hero .gain-n{color:#8A9E2E}
+.gain.hero .gain-t{color:#1F2A05}
+.gain.hero .gain-d{color:#4A5A14}
+
+/* ===== DarkChecklist ===== */
+.dark{background:linear-gradient(150deg,#2E2838,#211C2B);border-radius:36px;padding:26px 24px;
+  box-shadow:18px 18px 36px rgba(80,70,110,.3),-8px -8px 20px rgba(255,255,255,.7)}
+.dark li{list-style:none;display:flex;gap:12px;align-items:flex-start;margin-bottom:15px;
+  font-size:15px;font-weight:600;color:#EDE9F5;line-height:1.5;letter-spacing:-.02em}
+.dark li:last-child{margin-bottom:0}
+.dark ul{margin:0;padding:0}
+.dark .tk{flex:none;width:20px;height:20px;border-radius:9999px;background:rgba(167,139,250,.2);
+  color:#C4B5FD;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.dark li.hero .tk{background:#DDF56A;color:#1F2A05}
+.dark li.hero{color:#DDF56A}
+.dark .cond{font-family:var(--head);font-size:11px;font-weight:800;color:#8B82A0;margin-left:8px}
+
+/* ===== Process (PART) ===== */
+.part{border-left:4px solid #DDF56A;padding-left:18px;margin-bottom:26px}
+.part-t{font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
+.part li{list-style:none;display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;
+  font-size:14.5px;line-height:1.6;color:var(--muted);font-weight:500}
+.part ul{margin:0;padding:0}
+.part li::before{content:"✓";color:var(--accent);font-weight:900;font-size:12px;flex:none;margin-top:3px}
+.part li b{color:var(--fg);font-weight:700}
+.part .qt{background:#2E2838;color:#fff;border-radius:20px;padding:15px 18px;margin-top:14px;
+  font-family:var(--head);font-size:14.5px;font-weight:800;letter-spacing:-.025em}
+.closing{text-align:center;font-family:var(--head);font-size:15px;font-weight:800;
+  color:var(--muted);margin-top:8px;line-height:1.6;letter-spacing:-.025em}
+.closing b{color:var(--accent)}
+
+/* ===== PainList · 자기선별 ===== */
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick div{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);border-radius:24px;
+  box-shadow:var(--claySoft);padding:18px 16px;transition:.3s}
+.pick div:hover{transform:translateY(-4px)}
+.pick .n{font-family:var(--head);font-size:12px;font-weight:900;color:#C7E93F;
+  display:block;margin-bottom:7px}
+.pick .t{font-size:13.5px;line-height:1.55;color:var(--muted);font-weight:600;letter-spacing:-.02em}
+
+/* ===== TierBenefit ===== */
+.tier-l{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
+  margin:18px 0 9px;padding-left:6px;letter-spacing:.03em}
+.tier-l:first-child{margin-top:0}
+.tier{background:linear-gradient(150deg,#2E2838,#211C2B);border-radius:24px;padding:18px 20px;
+  box-shadow:14px 14px 28px rgba(80,70,110,.26),-6px -6px 16px rgba(255,255,255,.7);margin-bottom:8px}
+.tier.hero{background:linear-gradient(135deg,#DDF56A,#C7E93F);
+  box-shadow:14px 14px 28px rgba(160,180,80,.3),-6px -6px 16px rgba(255,255,255,.9)}
+.tier .trow{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;font-weight:700;
+  color:#F7F5FB;line-height:1.5;letter-spacing:-.025em}
+.tier.hero .trow{color:#1F2A05}
+.tier .trow i{font-style:normal;color:#C4B5FD;font-weight:900;flex:none}
+.tier.hero .trow i{color:#65A30D}
+.tier .sub{font-size:13px;color:#BDB4CE;font-weight:500;margin-top:6px;padding-left:24px;line-height:1.55}
+.tier.hero .sub{color:#4A5A14}
+.warn{background:linear-gradient(135deg,#DDF56A,#C7E93F);border-radius:24px;padding:18px 20px;
+  margin-top:16px;font-size:14px;font-weight:600;color:#2E3A0B;line-height:1.62;
+  box-shadow:var(--claySoft)}
+.warn b{font-weight:800}
+
+/* ===== 배너 제작기 데모 ===== */
+.demo{border-radius:32px;overflow:hidden;background:#fff;box-shadow:var(--clayCard)}
+.demo-bar{background:linear-gradient(135deg,#F5F2FA,#EDE9F5);padding:12px 16px;display:flex;
+  align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}
+.demo-b{padding:20px;position:relative;min-height:298px}
+.demo-step{position:absolute;left:20px;right:20px;top:20px;opacity:0;
+  animation:cyc 12s infinite}
+.demo-step:nth-child(1){animation-delay:0s}
+.demo-step:nth-child(2){animation-delay:4s}
+.demo-step:nth-child(3){animation-delay:8s}
+@keyframes cyc{0%{opacity:0;transform:translateY(10px)}4%{opacity:1;transform:none}
+  30%{opacity:1;transform:none}34%{opacity:0;transform:translateY(-8px)}100%{opacity:0}}
+.dstep{font-family:var(--head);font-size:12px;font-weight:900;color:var(--accent);
+  background:rgba(124,58,237,.1);padding:5px 13px;border-radius:9999px;display:inline-block;margin-bottom:14px}
+.dfld{display:flex;justify-content:space-between;align-items:center;background:var(--recess);
+  box-shadow:var(--clayPressed);border-radius:16px;padding:12px 16px;margin-bottom:9px}
+.dfld span{font-size:13px;color:var(--muted);font-weight:600}
+.dfld b{font-family:var(--head);font-size:15px;font-weight:900;letter-spacing:-.03em}
+.dcalc{background:linear-gradient(135deg,#EDE9FE,#DDD6FE);border-radius:18px;padding:14px 16px;
+  margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+.dcalc span{font-size:12.5px;color:#5B21B6;font-weight:700}
+.dcalc b{font-family:var(--head);font-size:20px;font-weight:900;color:var(--accent);letter-spacing:-.04em}
+.dform{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:#2E2838;
+  color:#C9C0DC;border-radius:14px;padding:11px 13px;margin-bottom:12px;line-height:1.6}
+.dform em{color:#A78BFA;font-style:normal}
+.dot-row{display:flex;gap:7px;justify-content:center;padding:14px 0 4px}
+.dot-row i{width:7px;height:7px;border-radius:9999px;background:#D6D0E2;display:block;
+  animation:dotc 12s infinite}
+.dot-row i:nth-child(1){animation-delay:0s}
+.dot-row i:nth-child(2){animation-delay:4s}
+.dot-row i:nth-child(3){animation-delay:8s}
+@keyframes dotc{0%,33%{background:var(--accent);transform:scale(1.25)}34%,100%{background:#D6D0E2;transform:none}}
+
+/* ===== 잠긴 결과물 타일 ===== */
+.locked{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.locked div{background:var(--recess);box-shadow:var(--clayPressed);border-radius:24px;
+  padding:18px 16px;text-align:center;position:relative}
+.locked .lk{font-size:17px;opacity:.35;display:block;margin-bottom:8px}
+.locked .st-n{font-family:var(--head);font-size:10.5px;font-weight:900;color:#A9A2B4;
+  display:block;margin-bottom:4px;letter-spacing:.06em}
+.locked .nm{font-family:var(--head);font-size:13.5px;font-weight:800;color:#8E87A0;
+  letter-spacing:-.03em;line-height:1.4}
+.locked div.open{background:linear-gradient(135deg,#DDF56A,#C7E93F);
+  box-shadow:12px 12px 26px rgba(160,180,80,.3),-6px -6px 16px rgba(255,255,255,.9)}
+.locked div.open .lk{opacity:1}
+.locked div.open .st-n{color:#7A8F22}
+.locked div.open .nm{color:#1F2A05}
+.locked div.open::after{content:"지금 보고 계신 것";position:absolute;left:0;right:0;bottom:-19px;
+  font-family:var(--head);font-size:10px;font-weight:800;color:#7A8F22;text-align:center}
+.hero-cap{font-size:15px;line-height:1.68;color:var(--muted);font-weight:500;margin-top:18px;padding:0 4px}
+.hero-cap b{color:var(--fg);font-weight:700}
+
+/* ===== proof strip ===== */
+.proof{display:flex;gap:16px;overflow-x:auto;padding:8px 18px 16px;margin:28px -18px 0;
+  scroll-snap-type:x mandatory}
+.proof::-webkit-scrollbar{display:none}
+.proof-i{flex:none;width:min(86vw,340px);scroll-snap-align:center}
+.proof-c{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
+  margin-top:10px;text-align:center}
+
+/* ===== live map ===== */
+.lm{background:rgba(255,255,255,.72);backdrop-filter:blur(20px);border-radius:32px;
+  box-shadow:var(--clayCard);padding:20px}
+.lm-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.lm-h .t{font-family:var(--head);font-size:15px;font-weight:800}
+.lm-h .c{font-family:var(--head);font-size:12px;font-weight:800;color:var(--accent);
+  background:rgba(124,58,237,.1);padding:4px 12px;border-radius:9999px}
+.lm-g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.lm-c{border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
+  padding:9px 5px 10px;min-height:70px;text-align:center;transition:all .45s cubic-bezier(.2,.8,.2,1)}
+.lm-n{font-family:var(--head);font-size:11px;font-weight:900;color:#A9A2B4}
+.lm-t{font-size:10px;font-weight:700;line-height:1.25;color:var(--muted);margin-top:3px;letter-spacing:-.03em}
+.lm-d{display:flex;gap:3px;justify-content:center;margin-top:6px;flex-wrap:wrap}
+.lm-d i{width:5px;height:5px;border-radius:9999px;background:var(--accent);display:block}
+.lm-c.on{background:linear-gradient(135deg,#EDE9FE,#DDD6FE);box-shadow:var(--claySoft)}
+.lm-c.on .lm-n,.lm-c.on .lm-t{color:var(--accent)}
+.lm-c.hot{background:linear-gradient(135deg,#A78BFA,#7C3AED);box-shadow:var(--clayButton);
+  transform:translateY(-3px)}
+.lm-c.hot .lm-n,.lm-c.hot .lm-t{color:#fff}
+.lm-c.hot .lm-d i{background:#fff}
+
+/* ===== task rows ===== */
+.grp{display:flex;align-items:center;gap:10px;margin:30px 0 14px}
+.grp .t{font-family:var(--head);font-size:17px;font-weight:800}
+.grp .n{font-family:var(--head);font-size:12px;font-weight:800;color:var(--accent);
+  background:rgba(124,58,237,.1);padding:3px 11px;border-radius:9999px}
+.row{background:rgba(255,255,255,.7);backdrop-filter:blur(14px);border-radius:24px;
+  box-shadow:var(--claySoft);margin-bottom:12px;transition:all .35s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+.row:hover{transform:translateY(-3px)}
+.row.open{box-shadow:var(--clayCardHover);transform:translateY(-3px);background:rgba(255,255,255,.9)}
+.row.done{background:linear-gradient(135deg,rgba(237,233,254,.85),rgba(255,255,255,.8))}
+.row-hd{display:flex;align-items:flex-start;gap:13px;width:100%;padding:17px 18px}
+.box{width:26px;height:26px;border-radius:12px;flex:none;margin-top:1px;background:var(--recess);
+  box-shadow:var(--clayPressed);display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:transparent;transition:all .3s}
+.row.open .box,.row.done .box{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;
+  box-shadow:8px 8px 16px rgba(139,92,246,.3),-4px -4px 10px rgba(255,255,255,.5)}
+.row-b{flex:1;min-width:0}
+.row-n{font-family:var(--head);font-size:16px;font-weight:800;line-height:1.35;letter-spacing:-.025em}
+.art{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
+.row.open .art,.row.done .art{color:var(--accent)}
+.ans{font-family:var(--head);font-size:11px;font-weight:800;color:#fff;flex:none;margin-top:2px;
+  background:linear-gradient(135deg,#A78BFA,#7C3AED);padding:5px 11px;border-radius:9999px;
+  box-shadow:6px 6px 14px rgba(139,92,246,.25)}
+.mg{display:none;grid-template-columns:1fr 1fr;gap:9px;padding:0 18px 18px}
+.row.open .mg{display:grid}
+.chip{background:var(--recess);box-shadow:var(--clayPressed);border-radius:20px;padding:13px 8px;
+  font-family:var(--head);font-size:13.5px;font-weight:800;text-align:center;color:var(--muted);
+  transition:all .2s;letter-spacing:-.02em}
+.chip:hover{transform:translateY(-2px);color:var(--fg)}
+.chip:active{transform:scale(.92)}
+.chip.sel{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;box-shadow:var(--clayButton)}
+
+/* ===== mocks ===== */
+.mock{border-radius:24px;overflow:hidden;background:#fff;box-shadow:var(--claySoft);
+  font-family:var(--mono);font-size:11px;line-height:1.55;color:var(--fg)}
+.mock-bar{background:linear-gradient(135deg,#F5F2FA,#EDE9F5);padding:11px 14px;display:flex;
+  align-items:center;gap:9px;font-size:10.5px;color:var(--muted);font-weight:500}
+.dots{display:flex;gap:5px;flex:none}
+.dots i{width:8px;height:8px;border-radius:9999px;display:block}
+.dots i:nth-child(1){background:#FCA5A5}.dots i:nth-child(2){background:#FCD34D}.dots i:nth-child(3){background:#6EE7B7}
+.mock-b{padding:14px}
+.mr{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F4F1FA}
+.mr:last-child{border-bottom:0}
+.mr.h{color:#A9A2B4;font-weight:600;font-size:10px}
+.mr span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.mr .n{text-align:right;flex:0 0 62px}
+.mr .ch{flex:0 0 62px}
+.msk{color:#A9A2B4}
+.pill{display:inline-block;background:rgba(16,185,129,.14);color:#047857;padding:5px 12px;
+  border-radius:9999px;font-size:10.5px;font-weight:700;font-family:var(--head)}
+.pill.w{background:rgba(245,158,11,.16);color:#B45309}
+.st{display:flex;gap:9px;margin-bottom:12px}
+.st div{flex:1;background:var(--recess);border-radius:18px;padding:10px 11px}
+.st u{display:block;font-size:10px;color:var(--muted);text-decoration:none}
+.st b{display:block;font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.03em}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bl{display:flex;align-items:center;gap:9px;font-size:11px}
+.bl span{flex:0 0 68px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.bt{flex:1;height:14px;background:var(--recess);border-radius:9999px;overflow:hidden;
+  box-shadow:inset 2px 2px 4px #ddd8e8}
+.bt i{display:block;height:100%;border-radius:9999px;background:linear-gradient(90deg,#A78BFA,#7C3AED)}
+.bl u{flex:0 0 48px;text-align:right;text-decoration:none;color:var(--muted);font-weight:600}
+.code{background:#2E2838;color:#C9C0DC;padding:13px;border-radius:18px;font-size:10px;
+  line-height:1.75;white-space:pre;overflow:hidden}
+.code em{color:#A78BFA;font-style:normal}
+.bn{border-radius:20px;overflow:hidden;display:flex;height:92px;margin-bottom:11px;box-shadow:var(--claySoft)}
+.bn-i{flex:0 0 86px;background:linear-gradient(135deg,#F5F2FA,#E9E4F2);display:flex;
+  align-items:center;justify-content:center;font-size:10px;color:#A9A2B4}
+.bn-t{flex:1;padding:11px 14px;display:flex;flex-direction:column;justify-content:center;background:#fff}
+.bn.pp .bn-t{background:linear-gradient(135deg,#F7F2FF,#EFE7FE)}
+.bn-bd{font-size:9.5px;font-weight:800;padding:3px 10px;border-radius:9999px;align-self:flex-start;
+  margin-bottom:5px;font-family:var(--head);color:#fff}
+.bn.rd .bn-bd{background:linear-gradient(135deg,#F472B6,#DB2777)}
+.bn.pp .bn-bd{background:linear-gradient(135deg,#A78BFA,#7C3AED)}
+.bn-nm{font-family:var(--head);font-size:12.5px;font-weight:800;margin-bottom:3px}
+.bn-pr{font-size:10.5px;color:var(--muted)}.bn-pr s{margin-right:6px}
+.bn-f{font-family:var(--head);font-size:19px;font-weight:900;letter-spacing:-.04em}
+.bn.rd .bn-f{color:var(--pink)}.bn.pp .bn-f{color:var(--accent)}
+.bn-o{font-size:11px;font-weight:900;color:var(--pink);font-family:var(--head)}
+
+/* ===== result ===== */
+.reco{border-radius:36px;overflow:hidden;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);
+  box-shadow:var(--clayCard)}
+.reco-t{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;padding:26px 24px}
+.reco-k{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.8;margin-bottom:10px}
+.reco-n{font-family:var(--head);font-size:27px;font-weight:900;letter-spacing:-.04em;line-height:1.25}
+.blk{padding:22px 24px}
+.blk+.blk{border-top:1px solid rgba(160,150,180,.15)}
+.blk-h{font-family:var(--head);font-size:11px;font-weight:800;letter-spacing:.12em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.q{font-size:16px;line-height:1.62;font-weight:500}
+.adv{font-family:var(--head);font-size:18px;font-weight:800;line-height:1.5;letter-spacing:-.025em}
+.adv b{color:var(--accent)}
+.cap{font-size:14px;color:var(--muted);line-height:1.6;margin-top:14px;font-weight:500}
+.dest{background:linear-gradient(135deg,#D1FAE5,#A7F3D0);padding:22px 24px;font-family:var(--head);
+  font-size:17px;font-weight:800;letter-spacing:-.025em;color:#065F46;line-height:1.5}
+.jump{width:100%;padding:20px 24px;font-family:var(--head);font-size:14px;font-weight:800;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-top:1px solid rgba(160,150,180,.15);color:var(--accent);transition:.2s}
+.jump:hover{background:rgba(124,58,237,.05)}
+.note{font-size:13.5px;color:var(--muted);margin-top:18px;line-height:1.6;font-weight:500;padding:0 6px}
+
+/* ===== benefits ===== */
+.ben{display:flex;gap:14px;padding:20px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);
+  border-radius:28px;box-shadow:var(--claySoft);margin-bottom:12px;transition:.35s}
+.ben:hover{transform:translateY(-4px);box-shadow:var(--clayCardHover)}
+.orb{width:46px;height:46px;border-radius:16px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-family:var(--head);font-size:16px;font-weight:900;color:#fff;
+  box-shadow:8px 8px 18px rgba(139,92,246,.25),-4px -4px 10px rgba(255,255,255,.6)}
+.o1{background:linear-gradient(135deg,#60A5FA,#2563EB)}
+.o2{background:linear-gradient(135deg,#C084FC,#7C3AED)}
+.o3{background:linear-gradient(135deg,#F472B6,#DB2777)}
+.ben-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.025em;margin-bottom:5px}
+.ben-d{font-size:14px;color:var(--muted);line-height:1.6;font-weight:500}
+.ben-d code{font-family:var(--mono);font-size:12px;background:rgba(124,58,237,.09);
+  padding:2px 7px;border-radius:10px;color:var(--accent);font-weight:600}
+
+/* ===== story ===== */
+.story{background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border-radius:40px;
+  box-shadow:var(--clayCard);padding:30px 26px;margin-top:34px}
+.story h3{font-size:22px;font-weight:900;letter-spacing:-.03em;margin:0 0 18px}
+.story p{font-size:15px;line-height:1.78;color:var(--muted);margin:0 0 15px;font-weight:500}
+.story p:last-of-type{margin-bottom:0}
+.story b{color:var(--fg);font-weight:700}
+.sig{font-family:var(--head);font-size:13px;font-weight:800;color:var(--accent);margin-top:20px}
+
+/* ===== deadline ===== */
+.dl{display:inline-flex;align-items:center;gap:9px;font-family:var(--head);font-size:13px;
+  font-weight:800;color:#B45309;background:linear-gradient(135deg,#FEF3C7,#FDE68A);
+  padding:13px 20px;border-radius:9999px;box-shadow:var(--claySoft);margin:30px 0 18px}
+
+/* ===== form ===== */
+.form{border-radius:40px;overflow:hidden;background:rgba(255,255,255,.82);backdrop-filter:blur(20px);
+  box-shadow:var(--clayCard)}
+.form-h{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;padding:24px}
+.form-h b{display:block;font-family:var(--head);font-size:21px;font-weight:900;letter-spacing:-.03em}
+.form-h span{font-size:13px;opacity:.85;font-weight:500}
+.form-b{padding:24px}
+.fld{margin-bottom:16px}
+.fld label{display:block;font-family:var(--head);font-size:12px;font-weight:800;
+  letter-spacing:.06em;color:var(--muted);margin-bottom:8px;padding-left:6px}
+.fld input{width:100%;border:0;border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
+  padding:17px 20px;font-size:16px;font-family:var(--body);font-weight:500;color:var(--fg);
+  transition:all .25s}
+.fld input::placeholder{color:#A9A2B4}
+.fld input:focus{background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.2),var(--claySoft);outline:0}
+.fld input.bad{box-shadow:0 0 0 3px rgba(219,39,119,.35),var(--clayPressed)}
+.fld select{width:100%;border:0;border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
+  padding:17px 20px;font-size:15px;font-family:var(--body);font-weight:600;color:var(--fg);
+  appearance:none;-webkit-appearance:none;transition:all .25s;
+  background-image:linear-gradient(45deg,transparent 50%,#8E87A0 50%),linear-gradient(135deg,#8E87A0 50%,transparent 50%);
+  background-position:calc(100% - 22px) 26px,calc(100% - 16px) 26px;
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+.fld select:focus{background-color:#fff;outline:0;box-shadow:0 0 0 4px rgba(124,58,237,.2),var(--claySoft)}
+.cs{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:24px;
+  background:var(--recess);box-shadow:var(--clayPressed);margin-bottom:10px;width:100%;transition:.3s}
+.cs.opt{background:rgba(255,255,255,.6);box-shadow:var(--claySoft)}
+.cs .cb{width:24px;height:24px;border-radius:11px;flex:none;margin-top:1px;background:#fff;
+  box-shadow:var(--claySoft);display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:transparent;transition:.25s}
+.cs.on .cb{background:linear-gradient(135deg,#34D399,#10B981);color:#fff;
+  box-shadow:6px 6px 14px rgba(16,185,129,.3)}
+.cs-t{font-size:13px;line-height:1.6;color:var(--muted);font-weight:500}
+.cs-t b{color:var(--fg);font-weight:700;font-family:var(--head)}
+.priv{font-size:12px;color:var(--muted);line-height:1.6;margin-top:14px;padding:0 6px;font-weight:500}
+.submit{width:100%;background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;padding:0;height:64px;
+  border-radius:20px;font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.02em;
+  text-align:center;margin-top:18px;box-shadow:var(--clayButton);transition:all .2s}
+.submit:hover{transform:translateY(-4px);box-shadow:var(--clayButtonHover)}
+.submit:active{transform:scale(.92);box-shadow:var(--clayPressed)}
+.submit:disabled{background:#DDD8E8;color:#A9A2B4;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
+.err{font-size:13px;color:var(--pink);margin-top:12px;display:none;font-weight:700;padding:0 6px}
+.err.on{display:block}
+.done{padding:44px 24px;text-align:center}
+.done .tick{width:76px;height:76px;border-radius:9999px;background:linear-gradient(135deg,#34D399,#10B981);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 20px;
+  box-shadow:14px 14px 28px rgba(16,185,129,.3),-8px -8px 18px rgba(255,255,255,.7);
+  animation:breathe 6s ease-in-out infinite}
+.done b{display:block;font-family:var(--head);font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:11px}
+.done p{font-size:14.5px;color:var(--muted);line-height:1.65;margin:0;font-weight:500}
+
+/* ===== map ===== */
+.stg{background:rgba(255,255,255,.7);backdrop-filter:blur(16px);border-radius:28px;
+  box-shadow:var(--claySoft);padding:20px;margin-bottom:12px}
+.stg-h{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.stg-n{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;flex:none;
+  width:34px;height:34px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#A78BFA,#7C3AED);box-shadow:6px 6px 14px rgba(139,92,246,.25)}
+.stg-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.025em;flex:1}
+.stg-r{font-family:var(--head);font-size:10px;font-weight:800;color:var(--muted);
+  background:var(--recess);box-shadow:var(--clayPressed);padding:5px 11px;border-radius:9999px}
+.cds{display:flex;flex-wrap:wrap;gap:8px}
+.mini{font-family:var(--head);font-size:13px;font-weight:700;padding:9px 14px;border-radius:9999px;
+  background:var(--recess);box-shadow:var(--clayPressed);color:var(--muted);transition:.25s}
+.mini.full{color:var(--fg);background:#fff;box-shadow:var(--claySoft)}
+.mini.full:hover{transform:translateY(-3px)}
+.mini.full::after{content:" +";color:var(--accent);font-weight:900}
+.mini.hl{background:linear-gradient(135deg,#FDE68A,#FCD34D);color:#92400E;box-shadow:var(--claySoft)}
+.dt{display:none;margin-top:16px;background:var(--recess);box-shadow:var(--clayPressed);
+  border-radius:24px;padding:20px}
+.dt.on{display:block}
+.dr{margin-bottom:14px}.dr:last-child{margin-bottom:0}
+.dk{font-family:var(--head);font-size:10.5px;font-weight:800;letter-spacing:.1em;
+  color:var(--accent);margin-bottom:5px}
+.dv{font-size:14px;line-height:1.65;color:var(--muted);font-weight:500}
+.dv b{color:var(--fg);font-weight:700}
+.dv.fl{color:#B45309}
+.back{width:100%;text-align:center;font-family:var(--head);font-size:13px;font-weight:800;
+  color:var(--muted);padding:24px 0}
+
+/* ===== bar ===== */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:14px 18px calc(16px + env(safe-area-inset-bottom));
+  display:none;background:linear-gradient(to top,rgba(244,241,250,.98) 55%,rgba(244,241,250,0))}
+.bar.on{display:block}
+.bar-in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.cnt{font-family:var(--head);font-size:13px;font-weight:800;color:var(--muted);flex:none;
+  background:rgba(255,255,255,.9);box-shadow:var(--claySoft);padding:12px 16px;border-radius:9999px}
+.cnt b{color:var(--accent)}
+.cta{flex:1;height:60px;background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;border-radius:20px;
+  font-family:var(--head);font-size:17px;font-weight:900;letter-spacing:-.02em;text-align:center;
+  box-shadow:var(--clayButton);transition:all .2s}
+.cta:hover{transform:translateY(-4px);box-shadow:var(--clayButtonHover)}
+.cta:active{transform:scale(.92);box-shadow:var(--clayPressed)}
+.cta:disabled{background:#DDD8E8;color:#A9A2B4;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
+
+@media (min-width:620px){
+  .shell{max-width:640px}
+  h1{font-size:52px} h2{font-size:34px}
+  .mg{grid-template-columns:repeat(4,1fr)}
+  .proof-i{width:380px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+
+<div class="shell">
+
+<!-- 화면1 -->
+<section class="screen on" id="s1">
+  <div class="top">
+    <p class="eyebrow">이커머스 업무 지도</p>
+    <h1>일은 다 쳐냈는데,<br>내일 또 처음부터<br>하고 있진 않나요?</h1>
+    <p class="lede">일이 많은 게 아니라, <b>매번 새로 하고 있는</b> 겁니다.</p>
+
+    <div class="pain-h">
+      <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
+    </div>
+    <div class="pain" id="painEmpathy"></div>
+
+    <div class="sect">
+      <p class="eyebrow" style="margin-bottom:10px">전체 판</p>
+      <h2>이커머스 업무는<br>9칸으로 물려 있습니다</h2>
+      <p class="lede" style="margin-top:12px">상품 등록부터 정산까지. 한 칸이 막히면 어디가 줄어드는지, 그게 이 판에서 보입니다.</p>
+    </div>
+    <div class="lm" style="margin-top:20px">
+      <div class="lm-h"><span class="t">9단계 업무 지도</span><span class="c" id="lmCount"></span></div>
+      <div class="lm-g" id="lmGrid"></div>
+    </div>
+    <p class="note">17개 업무가 이 칸들에 얹혀 있습니다.</p>
+
+    <div class="sect">
+      <p class="eyebrow" style="margin-bottom:10px">한 칸만 열어보면</p>
+      <h2>02 · 배너 제작은<br>이렇게 바꿨습니다</h2>
+      <p class="lede" style="margin-top:12px">매주 만드는 제품 배너. 가격을 손으로 넣으면 언젠가 틀립니다.</p>
+    </div>
+    <div class="demo" style="margin-top:20px">
+      <div class="demo-bar"><span class="dots"><i></i><i></i><i></i></span>제품 배너 생성기 · 860×505</div>
+      <div class="demo-b">
+        <div class="demo-step">
+          <span class="dstep">STEP 1 · 숫자만 넣습니다</span>
+          <div class="dfld"><span>정상가</span><b>299,000</b></div>
+          <div class="dfld"><span>즉시할인가</span><b>189,000</b></div>
+          <div class="dfld"><span>쿠폰 · 적립률</span><b>7% · 13%</b></div>
+        </div>
+        <div class="demo-step">
+          <span class="dstep">STEP 2 · 계산은 규칙이 합니다</span>
+          <div class="dform">최대혜택가 = (행사가 − 쿠폰) × (1 − <em>적립률 합계</em>)
+할인율% = (정상가 − 최대혜택가) ÷ <em>정상가</em></div>
+          <div class="dcalc"><span>최대혜택가</span><b>164,430</b></div>
+          <div class="dcalc"><span>할인율</span><b>45%</b></div>
+        </div>
+        <div class="demo-step">
+          <span class="dstep">STEP 3 · 규격대로 조판됩니다</span>
+          <div class="bn rd"><div class="bn-i">제품 이미지</div><div class="bn-t">
+            <span class="bn-bd">알림받기 + 쿠폰</span>
+            <div class="bn-nm">무선 스틱청소기 2세대</div>
+            <div class="bn-pr"><s>299,000</s>즉시할인 189,000</div>
+            <div><span class="bn-f">164,430</span> <span class="bn-o">45%</span></div></div></div>
+          <div class="bn pp"><div class="bn-i">제품 이미지</div><div class="bn-t">
+            <span class="bn-bd">슈퍼적립 10%</span>
+            <div class="bn-nm">4.5L 에어프라이어</div>
+            <div class="bn-pr"><s>139,000</s><s>99,000</s></div>
+            <div><span class="bn-f">85,260</span> <span class="bn-o">38%</span></div></div></div>
+        </div>
+      </div>
+      <div class="dot-row"><i></i><i></i><i></i></div>
+    </div>
+    <p class="hero-cap">정상가와 행사가만 넣으면 <b>쿠폰과 적립률을 반영한 최대혜택가·할인율이 자동으로</b> 나옵니다.<br>
+      규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
+
+    <div class="sect">
+      <h2>나머지 칸에도<br>이런 게 하나씩 있습니다</h2>
+      <p class="lede" style="margin-top:12px">지금 열려 있는 건 <b>02번 한 칸</b>입니다. 나머지는 남겨주신 분께 순서대로 보내드립니다.</p>
+    </div>
+    <div class="locked" id="locked"></div>
+  </div>
+</section>
+<div class="proof" id="proof" style="display:none"></div>
+<section class="screen" id="s1b" style="display:none"></section>
+
+<div class="screen on" id="s1c" style="display:block">
+  <div class="core">
+    <div class="k">Core</div>
+    <p>반복을 줄이는 게 목적이 아니다.<br><b>매출이 움직이는 자리를 보려고 줄이는 것이다.</b></p>
+  </div>
+
+  <div class="offer">
+    <ul class="offer-l">
+      <li>진단 결과 정리본 · 한 장</li>
+      <li>제가 실제 쓰는 양식 파일</li>
+    </ul>
+    <div class="offer-r">
+      <span class="offer-sub">1분이면 끝</span>
+      <b class="offer-p">0원</b>
+      <span class="offer-bd">1차 신청자 한정</span>
+    </div>
+  </div>
+</div>
+
+<!-- 화면3 -->
+<section class="screen" id="s3">
+  <div class="top">
+    <p class="eyebrow">나머지는</p>
+    <h1>회사마다<br>다릅니다</h1>
+    <p class="lede">단계는 같아도 어디가 막혀 있는지는 다 다릅니다. 남겨주시면 제가 실제로 쓰는 것들을 그대로 보내드립니다.</p>
+
+    <div class="sect">
+      <h2>진단하시면<br>얻어가는 것</h2>
+    </div>
+    <div id="gains"></div>
+
+    <div class="sect">
+      <h2>손에 쥐는 것</h2>
+      <p class="mini-lede" style="margin-top:8px">읽고 끝나는 게 아니라, 남는 것들입니다.</p>
+    </div>
+    <div class="dark" id="outputs"></div>
+
+    <div class="sect">
+      <h2>이런 분께<br>추천해요</h2>
+    </div>
+    <div class="pick" id="painSelect"></div>
+
+    <div class="sect">
+      <h2>참여 혜택</h2>
+    </div>
+    <div id="tiers"></div>
+
+    <div class="story">
+      <h3>왜 이걸 만들었냐면</h3>
+      <p>몇 년 전, 주문 파일을 ERP 양식으로 옮기는 일 때문에 <b>개발 외주를 검토</b>한 적이 있습니다. 견적을 받다가 결국 제가 파이썬으로 해결했어요. 그때 알았습니다. 문제는 어려워서가 아니라, <b>아무도 그 일을 정리해본 적이 없어서</b> 매번 새로 하고 있었다는 것.</p>
+      <p>강의도 들어봤습니다. 예제까지는 되는데 <b>제 파일에서는 안 됐어요.</b> 제 데이터가 이상해서가 아니라, 제 업무가 앞뒤로 뭐랑 물려 있는지를 제가 몰랐기 때문이었습니다.</p>
+      <p>그래서 반복을 줄이는 것보다 먼저, <b>상품등록부터 정산까지 어떻게 물려 있는지</b>를 그려봤습니다. 그러고 나니 어디를 건드려야 숫자가 바뀌는지가 보이더라고요.</p>
+      <p class="sig">— 이커머스 마케터 · 5년차</p>
+    </div>
+
+    <span class="dl">⏳ 1차 마감 · 9월 6일 · 실무자 한정</span>
+
+    <div class="form" id="formBox">
+      <div class="form-h"><b>정보 받기</b><span>알림톡 · 이메일로 발송</span></div>
+      <div class="form-b">
+        <div class="fld"><label>이름</label><input id="fName" type="text" placeholder="홍길동" autocomplete="name"></div>
+        <div class="fld"><label>휴대폰 번호</label><input id="fPhone" type="tel" placeholder="01012345678" inputmode="numeric" autocomplete="tel"></div>
+        <div class="fld"><label>이메일</label><input id="fMail" type="email" placeholder="you@company.com" autocomplete="email"></div>
+        <div class="fld"><label>지금 제일 손이 많이 가는 업무</label>
+          <select id="fTask"><option value="">고르지 않고 넘어가기</option></select></div>
+        <button class="cs" id="cReq" onclick="toggleConsent('req')"><span class="cb">✓</span>
+          <span class="cs-t"><b>[필수]</b> 개인정보 수집·이용에 동의합니다.<br>이름·휴대폰·이메일 / 진단 결과·자료 발송 / 발송 후 6개월 보유</span></button>
+        <button class="cs opt" id="cOpt" onclick="toggleConsent('opt')"><span class="cb">✓</span>
+          <span class="cs-t"><b>[선택]</b> 잠긴 나머지 칸이 열릴 때 먼저 받겠습니다.<br>동의하지 않아도 위 자료는 그대로 받으실 수 있습니다.</span></button>
+        <button class="submit" id="fSubmit" onclick="submitForm()">자료 받기</button>
+        <p class="err" id="fErr"></p>
+        <p class="priv">입력하신 번호와 메일은 자료 발송 외에 쓰지 않습니다. 언제든 수신 거부하실 수 있습니다.</p>
+      </div>
+    </div>
+    <button class="back" onclick="go(1)">← 처음으로</button>
+  </div>
+</section>
+
+<!-- 화면4 -->
+<section class="screen" id="s4">
+  <div class="top">
+    <p class="eyebrow">9단계 지도</p>
+    <h2>매출은 한 칸에서<br>만들어지지 않습니다</h2>
+    <p class="lede" style="margin-bottom:26px">어느 칸이 막히면 어디가 줄어드는지 보세요. 이름 옆 <b>+</b> 카드는 열립니다.</p>
+    <div id="map"></div>
+    <p class="note">비어 보이는 칸이 있다면, 그건 아직 아무도 안 보고 있는 자리입니다.</p>
+    <button class="back" onclick="go(1)">← 처음으로</button>
+  </div>
+</section>
+</div>
+
+<div class="bar" id="bar"><div class="bar-in">
+  <span class="cnt" id="count"></span>
+  <button class="cta" id="cta"></button>
+</div></div>
+
+<script>
+/* ============================================================
+   혜택 단일 소스 — 여기만 고치면 5개 섹션이 같이 바뀝니다
+   value  → ④ 얻어갈 수 있는 것 (가치)
+   output → ⑤ 손에 쥐는 것 (산출물)
+   tier   → ⑩ 참여 혜택 (조건)
+   hero   → 하이라이트는 딱 하나만 true
+   ============================================================ */
+const TIERS=[
+  {id:'free', label:'진단만 해도'},
+  {id:'lead', label:'정보를 남기시면'},
+  {id:'reply',label:'회신 주시면'},
+  {id:'optin',label:'소식 받기에 동의하시면'}
+];
+
+const BENEFITS=[
+ {id:'map',
+  value:'내 업무가 어디에 물려 있는지 보이는 상태',
+  why:'업무를 잘하는 것과 업무가 어디에 얹혀 있는지 아는 건 다릅니다. 앞뒤가 보여야 뭘 바꿀지도 정해집니다.',
+  output:'9단계 업무 지도 열람',
+  tier:'free'},
+ {id:'pick',
+  value:'어디부터 손대야 하는지 정해진 상태',
+  why:'다 줄이려다 아무것도 못 줄입니다. 하나만 남겨서 그것부터 끝냅니다.',
+  output:'진단 결과 정리본 1장',
+  tier:'lead'},
+ {id:'format',
+  value:'매번 새로 짜지 않아도 되는 상태',
+  why:'제가 실제로 쓰는 파일을 그대로 드립니다. 설명서가 아니라 지금 돌아가고 있는 것입니다.',
+  output:'제가 쓰는 양식 파일 1개',
+  outputSub:'ERP 변환 규칙표 · 배너 가격 계산식 · 지표 정의서 중 하나',
+  tier:'lead', hero:true},
+ {id:'judge',
+  value:'숫자를 보고 다음 액션이 나오는 상태',
+  why:'회사마다 막힌 칸이 다릅니다. 상황을 알려주시면 그 기준으로 다시 그려 보내드립니다.',
+  output:'내 회사 기준 업무 지도 1장',
+  tier:'reply'},
+ {id:'next',
+  value:'나머지 칸이 열릴 때 제일 먼저 아는 상태',
+  why:'지도는 아직 절반이 비어 있습니다. 한 칸씩 채워지는 대로, 공개 전에 먼저 보내드립니다.',
+  output:'잠긴 칸 6개 · 열리는 대로 순서대로',
+  tier:'optin'}
+];
+
+/* 같은 고민을 두 어미로 — 앞에서는 공감, 뒤에서는 자기선별 */
+const PAINS=[
+ {empathy:'일 자체가 어려운 건 아니에요. 근데 <b>매주 똑같은 걸 처음부터</b> 다시 하고 있어요.',
+  select:'매주 똑같은 걸 처음부터 다시 하고 있는 분'},
+ {empathy:'자동화 강의도 들어봤어요. <b>예제는 되는데 제 파일에선 안 되더라고요.</b>',
+  select:'강의는 들었는데 내 파일에선 안 되던 분'},
+ {empathy:'줄여야 하는 건 아는데, <b>어디부터 손대야 할지</b> 모르겠어요.',
+  select:'줄여야 하는 건 아는데 어디부터일지 모르겠는 분'},
+ {empathy:'숫자는 매주 뽑아요. 근데 <b>그래서 뭘 바꿔야 하는지</b>가 안 나와요.',
+  select:'숫자는 뽑는데 다음 액션이 안 나오는 분'}
+];
+
+const PROCESS=[
+ {t:'PART 1. 하고 있는 일을 늘어놓습니다',
+  li:['매일·매주 하는 17개 업무 중에서 고르기',
+      '고를 때마다 <b>9단계 지도에 내 칸이 채워지는 것</b>을 봅니다',
+      '업무 이름 밑에 실제 파일명이 붙어 있어 고르기 쉽습니다'],
+  qt:'“일이 많은 게 아니라, 매번 새로 하고 있는 겁니다.”'},
+ {t:'PART 2. 지금 어떻게 하고 있는지 답합니다',
+  li:['손으로 함 / 양식은 있음 / 툴로 함 / 안 해봄 — 넷 중 하나',
+      '업무가 아니라 <b>방식</b>으로 물어야 답이 갈립니다',
+      '고른 자리에서 바로 답하니 화면을 왔다 갔다 하지 않습니다']},
+ {t:'PART 3. 딱 하나를 받고, 그 칸을 봅니다',
+  li:['답하신 사실을 그대로 인용해서 <b>왜 이걸 골랐는지</b>부터 말합니다',
+      '제가 그 업무를 어떻게 바꿨는지 실제 화면으로 보여드립니다',
+      '그게 9단계 중 몇 번째 칸인지, 앞뒤로 뭐랑 물려 있는지까지'],
+  qt:'“매출은 한 칸에서 만들어지지 않습니다.”'}
+];
+
+/* ---- 컴포넌트 5종 ---- */
+function renderGains(){
+  document.getElementById('gains').innerHTML=BENEFITS.map((b,i)=>
+    `<div class="gain ${b.hero?'hero':''}">
+      <span class="gain-n">0${i+1}</span>
+      <span><span class="gain-t">${b.value}</span><span class="gain-d">${b.why}</span></span>
+    </div>`).join('');
+}
+function renderOutputs(){
+  document.getElementById('outputs').innerHTML='<ul>'+BENEFITS.map(b=>{
+    const t=TIERS.find(x=>x.id===b.tier);
+    return `<li class="${b.hero?'hero':''}"><span class="tk">✓</span>
+      <span>${b.output}<span class="cond">${t.label}</span></span></li>`;}).join('')+'</ul>';
+}
+function renderProcess(){
+  document.getElementById('process').innerHTML=PROCESS.map(p=>
+    `<div class="part"><div class="part-t">${p.t}</div>
+      <ul>${p.li.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${p.qt?`<div class="qt">${p.qt}</div>`:''}</div>`).join('');
+}
+function renderPains(mode,el){
+  const box=document.getElementById(el);
+  box.innerHTML=mode==='empathy'
+    ? PAINS.map(p=>`<p>“${p.empathy}”</p>`).join('')
+    : PAINS.map((p,i)=>`<div><span class="n">0${i+1}</span><span class="t">${p.select}</span></div>`).join('');
+}
+function renderTiers(){
+  document.getElementById('tiers').innerHTML=TIERS.map(t=>{
+    const list=BENEFITS.filter(b=>b.tier===t.id);
+    if(!list.length)return'';
+    return `<div class="tier-l">${t.label}</div>`+list.map(b=>
+      `<div class="tier ${b.hero?'hero':''}"><div class="trow"><i>✓</i><span>${b.output}</span></div>
+       ${b.outputSub?`<div class="sub">${b.outputSub}</div>`:''}</div>`).join('');
+  }).join('')+
+  `<div class="warn">⚠️ 9단계 지도는 <b>아직 절반이 비어 있습니다.</b><br>
+   한 칸씩 채울 때마다, 남겨주신 분께 먼저 보내드립니다.</div>`;
+}
+
+window.dataLayer=window.dataLayer||[];
+function track(n,p){p=p||{};window.dataLayer.push(Object.assign({event:n},p));
+  if(typeof gtag==='function')gtag('event',n,p);console.log('[GA4]',n,p);}
+
+const META={limit:8,endpoint:'https://script.google.com/macros/s/REPLACE_ME/exec'};
+
+const MOCK={
+erp:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>주문 → ERP 판매입력 변환기</div><div class="mock-b">
+ <div class="st"><div><u>추출</u><b>36건</b></div><div><u>품목 매핑</u><b>36/36</b></div><div><u>미매핑</u><b>0</b></div></div>
+ <div class="mr h"><span class="ch">판매채널</span><span class="ch">상품코드</span><span>상품명</span><span class="n">공급가액</span></div>
+ <div class="mr"><span class="ch">스마트스토어</span><span class="ch">VC-1200W</span><span>무선 스틱청소기 2세대</span><span class="n">171,818</span></div>
+ <div class="mr"><span class="ch">스마트스토어</span><span class="ch">AF-450BK</span><span>4.5L 에어프라이어</span><span class="n">89,090</span></div>
+ <div class="mr"><span class="ch">쿠팡</span><span class="ch">SI-860GR</span><span>핸디 스팀다리미</span><span class="n">49,545</span></div>
+ <div class="mr"><span class="ch">쿠팡</span><span class="ch">YM-6523</span><span>디지털 요거트제조기</span><span class="n">33,636</span></div>
+ <div style="margin-top:10px"><span class="pill">이카운트 27열 규격 ✓</span> <span class="pill w">품번 자동 치환</span></div></div></div>`,
+banner:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>제품 배너 생성기 · 860×505 / 310</div><div class="mock-b">
+ <div class="bn rd"><div class="bn-i">제품 이미지</div><div class="bn-t"><span class="bn-bd">알림받기 + 쿠폰</span>
+  <div class="bn-nm">무선 스틱청소기 2세대</div><div class="bn-pr"><s>299,000</s>즉시할인 189,000</div>
+  <div><span class="bn-f">164,430</span> <span class="bn-o">45%</span></div></div></div>
+ <div class="bn pp"><div class="bn-i">제품 이미지</div><div class="bn-t"><span class="bn-bd">슈퍼적립 10%</span>
+  <div class="bn-nm">4.5L 에어프라이어</div><div class="bn-pr"><s>139,000</s><s>99,000</s></div>
+  <div><span class="bn-f">85,260</span> <span class="bn-o">38%</span></div></div></div>
+ <div><span class="pill">쿠폰·적립률만 넣으면 최대혜택가 자동계산</span></div></div></div>`,
+link:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>UTM · NT 링크 생성기</div><div class="mock-b">
+ <div class="mr h"><span>상품분류</span><span>URL</span><span class="n">코드</span></div>
+ <div class="mr"><span>01 무선청소기</span><span class="msk">/products/8****21</span><span class="n">nt_meta</span></div>
+ <div class="mr"><span>02 요거트제조기</span><span class="msk">/products/8****45</span><span class="n">nt_meta</span></div>
+ <div class="mr"><span>05 선풍기</span><span class="msk">/products/8****09</span><span class="n">utm_kko</span></div>
+ <div class="code" style="margin-top:9px">?<em>nt_source</em>=meta.ad&<em>nt_medium</em>=social
+&<em>nt_detail</em>=homefesta&<em>nt_keyword</em>=vacuum</div>
+ <div style="margin-top:8px"><span class="pill">표 붙여넣으면 URL 열만 교체</span></div></div></div>`,
+adspend:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>매체 4종 → 품목별 광고비 귀속</div><div class="mock-b">
+ <div class="st"><div><u>집계 매체</u><b>4</b></div><div><u>귀속률</u><b>96%</b></div><div><u>미귀속</u><b>4%</b></div></div>
+ <div class="bars">
+  <div class="bl"><span>무선청소기</span><div class="bt"><i style="width:88%"></i></div><u>4.4M</u></div>
+  <div class="bl"><span>에어프라이어</span><div class="bt"><i style="width:61%"></i></div><u>3.1M</u></div>
+  <div class="bl"><span>스팀다리미</span><div class="bt"><i style="width:38%"></i></div><u>1.9M</u></div>
+  <div class="bl"><span>요거트제조기</span><div class="bt"><i style="width:22%"></i></div><u>1.1M</u></div></div>
+ <div style="margin-top:9px"><span class="pill w">CPC는 컬럼값 미사용 · 직접 계산</span></div></div></div>`,
+product:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>품목별 성과 · 시즌 보정</div><div class="mock-b">
+ <div class="mr h"><span>품목</span><span class="n">광고비</span><span class="n">매출</span><span class="n">ROAS</span></div>
+ <div class="mr"><span>무선청소기</span><span class="n">4.4M</span><span class="n">21.2M</span><span class="n">482%</span></div>
+ <div class="mr"><span>에어프라이어</span><span class="n">3.1M</span><span class="n">9.6M</span><span class="n">310%</span></div>
+ <div class="mr"><span>스팀다리미</span><span class="n">1.9M</span><span class="n">3.4M</span><span class="n">179%</span></div>
+ <div class="mr"><span>선풍기</span><span class="n">0.4M</span><span class="n">0.5M</span><span class="n">125%</span></div>
+ <div style="margin-top:8px"><span class="pill w">선풍기 하락 = 시즌 종료 · 광고 문제 아님</span></div></div></div>`,
+weekly:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>주차별 대시보드 · 35주차</div><div class="mock-b">
+ <div class="st"><div><u>결제금액</u><b>38.4M</b></div><div><u>전주대비</u><b>+12%</b></div><div><u>ROAS</u><b>394%</b></div></div>
+ <div class="bars">
+  <div class="bl"><span>32주</span><div class="bt"><i style="width:54%"></i></div><u>29M</u></div>
+  <div class="bl"><span>33주</span><div class="bt"><i style="width:62%"></i></div><u>33M</u></div>
+  <div class="bl"><span>34주</span><div class="bt"><i style="width:64%"></i></div><u>34M</u></div>
+  <div class="bl"><span>35주</span><div class="bt"><i style="width:73%"></i></div><u>38M</u></div></div>
+ <div style="margin-top:9px"><span class="pill">주차별_액션 메모 연동</span></div></div></div>`,
+detail:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>상세페이지 IMG 태그 생성기</div><div class="mock-b">
+ <div class="code">&lt;center&gt;
+&lt;img width="860" src="<em>…/notice/official.jpg</em>"&gt;
+&lt;img width="860" src="<em>…/online/VC1200W_01.jpg</em>"&gt;
+&lt;img width="<em>640</em>"  src="<em>…/online/VC1200W_06_1.gif</em>"&gt;
+&lt;img width="860" src="<em>…/online/AS.jpg</em>"&gt;
+&lt;/center&gt;</div>
+ <div style="margin-top:8px"><span class="pill">중복 파일 최신본만 · 폭 규칙 자동</span></div></div></div>`};
+
+const STAGES=[
+ {id:'s01',no:'01',name:'상품 등록',role:'입력'},{id:'s02',no:'02',name:'상세·배너',role:'입력'},
+ {id:'s03',no:'03',name:'프로모션',role:'입력'},{id:'s04',no:'04',name:'가격·수익',role:'설계'},
+ {id:'s05',no:'05',name:'광고 운영',role:'실행'},{id:'s06',no:'06',name:'데이터 분석',role:'해석'},
+ {id:'s07',no:'07',name:'ERP 등록',role:'처리'},{id:'s08',no:'08',name:'CRM 메시지',role:'실행'},
+ {id:'s09',no:'09',name:'수익 점검',role:'검증'},{id:'etc',no:'—',name:'기타',role:'미배정'}];
+
+const METHODS=[
+ {id:'manual',label:'손으로 함',rank:1,advice:'먼저 <b>양식을 고정</b>하세요. 자동화는 그다음입니다.'},
+ {id:'template',label:'양식은 있음',rank:2,advice:'이제 <b>규칙으로 바꿀 수 있습니다.</b>'},
+ {id:'tool',label:'툴로 함',rank:3,advice:'<b>확인 항목을 줄이는 것</b>이 먼저입니다.'},
+ {id:'never',label:'안 해봄',rank:99,advice:'이건 <b>다른 사람 일일 수 있습니다.</b> 누구 일인지 먼저 확인하세요.'}];
+
+const TASKS=[
+{id:'t-07-1',stage:'s07',name:'주문 다운로드 → ERP 양식 변환',freq:'daily',detail:'full',
+ art:'CJ풀필먼트관리_260829.xlsx · 쿠팡 주문내역',
+ watch:'미매핑 건수, 중복 주문번호, 반품·교환 건이 빠지는 지점',
+ reason:'이 일은 오래 걸려서 문제가 아니라, 틀렸을 때 정산까지 따라간다는 게 문제다. 손으로 하면 매번 다른 기준으로 붙고, 그 차이는 월말에야 드러난다',
+ change:'변환 규칙을 파일로 고정 → 매핑 실패만 사람이 확인',up:['s01'],down:['s09'],
+ failed:'엑셀 수식으로만 돌리다가 시트 구조 바뀔 때마다 전부 다시 짠 적 있음',
+ asset:{has:true,mock:'erp',cap:['쿠팡·스마트스토어 주문 파일을 넣으면 이카운트 업로드 양식 27열로 바로 나옵니다.','제가 보는 건 “미매핑 몇 건”뿐입니다.'],
+  dest:'이걸 줄이면, 매일 붙잡던 자리가 주 1회 점검으로 바뀝니다.'}},
+{id:'t-07-2',stage:'s07',name:'출고·송장 처리',freq:'daily',detail:'name',art:'배송현황 시트',up:['s07'],down:['etc'],asset:{has:false}},
+{id:'t-07-3',stage:'s07',name:'재고 동기화',freq:'daily',detail:'name',art:'채널별 재고 수기 대조',up:['s01'],down:['s05'],asset:{has:false}},
+{id:'t-07-4',stage:'s07',name:'반품·교환 처리',freq:'daily',detail:'name',art:'반품 / 교환 시트',up:['etc'],down:['s09'],asset:{has:false}},
+{id:'t-x-1',stage:'etc',name:'고객 문의 응대',freq:'daily',detail:'full',art:'문의 게시판 · 톡톡',
+ watch:'문의 유형 분포, 같은 질문이 반복되는 상품',
+ reason:'문의가 한 상품에 몰리면 그건 응대 문제가 아니라 상세페이지가 답을 안 하고 있는 것이다. 개별 답변을 잘 쓰는 것보다 반복 질문을 앞단으로 돌려보내는 게 총량을 줄인다',
+ change:'상세페이지 보완 요청, 응대 골격 고정',up:['s02'],down:['s02'],
+ failed:'답변 문구를 매번 새로 쓰다가 담당자마다 보상 기준이 달라진 적 있음',asset:{has:false}},
+{id:'t-x-2',stage:'etc',name:'리뷰 확인·관리',freq:'daily',detail:'full',art:'리뷰 관리 · 포토리뷰',
+ watch:'평점 하락 상품, 반복되는 불만 키워드, 포토리뷰 비중',
+ reason:'리뷰는 CS 자료가 아니라 가장 빠른 성과 신호다. 광고 지표보다 먼저 움직이고, 여기서 나온 단어가 그대로 소재 카피와 상세 보완 재료가 된다',
+ change:'소재 소구점 교체, 상세 보완, 상품 개선 요청',up:['s07'],down:['s02','s05'],asset:{has:false}},
+{id:'t-02-1',stage:'s02',name:'제품 배너·소재 조판',freq:'weekly',detail:'full',art:'860×505 혜택가 · 860×310 슈퍼적립',
+ watch:'배너 하나당 조판 시간, 사이즈별로 다시 만드는 횟수, 가격 오기재',
+ reason:'조판은 창작이 아니라 배치다. 매번 새로 짜면 소재끼리 비교가 안 되고, 비교가 안 되면 뭐가 이겼는지도 못 읽는다. 게다가 가격은 손으로 넣는 순간 틀린다',
+ change:'규격·가격 계산식을 템플릿에 박기 → 쿠폰·적립률만 입력',up:['s03','s04'],down:['s05','s06'],
+ asset:{has:true,mock:'banner',cap:['정상가·행사가만 넣으면 쿠폰과 적립률을 반영한 최대혜택가·할인율이 자동 계산됩니다.','규격이 고정돼서 다른 담당자도 그대로 씁니다.'],
+  dest:'이걸 줄이면, 만드는 시간이 아니라 “뭘 만들지 고르는 시간”이 생깁니다.'}},
+{id:'t-02-2',stage:'s02',name:'상세페이지 제작·수정',freq:'weekly',detail:'full',art:'FTP /online/모델코드/ → img 태그',
+ watch:'이미지 폭 규칙, 중복 파일 최신본, 상하단 고정 블록 누락',
+ reason:'상세페이지는 광고보다 오래 남는 자산이다. 코드를 손으로 짜면 폭이 어긋나고 순서가 밀리는데, 그 오류는 유입이 늘어난 다음에야 발견된다',
+ change:'FTP 목록 붙여넣기 → 순서·포함만 체크하고 코드 복사',up:['etc'],down:['s05','etc'],
+ asset:{has:true,mock:'detail',cap:['FTP 파일 목록을 붙여넣으면 img 태그가 완성됩니다.','중복 파일은 최신본만, 폭 규칙은 자동 적용됩니다.'],
+  dest:'이걸 줄이면, 상세 수정이 “일정 잡는 일”에서 “그 자리에서 하는 일”이 됩니다.'}},
+{id:'t-04-1',stage:'s04',name:'채널 간 가격 정합성 점검',freq:'weekly',detail:'name',art:'채널별 판매가 대조',up:['s01'],down:['s09'],asset:{has:false}},
+{id:'t-05-1',stage:'s05',name:'광고 링크·트래킹 코드 세팅',freq:'weekly',detail:'full',art:'utm_source / nt_source · 매체 3종',
+ watch:'유입이 어느 상품으로 떨어지는지, 코드가 실제로 붙어 있는지',
+ reason:'키워드를 아무리 잘 골라도 링크에 코드가 안 붙어 있으면 그 성과는 없는 셈이 된다. 운영보다 먼저 “측정이 되는 상태”를 만드는 게 순서다',
+ change:'채널별 링크 규칙 고정 → 표 붙여넣으면 링크 열만 교체',up:['s01'],down:['s06'],
+ asset:{has:true,mock:'link',cap:['매체별 파라미터와 네이버 nt 코드를 한 번에 붙이는 생성기입니다.','제품별 마케팅 문구까지 같은 표에서 나옵니다.'],
+  dest:'이걸 줄이면, 나중에 “이 유입 어디서 왔지”를 찾는 시간이 사라집니다.'}},
+{id:'t-05-2',stage:'s05',name:'배너·피드 소재 운영',freq:'weekly',detail:'name',art:'소재ID · 게재 빈도',up:['s02'],down:['s06'],asset:{has:false}},
+{id:'t-06-1',stage:'s06',name:'매체별 성과 취합',freq:'weekly',detail:'name',art:'KAKAO / GFA / NAVER / META 시트',up:['s05'],down:['s06'],asset:{has:false}},
+{id:'t-06-2',stage:'s06',name:'광고비·효율 지표 계산',freq:'weekly',detail:'full',art:'퍼포먼스 분석시트 · 매체 4종 RAW',
+ watch:'지표의 분모가 매체마다 같은지, 광고비가 어느 품목으로 귀속되는지',
+ reason:'매체가 주는 숫자를 그대로 받아쓰면 비교가 성립하지 않는다. 같은 이름의 지표도 분모가 다르다. 정의를 내가 다시 세워야 채널을 나란히 놓을 수 있다',
+ change:'지표 정의를 문서로 고정 → 품번·카테고리 단위로 광고비 귀속',up:['s05'],down:['s09'],
+ failed:'매체 화면 숫자를 그대로 옮겨 비교했다가, 분모가 달라 결론이 뒤집힌 적 있음',
+ asset:{has:true,mock:'adspend',cap:['4개 매체 광고비를 품번·카테고리로 귀속시키는 규칙을 만들었습니다.','매체 리포트가 아니라 “제품별로 얼마 썼나”가 나옵니다.'],
+  dest:'이걸 줄이면, 숫자를 맞추는 시간이 숫자를 해석하는 시간으로 갑니다.'}},
+{id:'t-06-3',stage:'s06',name:'유입 경로 분석',freq:'weekly',detail:'name',art:'방문경로NEW 시트',up:['s05'],down:['s09'],asset:{has:false}},
+{id:'t-06-4',stage:'s06',name:'상품별 성과 확인',freq:'weekly',detail:'full',art:'상품성과NEW 시트 · 시즌 커브',
+ watch:'품목별 광고비 대비 매출, 시즌성으로 설명되는 변동인지 아닌지',
+ reason:'제품 성과는 광고만으로 설명되지 않는다. 계절과 유통 구조를 같이 놓고 봐야 “광고가 못한 것”과 “원래 그런 것”이 갈린다',
+ change:'품목 축으로 성과를 재배열 → 시즌 커브를 전제로 깔고 해석',up:['s06'],down:['s04','s05'],
+ asset:{has:true,mock:'product',cap:['매체 단위가 아니라 품목 단위로 성과를 다시 배열했습니다.','예산을 옮길지 말지가 여기서 결정됩니다.'],
+  dest:'이걸 줄이면, 다음 달 예산을 감이 아니라 근거로 짜게 됩니다.'}},
+{id:'t-06-5',stage:'s06',name:'주간 보고 작성',freq:'weekly',detail:'full',art:'주차별성과 시트 · 주차별_액션 메모',
+ watch:'매번 들어가는 항목과 매번 새로 쓰는 항목의 비율',
+ reason:'보고서를 매주 새로 쓰는 건 보고 대상이 뭘 궁금해하는지가 안 정해졌다는 뜻이다. 항목을 고정하면 작성이 아니라 해석에 시간이 간다',
+ change:'고정 항목·자동 채움 / 변동 항목·직접 작성으로 분리',up:['s06'],down:['s09'],
+ asset:{has:true,mock:'weekly',cap:['주간 보고 골격을 고정하고 데이터는 자동으로 채우게 했습니다.','제가 쓰는 건 “왜 이렇게 됐나” 한 칸입니다.'],
+  dest:'이걸 줄이면, 금요일 오후가 정리 시간이 아니라 판단 시간이 됩니다.'}},
+{id:'t-03-1',stage:'s03',name:'채널 기획전·행사 제안',freq:'weekly',detail:'name',art:'제안서 · MD 회신',up:['s04'],down:['s02'],asset:{has:false}},
+{id:'t-04-2',stage:'s04',name:'할인·쿠폰 세팅',freq:'weekly',detail:'name',art:'쿠폰 · 적립 설정',up:['s03'],down:['s09'],asset:{has:false}},
+{id:'t-01-1',stage:'s01',name:'상품명·검색키워드 설정',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-01-2',stage:'s01',name:'옵션·재고 구조 설계',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-01-3',stage:'s01',name:'채널별 상품 등록·연동',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-02-3',stage:'s02',name:'메인·기획전 배너 제작',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-03-2',stage:'s03',name:'MD 커뮤니케이션',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-04-3',stage:'s04',name:'채널별 수수료·마진 계산',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-05-3',stage:'s05',name:'월간 광고 예산 배분',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-08-1',stage:'s08',name:'CRM 메시지 문구 작성',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-08-2',stage:'s08',name:'발송 대상 추출·세그먼트',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-09-1',stage:'s09',name:'채널별 정산 확인',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
+{id:'t-09-2',stage:'s09',name:'월 손익·수익성 점검',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}}];
+
+const stg=id=>STAGES.find(s=>s.id===id);
+const tsk=id=>TASKS.find(t=>t.id===id);
+const state={screen:1,picks:{},open:null,reco:null,firstDone:false};
+const picked=()=>Object.keys(state.picks);
+
+/* 첫 화면에는 한 칸만 열고, 나머지는 있다는 것만 보여줍니다 */
+const LOCKED=[
+ {no:'02',nm:'배너 자동 조판',open:true},
+ {no:'07',nm:'주문 → ERP 변환'},
+ {no:'02',nm:'상세페이지 코드 생성'},
+ {no:'05',nm:'광고 링크·코드 세팅'},
+ {no:'06',nm:'품목별 광고비 귀속'},
+ {no:'06',nm:'주간 보고 자동 채움'}
+];
+function renderProof(){
+  document.getElementById('locked').innerHTML=LOCKED.map(x=>
+    `<div class="${x.open?'open':''}"><span class="lk">${x.open?'🔓':'🔒'}</span>
+      <span class="st-n">${x.no}</span><span class="nm">${x.nm}</span></div>`).join('');
+}
+function renderTaskSelect(){
+  const sel=document.getElementById('fTask');if(!sel)return;
+  ['daily','weekly'].forEach(f=>{
+    const g=document.createElement('optgroup');
+    g.label=f==='daily'?'매일 하는 일':'매주 하는 일';
+    TASKS.filter(t=>t.freq===f&&!t.mapOnly).forEach(t=>{
+      const o=document.createElement('option');o.value=t.name;o.textContent=t.name;g.appendChild(o);});
+    sel.appendChild(g);});
+}
+
+function renderLiveMap(){
+  const cnt={};picked().forEach(id=>{const s=tsk(id).stage;cnt[s]=(cnt[s]||0)+1;});
+  const hot=state.open?tsk(state.open).stage:null;
+  document.getElementById('lmGrid').innerHTML=STAGES.map(s=>{
+    const n=cnt[s.id]||0,cls=s.id===hot?'lm-c hot':(n?'lm-c on':'lm-c');
+    return `<div class="${cls}"><div class="lm-n">${s.no}</div><div class="lm-t">${s.name}</div>
+      <div class="lm-d">${'<i></i>'.repeat(n)}</div></div>`;}).join('');
+  const f=Object.keys(cnt).length;
+  document.getElementById('lmCount').innerHTML=f?`<b>${f}</b> / 10 칸`:'업무 39개';
+}
+
+function renderList(){
+  const g=[{k:'daily',l:'매일 하는 일'},{k:'weekly',l:'매주 하는 일'}];
+  document.getElementById('list').innerHTML=g.map(x=>{
+    const l=TASKS.filter(t=>t.freq===x.k&&!t.mapOnly);
+    return `<div class="grp"><span class="t">${x.l}</span><span class="n">${l.length}</span></div>`+
+      l.map(t=>{
+        const sel=state.picks[t.id],open=state.open===t.id;
+        const m=sel?METHODS.find(y=>y.id===sel):null;
+        return `<div class="row ${open?'open':''} ${sel&&!open?'done':''}">
+          <button class="row-hd" onclick="openRow('${t.id}')"><span class="box">✓</span>
+            <span class="row-b"><span class="row-n">${t.name}</span><span class="art">${t.art||''}</span></span>
+            ${m&&!open?`<span class="ans">${m.label}</span>`:''}</button>
+          <div class="mg">${METHODS.map(y=>
+            `<button class="chip ${sel===y.id?'sel':''}" onclick="pick('${t.id}','${y.id}')">${y.label}</button>`).join('')}</div>
+        </div>`;}).join('');}).join('');
+}
+
+function openRow(id){
+  if(state.open===id)state.open=null;
+  else if(state.picks[id])state.open=id;
+  else{if(picked().length>=META.limit)return;state.open=id;}
+  renderList();renderLiveMap();updateBar();
+}
+function pick(id,m){
+  if(!state.picks[id]&&picked().length>=META.limit)return;
+  if(state.picks[id]===m){delete state.picks[id];state.open=null;}
+  else{state.picks[id]=m;state.open=null;}
+  if(!state.firstDone&&picked().length){state.firstDone=true;track('check_done',{count:1});}
+  renderList();renderLiveMap();updateBar();
+}
+
+function recommend(){
+  const c=picked().filter(id=>tsk(id).asset.has&&state.picks[id]!=='never');
+  if(!c.length)return null;
+  const sc=id=>{const t=tsk(id),m=METHODS.find(x=>x.id===state.picks[id]);
+    return (t.freq==='daily'?0:10)+(m?m.rank:9);};
+  c.sort((a,b)=>{const d=sc(a)-sc(b);return d||((tsk(b).down||[]).length-(tsk(a).down||[]).length);});
+  return c[0];
+}
+
+function renderReco(){
+  const id=recommend();state.reco=id;
+  const box=document.getElementById('reco'),note=document.getElementById('neverNote');
+  if(!id){
+    const at=picked().every(x=>state.picks[x]==='tool');
+    box.innerHTML=`<div class="reco-t"><div class="reco-k">추천</div>
+      <div class="reco-n">${at?'확인 항목 줄이기':'아직 짚을 자리가 없습니다'}</div></div>
+      <div class="blk"><div class="blk-h">Why</div><p class="q">${at
+        ?'고르신 일을 이미 툴로 하고 계시네요. 그럼 줄일 건 작업이 아니라 <b>매번 하는 확인</b>입니다.'
+        :'고르신 업무 중에 제가 실제로 만들어본 게 없습니다. 없는 건 안 드립니다.'}</p></div>
+      <button class="jump" onclick="go(4)"><span>9단계 지도 전체 보기</span><span>→</span></button>`;
+    note.textContent='';return;}
+  const t=tsk(id),s=stg(t.stage),m=METHODS.find(x=>x.id===state.picks[id]),f=t.freq==='daily'?'매일':'매주';
+  const why=m.id==='manual'?`${f} 하고, <b>손으로</b> 하고 계세요. 판단이 들어갈 자리가 없는 일입니다.`
+    :m.id==='template'?`${f} 하고, <b>양식은 있다</b>고 하셨어요. 반복이 이미 눈에 보인다는 뜻입니다.`
+    :`${f} 하고, <b>툴로</b> 하고 계세요. 그런데 매번 확인은 하고 계시죠.`;
+  box.innerHTML=`<div class="reco-t"><div class="reco-k">${f} 하시는 것 중 하나만 고르면</div>
+      <div class="reco-n">${t.name}</div></div>
+    <div class="blk"><div class="blk-h">왜 이걸 골랐나</div><p class="q">${why}</p></div>
+    <div class="blk"><div class="blk-h">어떻게 바꾸나</div><p class="adv">${m.advice}</p></div>
+    <div class="blk"><div class="blk-h">저는 이렇게 했습니다</div>${MOCK[t.asset.mock]}
+      <p class="cap">${t.asset.cap.join('<br>')}</p></div>
+    <div class="dest">${t.asset.dest}</div>
+    <button class="jump" onclick="go(4)"><span>9단계 중 ${s.no==='—'?'기타':s.no+'번째'} 칸입니다</span><span>지도 보기 →</span></button>`;
+  const nv=picked().filter(x=>state.picks[x]==='never');
+  note.innerHTML=nv.length?`<b>“안 해봄”</b>으로 답하신 ${nv.length}개는 추천에서 뺐습니다. 그건 다른 사람 일일 수 있어요.`:'';
+  track('asset_view',{task_id:t.id,stage:t.stage});
+}
+
+function renderMap(){
+  const rid=state.reco;
+  document.getElementById('map').innerHTML=STAGES.map(s=>{
+    const l=TASKS.filter(t=>t.stage===s.id);if(!l.length)return'';
+    return `<div class="stg"><div class="stg-h"><span class="stg-n">${s.no}</span>
+      <span class="stg-t">${s.name}</span><span class="stg-r">${s.role}</span></div>
+      <div class="cds">${l.map(t=>`<button class="mini ${t.detail==='full'?'full':''} ${t.id===rid?'hl':''}"
+        ${t.detail==='full'?`onclick="openCard('${t.id}')"`:'disabled'}>${t.name}</button>`).join('')}</div>
+      ${l.filter(t=>t.detail==='full').map(t=>`<div class="dt" id="d-${t.id}">
+        <div class="dr"><div class="dk">WATCH · 뭘 보나</div><div class="dv">${t.watch}</div></div>
+        <div class="dr"><div class="dk">REASON · 왜 중요한가</div><div class="dv">${t.reason}</div></div>
+        <div class="dr"><div class="dk">CHANGE · 뭘 바꾸나</div><div class="dv">${t.change}</div></div>
+        ${t.failed?`<div class="dr"><div class="dk">FAILED · 안 됐던 것</div><div class="dv fl">${t.failed}</div></div>`:''}
+        <div class="dr"><div class="dk">연결</div><div class="dv">${(t.up||[]).map(x=>stg(x).name).join(', ')||'—'} → <b>${s.name}</b> → ${(t.down||[]).map(x=>stg(x).name).join(', ')||'—'}</div></div>
+      </div>`).join('')}</div>`;}).join('');
+}
+function openCard(id){
+  const el=document.getElementById('d-'+id),was=el.classList.contains('on');
+  document.querySelectorAll('.dt').forEach(d=>d.classList.remove('on'));
+  if(!was){el.classList.add('on');track('card_open',{task_id:id});}
+}
+
+/* form */
+const consent={req:false,opt:false};
+function toggleConsent(k){consent[k]=!consent[k];
+  document.getElementById(k==='req'?'cReq':'cOpt').classList.toggle('on',consent[k]);}
+const onlyNum=s=>s.replace(/[^0-9]/g,'');
+const validPhone=s=>{const n=onlyNum(s);return n.length>=10&&n.length<=11&&n.startsWith('01');};
+const validMail=s=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.trim());
+function showErr(msg,el){const e=document.getElementById('fErr');e.textContent=msg;e.classList.add('on');
+  document.querySelectorAll('.fld input').forEach(i=>i.classList.remove('bad'));
+  if(el){el.classList.add('bad');el.focus();}}
+
+async function submitForm(){
+  const nm=document.getElementById('fName'),ph=document.getElementById('fPhone'),ml=document.getElementById('fMail');
+  if(!nm.value.trim())return showErr('이름을 입력해 주세요.',nm);
+  if(!validPhone(ph.value))return showErr('휴대폰 번호 11자리를 숫자로 입력해 주세요.',ph);
+  if(!validMail(ml.value))return showErr('이메일 주소를 다시 확인해 주세요.',ml);
+  if(!consent.req)return showErr('필수 항목에 동의해 주셔야 자료를 보낼 수 있습니다.');
+  const btn=document.getElementById('fSubmit');btn.disabled=true;btn.textContent='보내는 중…';
+  document.getElementById('fErr').classList.remove('on');
+  const t=state.reco?tsk(state.reco):null;
+  const payload={name:nm.value.trim(),phone:onlyNum(ph.value),email:ml.value.trim(),
+    consentOptional:consent.opt,recoTask:t?t.name:'',recoStage:t?t.stage:'',
+    topTask:(document.getElementById('fTask')||{}).value||'',
+    utm:location.search,ts:new Date().toISOString()};
+  try{
+    if(META.endpoint&&!META.endpoint.includes('REPLACE')){
+      await fetch(META.endpoint,{method:'POST',mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    }else console.warn('[FORM] endpoint 미설정');
+    console.log('[FORM]',payload);
+    track('form_submit',{task_id:state.reco||'none',opt_in:consent.opt});
+    document.getElementById('formBox').innerHTML=
+      `<div class="done"><div class="tick">✓</div><b>보내드릴게요</b>
+       <p>오늘 중으로 알림톡과 메일이 갑니다.<br>안 오면 스팸함을 한 번 봐주세요.</p></div>`;
+    window.scrollTo({top:document.getElementById('formBox').offsetTop-90,behavior:'smooth'});
+  }catch(e){btn.disabled=false;btn.textContent='자료 받기';showErr('전송에 실패했습니다. 잠시 후 다시 눌러주세요.');}
+}
+
+function go(n){
+  state.screen=n;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s1').style.display=n===1?'':'none';
+  document.getElementById('s1c').style.display=n===1?'block':'none';
+  if(n===1)document.getElementById('s1').classList.add('on');
+  else document.getElementById('s'+n).classList.add('on');
+  window.scrollTo(0,0);
+  if(n===3){track('offer_view',{picked:picked().length});}
+  if(n===4){renderMap();track('map_open');}
+  updateBar();
+}
+
+function updateBar(){
+  const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
+  const n=state.screen,p=picked().length;
+  if(n===1){bar.classList.add('on');cnt.innerHTML='9칸 중 <b>1칸</b> 공개';
+    cta.textContent='나머지도 받기';cta.disabled=false;
+    cta.onclick=()=>{track('offer_click');go(3);};}
+  else if(n===3){bar.classList.add('on');cnt.innerHTML='';cta.textContent='자료 받기';cta.disabled=false;
+    cta.onclick=()=>{track('form_click',{task_id:state.reco||'none'});
+      const f=document.getElementById('formBox');
+      window.scrollTo({top:f.offsetTop-80,behavior:'smooth'});
+      const x=document.getElementById('fName');if(x)setTimeout(()=>x.focus(),400);};}
+  else bar.classList.remove('on');
+}
+
+renderGains();renderOutputs();
+renderPains('empathy','painEmpathy');renderPains('select','painSelect');renderTiers();
+renderProof();renderTaskSelect();renderLiveMap();updateBar();track('check_view');
+</script>
+</body>
+</html>
