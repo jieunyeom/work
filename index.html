@@ -701,11 +701,6 @@ body{padding-top:46px}
     </div>
     <div id="gains"></div>
 
-    <div class="sect">
-      <h2>이런 분께<br>추천해요</h2>
-    </div>
-    <div class="pick" id="painSelect"></div>
-
     <div class="cmp">
       <p class="cmp-h">자동화 팁과<br>무엇이 다른가요</p>
       <div class="cmp-g">
@@ -1357,7 +1352,7 @@ function updateBar(){
 }
 
 renderGains();
-renderPains('empathy','painEmpathy');renderPains('select','painSelect');renderTiers();
+renderPains('empathy','painEmpathy');renderTiers();
 const tc=document.getElementById('taskCount');
 if(tc) tc.textContent=`${TASKS.length}개 업무가 이 ${STAGES.length}칸에 얹혀 있습니다.`;
 renderTopbar();renderProof();renderLiveMap();updateBar();
