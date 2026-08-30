@@ -131,13 +131,13 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 
 /* ===== NumberedGain (01~04) ===== */
 .gain{display:flex;gap:16px;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);
-  border-radius:28px;box-shadow:var(--claySoft);padding:20px 22px;margin-bottom:12px;transition:.35s}
+  border-radius:28px;box-shadow:var(--claySoft);padding:22px;margin-bottom:14px;transition:.35s}
 .gain:hover{transform:translateY(-4px);box-shadow:var(--clayCardHover)}
 .gain-n{font-family:var(--head);font-size:22px;font-weight:900;color:#D6D0E2;flex:none;
   line-height:1.1;letter-spacing:-.04em}
-.gain-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.03em;
-  line-height:1.4;margin-bottom:6px}
-.gain-d{font-size:14px;line-height:1.65;color:var(--muted);font-weight:500}
+.gain-t{display:block;font-family:var(--head);font-size:17px;font-weight:800;
+  letter-spacing:-.03em;line-height:1.42;margin-bottom:8px}
+.gain-d{display:block;font-size:14px;line-height:1.68;color:var(--muted);font-weight:500}
 .gain.hero{background:linear-gradient(135deg,#DDF56A,#C7E93F);
   box-shadow:16px 16px 32px rgba(160,180,80,.28),-10px -10px 24px rgba(255,255,255,.9)}
 .gain.hero .gain-n{color:#8A9E2E}
@@ -155,7 +155,10 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
   color:#C4B5FD;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px}
 .dark li.hero .tk{background:#DDF56A;color:#1F2A05}
 .dark li.hero{color:#DDF56A}
-.dark .cond{font-family:var(--head);font-size:11px;font-weight:800;color:#8B82A0;margin-left:8px}
+.dark .olabel{display:block;font-size:16px;font-weight:700;letter-spacing:-.025em}
+.dark .osub{display:block;font-size:12.5px;font-weight:500;color:#9A91AE;margin-top:4px;line-height:1.5}
+.dark li.hero .osub{color:#A9BF4E}
+.dark li{align-items:flex-start}
 
 /* ===== Process (PART) ===== */
 .part{border-left:4px solid #DDF56A;padding-left:18px;margin-bottom:26px}
@@ -178,7 +181,7 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .pick div:hover{transform:translateY(-4px)}
 .pick .n{font-family:var(--head);font-size:12px;font-weight:900;color:#C7E93F;
   display:block;margin-bottom:7px}
-.pick .t{font-size:13.5px;line-height:1.55;color:var(--muted);font-weight:600;letter-spacing:-.02em}
+.pick .t{display:block;font-size:13.5px;line-height:1.55;color:var(--muted);font-weight:600;letter-spacing:-.02em}
 
 /* ===== TierBenefit ===== */
 .tier-l{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
@@ -199,6 +202,51 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
   margin-top:16px;font-size:14px;font-weight:600;color:#2E3A0B;line-height:1.62;
   box-shadow:var(--claySoft)}
 .warn b{font-weight:800}
+
+/* ===== 상단 마감 바 ===== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;
+  background:linear-gradient(135deg,#DDF56A,#C7E93F);
+  box-shadow:0 6px 20px rgba(160,180,80,.28);
+  padding:calc(9px + env(safe-area-inset-top)) 16px 9px}
+.topbar-in{max-width:520px;margin:0 auto;display:flex;align-items:center;
+  justify-content:center;gap:10px;flex-wrap:wrap}
+.tb-t{font-family:var(--head);font-size:13.5px;font-weight:900;color:#1F2A05;letter-spacing:-.03em}
+.tb-d{font-family:var(--head);font-size:11.5px;font-weight:900;color:#DDF56A;
+  background:#1F2A05;padding:3px 11px;border-radius:9999px;letter-spacing:.02em}
+.topbar.closed{background:linear-gradient(135deg,#E8E4F0,#D9D3E6);box-shadow:0 6px 20px rgba(120,110,150,.2)}
+.topbar.closed .tb-t{color:#5A5170}
+.topbar.closed .tb-d{background:#5A5170;color:#EFEBF5}
+body{padding-top:46px}
+@media (min-width:620px){ .tb-t{font-size:15px} }
+
+/* ===== 스텝 목록 ===== */
+.steps{list-style:none;margin:0;padding:0;counter-reset:st}
+.steps li{counter-increment:st;position:relative;padding-left:44px;margin-bottom:18px}
+.steps li:last-child{margin-bottom:0}
+.steps li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;
+  border-radius:14px;background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;
+  font-family:var(--head);font-size:14px;font-weight:900;display:flex;align-items:center;
+  justify-content:center;box-shadow:6px 6px 14px rgba(139,92,246,.25)}
+.steps li b{display:block;font-family:var(--head);font-size:15.5px;font-weight:800;
+  letter-spacing:-.03em;line-height:1.4;margin-bottom:4px}
+.steps li span{display:block;font-size:13.5px;color:var(--muted);line-height:1.6;font-weight:500}
+
+/* ===== 게이트 안내 ===== */
+.gate-note{display:none;background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;
+  border-radius:20px;padding:14px 18px;font-size:13.5px;font-weight:700;line-height:1.6;
+  margin:0 0 14px;box-shadow:var(--claySoft)}
+.dl-note{font-size:13px;color:#4A5A14;font-weight:700;margin:12px 0 0;line-height:1.6;text-align:center}
+
+/* ===== 다운로드 카드 ===== */
+.dlcard{background:linear-gradient(135deg,#DDF56A,#C7E93F);border-radius:36px;padding:26px 24px;
+  margin-top:26px;box-shadow:16px 16px 32px rgba(160,180,80,.3),-10px -10px 24px rgba(255,255,255,.9)}
+.dlcard-h{display:flex;gap:16px;align-items:center}
+.dlicon{font-size:34px;flex:none;filter:drop-shadow(3px 3px 6px rgba(120,140,50,.3))}
+.dlcard-h b{display:block;font-family:var(--head);font-size:17px;font-weight:900;
+  color:#1F2A05;letter-spacing:-.03em;line-height:1.4;word-break:break-all}
+.dlsub{display:block;font-size:13px;color:#4A5A14;font-weight:600;margin-top:5px}
+.dlcard .submit{background:#1F2A05;box-shadow:10px 10px 22px rgba(31,42,5,.25),
+  -6px -6px 14px rgba(255,255,255,.5)}
 
 /* ===== 배너 제작기 데모 ===== */
 .demo{border-radius:32px;overflow:hidden;background:#fff;box-shadow:var(--clayCard)}
@@ -240,15 +288,13 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .locked .lk{font-size:17px;opacity:.35;display:block;margin-bottom:8px}
 .locked .st-n{font-family:var(--head);font-size:10.5px;font-weight:900;color:#A9A2B4;
   display:block;margin-bottom:4px;letter-spacing:.06em}
-.locked .nm{font-family:var(--head);font-size:13.5px;font-weight:800;color:#8E87A0;
+.locked .nm{display:block;font-family:var(--head);font-size:13.5px;font-weight:800;color:#8E87A0;
   letter-spacing:-.03em;line-height:1.4}
 .locked div.open{background:linear-gradient(135deg,#DDF56A,#C7E93F);
   box-shadow:12px 12px 26px rgba(160,180,80,.3),-6px -6px 16px rgba(255,255,255,.9)}
 .locked div.open .lk{opacity:1}
 .locked div.open .st-n{color:#7A8F22}
 .locked div.open .nm{color:#1F2A05}
-.locked div.open::after{content:"지금 보고 계신 것";position:absolute;left:0;right:0;bottom:-19px;
-  font-family:var(--head);font-size:10px;font-weight:800;color:#7A8F22;text-align:center}
 .hero-cap{font-size:15px;line-height:1.68;color:var(--muted);font-weight:500;margin-top:18px;padding:0 4px}
 .hero-cap b{color:var(--fg);font-weight:700}
 
@@ -267,7 +313,7 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .lm-h .t{font-family:var(--head);font-size:15px;font-weight:800}
 .lm-h .c{font-family:var(--head);font-size:12px;font-weight:800;color:var(--accent);
   background:rgba(124,58,237,.1);padding:4px 12px;border-radius:9999px}
-.lm-g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.lm-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .lm-c{border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
   padding:9px 5px 10px;min-height:70px;text-align:center;transition:all .45s cubic-bezier(.2,.8,.2,1)}
 .lm-n{font-family:var(--head);font-size:11px;font-weight:900;color:#A9A2B4}
@@ -394,8 +440,8 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .o1{background:linear-gradient(135deg,#60A5FA,#2563EB)}
 .o2{background:linear-gradient(135deg,#C084FC,#7C3AED)}
 .o3{background:linear-gradient(135deg,#F472B6,#DB2777)}
-.ben-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.025em;margin-bottom:5px}
-.ben-d{font-size:14px;color:var(--muted);line-height:1.6;font-weight:500}
+.ben-t{display:block;font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.025em;margin-bottom:5px}
+.ben-d{display:block;font-size:14px;color:var(--muted);line-height:1.6;font-weight:500}
 .ben-d code{font-family:var(--mono);font-size:12px;background:rgba(124,58,237,.09);
   padding:2px 7px;border-radius:10px;color:var(--accent);font-weight:600}
 
@@ -429,13 +475,6 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .fld input::placeholder{color:#A9A2B4}
 .fld input:focus{background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.2),var(--claySoft);outline:0}
 .fld input.bad{box-shadow:0 0 0 3px rgba(219,39,119,.35),var(--clayPressed)}
-.fld select{width:100%;border:0;border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
-  padding:17px 20px;font-size:15px;font-family:var(--body);font-weight:600;color:var(--fg);
-  appearance:none;-webkit-appearance:none;transition:all .25s;
-  background-image:linear-gradient(45deg,transparent 50%,#8E87A0 50%),linear-gradient(135deg,#8E87A0 50%,transparent 50%);
-  background-position:calc(100% - 22px) 26px,calc(100% - 16px) 26px;
-  background-size:6px 6px,6px 6px;background-repeat:no-repeat}
-.fld select:focus{background-color:#fff;outline:0;box-shadow:0 0 0 4px rgba(124,58,237,.2),var(--claySoft)}
 .cs{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:24px;
   background:var(--recess);box-shadow:var(--clayPressed);margin-bottom:10px;width:100%;transition:.3s}
 .cs.opt{background:rgba(255,255,255,.6);box-shadow:var(--claySoft)}
@@ -518,6 +557,10 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 </head>
 <body>
 
+<div class="topbar" id="topbar"><div class="topbar-in">
+  <span class="tb-t" id="tbText"></span><span class="tb-d" id="tbDay"></span>
+</div></div>
+
 <div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 
 <div class="shell">
@@ -536,14 +579,15 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 
     <div class="sect">
       <p class="eyebrow" style="margin-bottom:10px">전체 판</p>
-      <h2>이커머스 업무는<br>9칸으로 물려 있습니다</h2>
-      <p class="lede" style="margin-top:12px">상품 등록부터 정산까지. 한 칸이 막히면 어디가 줄어드는지, 그게 이 판에서 보입니다.</p>
+      <h2>이커머스 업무는<br>8칸으로 물려 있습니다</h2>
+      <p class="lede" style="margin-top:12px">상품 등록부터 정산까지. 한 칸이 막히면 어디가 줄어드는지, 그게 이 판에서 보입니다.<br>
+        <b>이 지도는 지금도 채우는 중입니다.</b> 완성해서 파는 게 아니라, 한 칸씩 열어가며 공유합니다.</p>
     </div>
     <div class="lm" style="margin-top:20px">
-      <div class="lm-h"><span class="t">9단계 업무 지도</span><span class="c" id="lmCount"></span></div>
+      <div class="lm-h"><span class="t">8칸 업무 지도</span><span class="c" id="lmCount"></span></div>
       <div class="lm-g" id="lmGrid"></div>
     </div>
-    <p class="note">17개 업무가 이 칸들에 얹혀 있습니다.</p>
+    <p class="note" id="taskCount"></p>
 
     <div class="sect">
       <p class="eyebrow" style="margin-bottom:10px">한 칸만 열어보면</p>
@@ -587,7 +631,7 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 
     <div class="sect">
       <h2>나머지 칸에도<br>이런 게 하나씩 있습니다</h2>
-      <p class="lede" style="margin-top:12px">지금 열려 있는 건 <b>02번 한 칸</b>입니다. 나머지는 남겨주신 분께 순서대로 보내드립니다.</p>
+      <p class="lede" style="margin-top:12px">지금 열려 있는 건 <b>02번 한 칸</b>입니다. 나머지 6칸은 하나씩 채워가며, 열릴 때마다 신청하신 분께 먼저 보냅니다.</p>
     </div>
     <div class="locked" id="locked"></div>
   </div>
@@ -622,15 +666,9 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
     <p class="lede">단계는 같아도 어디가 막혀 있는지는 다 다릅니다. 남겨주시면 제가 실제로 쓰는 것들을 그대로 보내드립니다.</p>
 
     <div class="sect">
-      <h2>진단하시면<br>얻어가는 것</h2>
+      <h2>신청하시면<br>받는 것</h2>
     </div>
     <div id="gains"></div>
-
-    <div class="sect">
-      <h2>손에 쥐는 것</h2>
-      <p class="mini-lede" style="margin-top:8px">읽고 끝나는 게 아니라, 남는 것들입니다.</p>
-    </div>
-    <div class="dark" id="outputs"></div>
 
     <div class="sect">
       <h2>이런 분께<br>추천해요</h2>
@@ -653,30 +691,59 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
     <span class="dl">⏳ 1차 마감 · 9월 6일 · 실무자 한정</span>
 
     <div class="form" id="formBox">
-      <div class="form-h"><b>정보 받기</b><span>알림톡 · 이메일로 발송</span></div>
+      <div class="form-h"><b>신청하고 받기</b><span>구글폼 · 1분</span></div>
       <div class="form-b">
-        <div class="fld"><label>이름</label><input id="fName" type="text" placeholder="홍길동" autocomplete="name"></div>
-        <div class="fld"><label>휴대폰 번호</label><input id="fPhone" type="tel" placeholder="01012345678" inputmode="numeric" autocomplete="tel"></div>
-        <div class="fld"><label>이메일</label><input id="fMail" type="email" placeholder="you@company.com" autocomplete="email"></div>
-        <div class="fld"><label>지금 제일 손이 많이 가는 업무</label>
-          <select id="fTask"><option value="">고르지 않고 넘어가기</option></select></div>
-        <button class="cs" id="cReq" onclick="toggleConsent('req')"><span class="cb">✓</span>
-          <span class="cs-t"><b>[필수]</b> 개인정보 수집·이용에 동의합니다.<br>이름·휴대폰·이메일 / 진단 결과·자료 발송 / 발송 후 6개월 보유</span></button>
-        <button class="cs opt" id="cOpt" onclick="toggleConsent('opt')"><span class="cb">✓</span>
-          <span class="cs-t"><b>[선택]</b> 잠긴 나머지 칸이 열릴 때 먼저 받겠습니다.<br>동의하지 않아도 위 자료는 그대로 받으실 수 있습니다.</span></button>
-        <button class="submit" id="fSubmit" onclick="submitForm()">자료 받기</button>
-        <p class="err" id="fErr"></p>
-        <p class="priv">입력하신 번호와 메일은 자료 발송 외에 쓰지 않습니다. 언제든 수신 거부하실 수 있습니다.</p>
+        <ol class="steps">
+          <li><b>구글폼에 정보를 남깁니다</b><span>이름 · 연락처 · 이메일 · 지금 제일 손이 많이 가는 업무</span></li>
+          <li><b>제출하면 바로 다운로드</b><span>배너 생성기 파일이 그 자리에서 받아집니다</span></li>
+          <li><b>나머지는 메일로</b><span>결과 정리본과 잠긴 칸이 열리는 대로 순서대로</span></li>
+        </ol>
+        <p class="gate-note" id="gateNote">아직 신청이 확인되지 않았습니다. 구글폼을 제출하시면 바로 받으실 수 있어요.</p>
+        <button class="submit" id="goForm">신청하고 파일 받기</button>
+        <p class="priv">구글폼으로 이동합니다. 입력하신 정보는 자료 발송 외에 쓰지 않습니다.</p>
       </div>
     </div>
+
     <button class="back" onclick="go(1)">← 처음으로</button>
   </div>
 </section>
 
 <!-- 화면4 -->
+<section class="screen" id="s5">
+  <div class="top">
+    <p class="eyebrow">신청 완료</p>
+    <h1>받으셨습니다.<br>바로 열어보세요.</h1>
+    <p class="lede">다운로드가 자동으로 시작됩니다. 안 되면 아래 버튼을 눌러주세요.</p>
+
+    <div class="dlcard">
+      <div class="dlcard-h">
+        <span class="dlicon">📦</span>
+        <span><b>보만업무용_배너생성기_v1.zip</b>
+        <span class="dlsub">단일 HTML · 설치 없이 브라우저에서 실행</span></span>
+      </div>
+      <button class="submit" id="dlBtn" style="margin-top:18px">다시 다운로드</button>
+      <p class="dl-note" id="dlNote"></p>
+    </div>
+
+    <div class="sect">
+      <h2>이렇게 쓰시면 됩니다</h2>
+    </div>
+    <ol class="steps">
+      <li><b>압축을 풀고 HTML 파일을 더블클릭</b><span>인터넷 연결 없이도 열립니다</span></li>
+      <li><b>정상가 · 행사가 · 쿠폰률만 입력</b><span>최대혜택가와 할인율은 자동 계산됩니다</span></li>
+      <li><b>화면을 그대로 캡처해서 사용</b><span>규격이 고정돼 있어 매번 같은 크기로 나옵니다</span></li>
+    </ol>
+
+    <div class="warn" style="margin-top:26px">📬 결과 정리본과 <b>잠긴 나머지 칸</b>은 메일로 보내드립니다.<br>
+      오늘 안에 도착하지 않으면 스팸함을 한 번 봐주세요.</div>
+
+    <button class="back" onclick="go(4)">업무 지도 보기 →</button>
+  </div>
+</section>
+
 <section class="screen" id="s4">
   <div class="top">
-    <p class="eyebrow">9단계 지도</p>
+    <p class="eyebrow">업무 지도</p>
     <h2>매출은 한 칸에서<br>만들어지지 않습니다</h2>
     <p class="lede" style="margin-bottom:26px">어느 칸이 막히면 어디가 줄어드는지 보세요. 이름 옆 <b>+</b> 카드는 열립니다.</p>
     <div id="map"></div>
@@ -700,38 +767,22 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
    hero   → 하이라이트는 딱 하나만 true
    ============================================================ */
 const TIERS=[
-  {id:'free', label:'진단만 해도'},
-  {id:'lead', label:'정보를 남기시면'},
-  {id:'reply',label:'회신 주시면'},
+  {id:'lead', label:'신청하시면 바로'},
   {id:'optin',label:'소식 받기에 동의하시면'}
 ];
 
 const BENEFITS=[
- {id:'map',
-  value:'내 업무가 어디에 물려 있는지 보이는 상태',
-  why:'업무를 잘하는 것과 업무가 어디에 얹혀 있는지 아는 건 다릅니다. 앞뒤가 보여야 뭘 바꿀지도 정해집니다.',
-  output:'9단계 업무 지도 열람',
-  tier:'free'},
- {id:'pick',
-  value:'어디부터 손대야 하는지 정해진 상태',
-  why:'다 줄이려다 아무것도 못 줄입니다. 하나만 남겨서 그것부터 끝냅니다.',
-  output:'진단 결과 정리본 1장',
-  tier:'lead'},
  {id:'format',
   value:'매번 새로 짜지 않아도 되는 상태',
-  why:'제가 실제로 쓰는 파일을 그대로 드립니다. 설명서가 아니라 지금 돌아가고 있는 것입니다.',
-  output:'제가 쓰는 양식 파일 1개',
-  outputSub:'ERP 변환 규칙표 · 배너 가격 계산식 · 지표 정의서 중 하나',
+  why:'제가 실제로 쓰는 파일을 그대로 드립니다. 설명서가 아니라 지금 돌아가고 있는 것입니다. 신청하시면 바로 받으실 수 있습니다.',
+  output:'배너 자동 조판 파일',
+  outputSub:'잠긴 칸 1개 · 신청 즉시 다운로드',
   tier:'lead', hero:true},
- {id:'judge',
-  value:'숫자를 보고 다음 액션이 나오는 상태',
-  why:'회사마다 막힌 칸이 다릅니다. 상황을 알려주시면 그 기준으로 다시 그려 보내드립니다.',
-  output:'내 회사 기준 업무 지도 1장',
-  tier:'reply'},
  {id:'next',
-  value:'나머지 칸이 열릴 때 제일 먼저 아는 상태',
-  why:'지도는 아직 절반이 비어 있습니다. 한 칸씩 채워지는 대로, 공개 전에 먼저 보내드립니다.',
-  output:'잠긴 칸 6개 · 열리는 대로 순서대로',
+  value:'다음 칸이 열릴 때 제일 먼저 아는 상태',
+  why:'지도는 아직 절반이 비어 있습니다. 한 칸씩 채워질 때마다 그 칸의 파일을 먼저 보내드립니다. 총 6번, 그걸로 끝납니다.',
+  output:'다음 칸 파일 · 총 6회',
+  outputSub:'열리는 대로 순서대로',
   tier:'optin'}
 ];
 
@@ -749,8 +800,8 @@ const PAINS=[
 
 const PROCESS=[
  {t:'PART 1. 하고 있는 일을 늘어놓습니다',
-  li:['매일·매주 하는 17개 업무 중에서 고르기',
-      '고를 때마다 <b>9단계 지도에 내 칸이 채워지는 것</b>을 봅니다',
+  li:['매일·매주 하는 업무 중에서 고르기',
+      '고를 때마다 <b>업무 지도에 내 칸이 채워지는 것</b>을 봅니다',
       '업무 이름 밑에 실제 파일명이 붙어 있어 고르기 쉽습니다'],
   qt:'“일이 많은 게 아니라, 매번 새로 하고 있는 겁니다.”'},
  {t:'PART 2. 지금 어떻게 하고 있는지 답합니다',
@@ -760,7 +811,7 @@ const PROCESS=[
  {t:'PART 3. 딱 하나를 받고, 그 칸을 봅니다',
   li:['답하신 사실을 그대로 인용해서 <b>왜 이걸 골랐는지</b>부터 말합니다',
       '제가 그 업무를 어떻게 바꿨는지 실제 화면으로 보여드립니다',
-      '그게 9단계 중 몇 번째 칸인지, 앞뒤로 뭐랑 물려 있는지까지'],
+      '그게 8칸 중 몇 번째 칸인지, 앞뒤로 뭐랑 물려 있는지까지'],
   qt:'“매출은 한 칸에서 만들어지지 않습니다.”'}
 ];
 
@@ -773,10 +824,12 @@ function renderGains(){
     </div>`).join('');
 }
 function renderOutputs(){
-  document.getElementById('outputs').innerHTML='<ul>'+BENEFITS.map(b=>{
+  /* 손에 쥐는 것 = 지금 바로 받는 것 2개만. 나머지는 조건 계단에서 보여줍니다 */
+  document.getElementById('outputs').innerHTML='<ul>'+BENEFITS.filter(b=>b.handout).map(b=>{
     const t=TIERS.find(x=>x.id===b.tier);
     return `<li class="${b.hero?'hero':''}"><span class="tk">✓</span>
-      <span>${b.output}<span class="cond">${t.label}</span></span></li>`;}).join('')+'</ul>';
+      <span><span class="olabel">${b.output}</span>
+      ${b.outputSub?`<span class="osub">${b.outputSub}</span>`:''}</span></li>`;}).join('')+'</ul>';
 }
 function renderProcess(){
   document.getElementById('process').innerHTML=PROCESS.map(p=>
@@ -798,15 +851,52 @@ function renderTiers(){
       `<div class="tier ${b.hero?'hero':''}"><div class="trow"><i>✓</i><span>${b.output}</span></div>
        ${b.outputSub?`<div class="sub">${b.outputSub}</div>`:''}</div>`).join('');
   }).join('')+
-  `<div class="warn">⚠️ 9단계 지도는 <b>아직 절반이 비어 있습니다.</b><br>
-   한 칸씩 채울 때마다, 남겨주신 분께 먼저 보내드립니다.</div>`;
+  `<div class="warn">⚠️ 업무 지도는 <b>아직 절반이 비어 있습니다.</b> 완성본을 파는 게 아닙니다.<br>
+   한 칸씩 채워질 때마다 그 칸의 파일을 보내드리고, <b>6번이면 끝납니다.</b></div>`;
 }
 
 window.dataLayer=window.dataLayer||[];
 function track(n,p){p=p||{};window.dataLayer.push(Object.assign({event:n},p));
   if(typeof gtag==='function')gtag('event',n,p);console.log('[GA4]',n,p);}
 
-const META={limit:8,endpoint:'https://script.google.com/macros/s/REPLACE_ME/exec'};
+/* ============================================================
+   설정 — 이 두 줄만 바꾸면 됩니다
+   FORM_URL   : 구글폼 '사전 작성된 링크'에서 복사한 주소
+   DRIVE_ID   : 드라이브 파일 '링크 복사' 주소 안의 /d/<여기>/view
+   ============================================================ */
+const META={
+  FORM_URL:'https://docs.google.com/forms/d/e/1FAIpQLScXBlVDCjH9Ok6u3M5AjzRDdbPNNSeemTUgfGub_ez_E8iqAQ/viewform',
+  /* 구글폼 '사전 작성된 링크'로 얻은 entry 번호를 넣으면 유입 경로가 자동 입력됩니다.
+     비워두면 그냥 빈 폼으로 열립니다. */
+  ENTRY_SOURCE:'',
+  DRIVE_ID:'1k_pn3lgLF3DA15dV1RcgBZeL5OsDroPP',
+  FILE_NAME:'보만업무용_배너생성기_v1.zip',
+  /* 구글폼 '확인 메시지'에만 넣는 열쇠. 이 값이 맞아야 다운로드가 열립니다.
+     확인 메시지 링크 예: https://내주소/?dl=1&k=bmk-2609 */
+  DL_KEY:'bmk-2609',
+  /* 1차 신청 마감일 (YYYY-MM-DD) — 지나면 상단 바가 '마감'으로 바뀝니다 */
+  DEADLINE:'2026-09-06'
+};
+/* 상단 마감 바 */
+function renderTopbar(){
+  const bar=document.getElementById('topbar');
+  const t=document.getElementById('tbText'), d=document.getElementById('tbDay');
+  if(!bar) return;
+  const end=new Date(META.DEADLINE+'T23:59:59+09:00');
+  const left=Math.ceil((end-new Date())/86400000);
+  const [,mm,dd]=META.DEADLINE.split('-');
+  const md=Number(mm)+'월 '+Number(dd)+'일';
+  if(left>0){
+    t.textContent=md+'까지 1차 신청 · 0원';
+    d.textContent=left===1?'오늘 마감':'D-'+left;
+  }else{
+    bar.classList.add('closed');
+    t.textContent='1차 신청은 마감되었습니다';
+    d.textContent='2차 대기';
+  }
+}
+
+const driveURL=()=>`https://drive.google.com/uc?export=download&id=${META.DRIVE_ID}`;
 
 const MOCK={
 erp:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>주문 → ERP 판매입력 변환기</div><div class="mock-b">
@@ -865,12 +955,26 @@ detail:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i
 &lt;/center&gt;</div>
  <div style="margin-top:8px"><span class="pill">중복 파일 최신본만 · 폭 규칙 자동</span></div></div></div>`};
 
+/* ============================================================
+   8단계 — 하나의 상품이 돈이 되기까지의 흐름으로 잘랐습니다
+   각 칸은 "무엇을 다루는가"가 서로 겹치지 않습니다
+   ============================================================ */
 const STAGES=[
- {id:'s01',no:'01',name:'상품 등록',role:'입력'},{id:'s02',no:'02',name:'상세·배너',role:'입력'},
- {id:'s03',no:'03',name:'프로모션',role:'입력'},{id:'s04',no:'04',name:'가격·수익',role:'설계'},
- {id:'s05',no:'05',name:'광고 운영',role:'실행'},{id:'s06',no:'06',name:'데이터 분석',role:'해석'},
- {id:'s07',no:'07',name:'ERP 등록',role:'처리'},{id:'s08',no:'08',name:'CRM 메시지',role:'실행'},
- {id:'s09',no:'09',name:'수익 점검',role:'검증'},{id:'etc',no:'—',name:'기타',role:'미배정'}];
+ {id:'s01',no:'01',name:'상품 등록',role:'입력'},
+ {id:'s02',no:'02',name:'상세·배너',role:'입력'},
+ {id:'s03',no:'03',name:'프로모션 기획',role:'기획'},
+ {id:'s04',no:'04',name:'가격·수익 구조',role:'설계'},
+ {id:'s05',no:'05',name:'광고 운영',role:'실행'},
+ {id:'s06',no:'06',name:'주문·재고 처리',role:'처리'},
+ {id:'s07',no:'07',name:'고객 관리',role:'관계'},
+ {id:'s08',no:'08',name:'데이터 분석',role:'해석'}
+];
+
+/* 이전 9칸 + 기타 → 8칸 재배치
+   구 06 데이터분석 → 08 / 구 07 ERP등록 → 06 주문·재고
+   구 08 CRM + 기타(CS·리뷰) → 07 고객 관리 / 구 09 수익점검 → 04 가격·수익 */
+const REMAP={s01:'s01',s02:'s02',s03:'s03',s04:'s04',s05:'s05',
+             s06:'s08',s07:'s06',s08:'s07',s09:'s04',etc:'s07'};
 
 const METHODS=[
  {id:'manual',label:'손으로 함',rank:1,advice:'먼저 <b>양식을 고정</b>하세요. 자동화는 그다음입니다.'},
@@ -954,33 +1058,33 @@ const TASKS=[
 {id:'t-09-1',stage:'s09',name:'채널별 정산 확인',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
 {id:'t-09-2',stage:'s09',name:'월 손익·수익성 점검',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}}];
 
+/* 단계 재배치 적용 — 데이터는 그대로 두고 매핑만 갈아끼웁니다 */
+TASKS.forEach(t=>{
+  t.stage=REMAP[t.stage]||t.stage;
+  t.up  =(t.up  ||[]).map(x=>REMAP[x]||x).filter((v,i,a)=>a.indexOf(v)===i);
+  t.down=(t.down||[]).map(x=>REMAP[x]||x).filter((v,i,a)=>a.indexOf(v)===i);
+  t.up  =t.up.filter(x=>x!==t.stage);
+  t.down=t.down.filter(x=>x!==t.stage);
+});
+
 const stg=id=>STAGES.find(s=>s.id===id);
 const tsk=id=>TASKS.find(t=>t.id===id);
-const state={screen:1,picks:{},open:null,reco:null,firstDone:false};
+const state={screen:1,picks:{},open:null,reco:null,firstDone:false,unlocked:false};
 const picked=()=>Object.keys(state.picks);
 
 /* 첫 화면에는 한 칸만 열고, 나머지는 있다는 것만 보여줍니다 */
 const LOCKED=[
  {no:'02',nm:'배너 자동 조판',open:true},
- {no:'07',nm:'주문 → ERP 변환'},
+ {no:'06',nm:'주문 → ERP 변환'},
  {no:'02',nm:'상세페이지 코드 생성'},
  {no:'05',nm:'광고 링크·코드 세팅'},
- {no:'06',nm:'품목별 광고비 귀속'},
- {no:'06',nm:'주간 보고 자동 채움'}
+ {no:'08',nm:'품목별 광고비 귀속'},
+ {no:'08',nm:'주간 보고 자동 채움'}
 ];
 function renderProof(){
   document.getElementById('locked').innerHTML=LOCKED.map(x=>
     `<div class="${x.open?'open':''}"><span class="lk">${x.open?'🔓':'🔒'}</span>
       <span class="st-n">${x.no}</span><span class="nm">${x.nm}</span></div>`).join('');
-}
-function renderTaskSelect(){
-  const sel=document.getElementById('fTask');if(!sel)return;
-  ['daily','weekly'].forEach(f=>{
-    const g=document.createElement('optgroup');
-    g.label=f==='daily'?'매일 하는 일':'매주 하는 일';
-    TASKS.filter(t=>t.freq===f&&!t.mapOnly).forEach(t=>{
-      const o=document.createElement('option');o.value=t.name;o.textContent=t.name;g.appendChild(o);});
-    sel.appendChild(g);});
 }
 
 function renderLiveMap(){
@@ -991,7 +1095,8 @@ function renderLiveMap(){
     return `<div class="${cls}"><div class="lm-n">${s.no}</div><div class="lm-t">${s.name}</div>
       <div class="lm-d">${'<i></i>'.repeat(n)}</div></div>`;}).join('');
   const f=Object.keys(cnt).length;
-  document.getElementById('lmCount').innerHTML=f?`<b>${f}</b> / 10 칸`:'업무 39개';
+  document.getElementById('lmCount').innerHTML=f?`<b>${f}</b> / ${STAGES.length} 칸`
+    :`업무 ${TASKS.length}개`;
 }
 
 function renderList(){
@@ -1044,7 +1149,7 @@ function renderReco(){
       <div class="blk"><div class="blk-h">Why</div><p class="q">${at
         ?'고르신 일을 이미 툴로 하고 계시네요. 그럼 줄일 건 작업이 아니라 <b>매번 하는 확인</b>입니다.'
         :'고르신 업무 중에 제가 실제로 만들어본 게 없습니다. 없는 건 안 드립니다.'}</p></div>
-      <button class="jump" onclick="go(4)"><span>9단계 지도 전체 보기</span><span>→</span></button>`;
+      <button class="jump" onclick="go(4)"><span>업무 지도 전체 보기</span><span>→</span></button>`;
     note.textContent='';return;}
   const t=tsk(id),s=stg(t.stage),m=METHODS.find(x=>x.id===state.picks[id]),f=t.freq==='daily'?'매일':'매주';
   const why=m.id==='manual'?`${f} 하고, <b>손으로</b> 하고 계세요. 판단이 들어갈 자리가 없는 일입니다.`
@@ -1057,7 +1162,7 @@ function renderReco(){
     <div class="blk"><div class="blk-h">저는 이렇게 했습니다</div>${MOCK[t.asset.mock]}
       <p class="cap">${t.asset.cap.join('<br>')}</p></div>
     <div class="dest">${t.asset.dest}</div>
-    <button class="jump" onclick="go(4)"><span>9단계 중 ${s.no==='—'?'기타':s.no+'번째'} 칸입니다</span><span>지도 보기 →</span></button>`;
+    <button class="jump" onclick="go(4)"><span>8칸 중 ${s.no}번째 칸입니다</span><span>지도 보기 →</span></button>`;
   const nv=picked().filter(x=>state.picks[x]==='never');
   note.innerHTML=nv.length?`<b>“안 해봄”</b>으로 답하신 ${nv.length}개는 추천에서 뺐습니다. 그건 다른 사람 일일 수 있어요.`:'';
   track('asset_view',{task_id:t.id,stage:t.stage});
@@ -1085,42 +1190,51 @@ function openCard(id){
   if(!was){el.classList.add('on');track('card_open',{task_id:id});}
 }
 
-/* form */
-const consent={req:false,opt:false};
-function toggleConsent(k){consent[k]=!consent[k];
-  document.getElementById(k==='req'?'cReq':'cOpt').classList.toggle('on',consent[k]);}
-const onlyNum=s=>s.replace(/[^0-9]/g,'');
-const validPhone=s=>{const n=onlyNum(s);return n.length>=10&&n.length<=11&&n.startsWith('01');};
-const validMail=s=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.trim());
-function showErr(msg,el){const e=document.getElementById('fErr');e.textContent=msg;e.classList.add('on');
-  document.querySelectorAll('.fld input').forEach(i=>i.classList.remove('bad'));
-  if(el){el.classList.add('bad');el.focus();}}
+/* ---------- 구글폼 이동 ---------- */
+function openForm(){
+  const u=META.FORM_URL||'';
+  /* 설정 실수 방지 — 구글폼 주소가 아니면 열지 않습니다 */
+  if(u.includes('REPLACE')||u.indexOf('docs.google.com/forms')===-1){
+    track('form_misconfig',{url:u});
+    const n=document.getElementById('gateNote');
+    if(n){ n.textContent='신청 폼이 아직 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.';
+           n.style.display='block'; }
+    return false;
+  }
+  track('form_click',{});
+  let url=META.FORM_URL;
+  if(META.ENTRY_SOURCE){
+    const q=new URLSearchParams(location.search);
+    const src=q.get('utm_source')||q.get('utm_medium')||'direct';
+    url+=(url.includes('?')?'&':'?')+'usp=pp_url&'+
+      encodeURIComponent(META.ENTRY_SOURCE)+'='+encodeURIComponent(src);
+  }
+  window.open(url,'_blank','noopener');
+  return true;
+}
 
-async function submitForm(){
-  const nm=document.getElementById('fName'),ph=document.getElementById('fPhone'),ml=document.getElementById('fMail');
-  if(!nm.value.trim())return showErr('이름을 입력해 주세요.',nm);
-  if(!validPhone(ph.value))return showErr('휴대폰 번호 11자리를 숫자로 입력해 주세요.',ph);
-  if(!validMail(ml.value))return showErr('이메일 주소를 다시 확인해 주세요.',ml);
-  if(!consent.req)return showErr('필수 항목에 동의해 주셔야 자료를 보낼 수 있습니다.');
-  const btn=document.getElementById('fSubmit');btn.disabled=true;btn.textContent='보내는 중…';
-  document.getElementById('fErr').classList.remove('on');
-  const t=state.reco?tsk(state.reco):null;
-  const payload={name:nm.value.trim(),phone:onlyNum(ph.value),email:ml.value.trim(),
-    consentOptional:consent.opt,recoTask:t?t.name:'',recoStage:t?t.stage:'',
-    topTask:(document.getElementById('fTask')||{}).value||'',
-    utm:location.search,ts:new Date().toISOString()};
-  try{
-    if(META.endpoint&&!META.endpoint.includes('REPLACE')){
-      await fetch(META.endpoint,{method:'POST',mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
-    }else console.warn('[FORM] endpoint 미설정');
-    console.log('[FORM]',payload);
-    track('form_submit',{task_id:state.reco||'none',opt_in:consent.opt});
-    document.getElementById('formBox').innerHTML=
-      `<div class="done"><div class="tick">✓</div><b>보내드릴게요</b>
-       <p>오늘 중으로 알림톡과 메일이 갑니다.<br>안 오면 스팸함을 한 번 봐주세요.</p></div>`;
-    window.scrollTo({top:document.getElementById('formBox').offsetTop-90,behavior:'smooth'});
-  }catch(e){btn.disabled=false;btn.textContent='자료 받기';showErr('전송에 실패했습니다. 잠시 후 다시 눌러주세요.');}
+/* ---------- 다운로드 게이트 ----------
+   구글폼 제출을 마친 사람만 s5에 도달합니다.
+   판정: 확인 메시지에만 있는 열쇠(k)가 DL_KEY와 일치할 때만 해제 */
+function checkGate(){
+  const q=new URLSearchParams(location.search);
+  if(q.get('dl')!=='1') return 'none';
+  return q.get('k')===META.DL_KEY ? 'ok' : 'bad';
+}
+
+function startDownload(where){
+  if(!state.unlocked){ track('download_blocked',{from:where||'page'}); return false; }
+  if(!META.DRIVE_ID || META.DRIVE_ID.includes('REPLACE')){
+    track('download_misconfig',{});
+    const b=document.getElementById('dlNote');
+    if(b) b.textContent='파일 링크가 아직 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.';
+    return false;
+  }
+  track('file_download',{file:META.FILE_NAME,from:where||'page'});
+  const a=document.createElement('a');
+  a.href=driveURL(); a.rel='noopener'; a.download='';
+  document.body.appendChild(a); a.click(); a.remove();
+  return true;
 }
 
 function go(n){
@@ -1139,20 +1253,38 @@ function go(n){
 function updateBar(){
   const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
   const n=state.screen,p=picked().length;
-  if(n===1){bar.classList.add('on');cnt.innerHTML='9칸 중 <b>1칸</b> 공개';
+  if(n===1){bar.classList.add('on');cnt.innerHTML=`${STAGES.length}칸 중 <b>1칸</b> 공개`;
     cta.textContent='나머지도 받기';cta.disabled=false;
     cta.onclick=()=>{track('offer_click');go(3);};}
-  else if(n===3){bar.classList.add('on');cnt.innerHTML='';cta.textContent='자료 받기';cta.disabled=false;
-    cta.onclick=()=>{track('form_click',{task_id:state.reco||'none'});
-      const f=document.getElementById('formBox');
-      window.scrollTo({top:f.offsetTop-80,behavior:'smooth'});
-      const x=document.getElementById('fName');if(x)setTimeout(()=>x.focus(),400);};}
+  else if(n===3){bar.classList.add('on');cnt.innerHTML='';cta.textContent='신청하고 파일 받기';
+    cta.disabled=false;cta.onclick=openForm;}
+  else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='파일 다운로드';
+    cta.disabled=false;cta.onclick=()=>startDownload('bar');}
   else bar.classList.remove('on');
 }
 
-renderGains();renderOutputs();
+renderGains();
 renderPains('empathy','painEmpathy');renderPains('select','painSelect');renderTiers();
-renderProof();renderTaskSelect();renderLiveMap();updateBar();track('check_view');
+const tc=document.getElementById('taskCount');
+if(tc) tc.textContent=`${TASKS.length}개 업무가 이 ${STAGES.length}칸에 얹혀 있습니다.`;
+renderTopbar();renderProof();renderLiveMap();updateBar();
+
+const gf=document.getElementById('goForm'); if(gf) gf.onclick=openForm;
+const db=document.getElementById('dlBtn');  if(db) db.onclick=()=>startDownload('card');
+
+/* 구글폼 확인 메시지 → ?dl=1&k=열쇠 로 돌아옵니다 */
+const gate=checkGate();
+if(gate==='ok'){
+  state.unlocked=true;
+  go(5); track('download_view');
+  setTimeout(()=>startDownload('auto'),700);
+}else if(gate==='bad'){
+  go(3); track('download_denied');
+  const n=document.getElementById('gateNote');
+  if(n) n.style.display='block';
+}else{
+  track('check_view');
+}
 </script>
 </body>
 </html>
