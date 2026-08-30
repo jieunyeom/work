@@ -553,14 +553,9 @@ body{padding-top:46px}
   .proof-i{width:380px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-#ddayBar{position:sticky;top:0;z-index:999;text-align:center;padding:11px 16px;
-  font-family:var(--head);font-size:14px;font-weight:800;letter-spacing:-.02em;
-  background:#7C3AED;color:#fff}
-#ddayBar.end{background:#8B8496}
 </style>
 </head>
 <body>
-<div id="ddayBar"></div>
 
 <div class="topbar" id="topbar"><div class="topbar-in">
   <span class="tb-t" id="tbText"></span><span class="tb-d" id="tbDay"></span>
@@ -1198,22 +1193,6 @@ function openCard(id){
 /* ---------- 구글폼 이동 ---------- */
 var DEADLINE=new Date("2026-09-06T23:59:59+09:00");
 function isClosed(){return (DEADLINE-new Date())<=0;}
-(function(){
-  var bar=document.getElementById("ddayBar");
-  function tick(){
-    var left=DEADLINE-new Date();
-    if(left<=0){
-      bar.textContent="1차 모집이 마감되었습니다";
-      bar.classList.add("end");
-      return;
-    }
-    var d=Math.floor(left/86400000);
-    var h=Math.floor(left%86400000/3600000);
-    bar.textContent="1차 마감까지 "+d+"일 "+h+"시간";
-  }
-  tick();
-  setInterval(tick,60000);
-})();
 function openForm(){
   if(isClosed()){alert("1차 모집이 마감되었습니다. 다음 회차에 다시 열립니다.");return;}
   const u=META.FORM_URL||'';
