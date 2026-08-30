@@ -581,6 +581,16 @@ body{padding-top:46px}
 .priv-box dt:first-child{margin-top:0}
 .priv-box dd{margin:0 0 0 0}
 .priv-box .last{margin-top:11px;padding-top:10px;border-top:1px solid #E7E4EE;color:#8B8496}
+.share{margin:30px 0 6px;padding:20px 16px;border-radius:16px;background:#F2ECFF;border:1px solid #D9C9FF;text-align:center}
+.share h4{font-family:var(--head);font-size:16px;font-weight:900;color:#4C2F9E;margin:0 0 6px;letter-spacing:-.03em}
+.share p{font-size:13px;line-height:1.6;color:#6B5B95;margin:0 0 14px}
+.share-b{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-b button{font-family:var(--head);font-size:13.5px;font-weight:800;letter-spacing:-.02em;
+  border:0;border-radius:9999px;padding:11px 18px;cursor:pointer;transition:transform .15s ease}
+.share-b button:active{transform:scale(.97)}
+.sh-1{background:#7C3AED;color:#fff}
+.sh-2{background:#fff;color:#6D28D9;border:1px solid #D9C9FF!important}
+.sh-ok{font-size:12.5px;font-weight:700;color:#6D28D9;margin:10px 0 0;min-height:16px}
 </style>
 </head>
 <body>
@@ -770,6 +780,16 @@ body{padding-top:46px}
         <dd>없습니다. 자료 발송 외의 목적으로 쓰지 않습니다.</dd>
       </dl>
       <p class="last">동의를 거부하실 수 있으며, 그 경우 자료를 보내드리기 어렵습니다. 선택 항목은 동의하지 않으셔도 신청에 제한이 없습니다.</p>
+    </div>
+
+    <div class="share">
+      <h4>같은 일 하는 분이 떠오르시나요</h4>
+      <p>매번 새로 하고 있는 건 혼자만의 일이 아닙니다.<br>옆자리에도, 다른 회사에도 같은 사람이 있어요.</p>
+      <div class="share-b">
+        <button class="sh-1" onclick="sharePage()">공유하기</button>
+        <button class="sh-2" onclick="copyLink()">링크 복사</button>
+      </div>
+      <p class="sh-ok" id="shMsg"></p>
     </div>
 
     <button class="back" onclick="go(1)">← 처음으로</button>
@@ -1261,6 +1281,30 @@ function openCard(id){
 /* ---------- 구글폼 이동 ---------- */
 var DEADLINE=new Date("2026-09-06T23:59:59+09:00");
 function isClosed(){return (DEADLINE-new Date())<=0;}
+var SHARE_TEXT="일이 많은 게 아니라, 매번 새로 하고 있는 것 — 이커머스 업무 지도";
+function shMsg(t){var el=document.getElementById("shMsg");if(el){el.textContent=t;setTimeout(function(){el.textContent="";},2500);}}
+function sharePage(){
+  var url=location.origin+location.pathname;
+  if(navigator.share){
+    navigator.share({title:"이커머스 업무 지도",text:SHARE_TEXT,url:url})
+      .then(function(){shMsg("고맙습니다.");})
+      .catch(function(){});
+  }else{ copyLink(); }
+}
+function copyLink(){
+  var url=location.origin+location.pathname;
+  var txt=SHARE_TEXT+String.fromCharCode(10)+url;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt)
+      .then(function(){shMsg("링크를 복사했습니다.");})
+      .catch(function(){shMsg(url);});
+  }else{
+    var t=document.createElement("textarea");t.value=txt;
+    document.body.appendChild(t);t.select();
+    try{document.execCommand("copy");shMsg("링크를 복사했습니다.");}catch(e){shMsg(url);}
+    document.body.removeChild(t);
+  }
+}
 function openForm(){
   if(isClosed()){alert("1차 모집이 마감되었습니다. 다음 회차에 다시 열립니다.");return;}
   const u=META.FORM_URL||'';
