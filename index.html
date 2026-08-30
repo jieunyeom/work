@@ -1349,11 +1349,11 @@ function updateBar(){
   else bar.classList.remove('on');
 }
 
-renderGains();
-renderPains('empathy','painEmpathy');renderTiers();
+function safe(fn,name){try{fn();}catch(e){console.warn('init skip:',name,e.message);}}
+safe(function(){renderPains('empathy','painEmpathy');},'pains');safe(renderTiers,'tiers');
 const tc=document.getElementById('taskCount');
 if(tc) tc.textContent=`${TASKS.length}개 업무가 이 ${STAGES.length}칸에 얹혀 있습니다.`;
-renderTopbar();renderProof();renderLiveMap();updateBar();
+safe(renderTopbar,'topbar');safe(renderProof,'proof');safe(renderLiveMap,'map');safe(updateBar,'bar');
 
 const gf=document.getElementById('goForm'); if(gf) gf.onclick=openForm;
 const db=document.getElementById('dlBtn');  if(db) db.onclick=()=>startDownload('card');
