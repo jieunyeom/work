@@ -1084,11 +1084,11 @@ function renderTopbar(){
   if(!bar) return;
   const left=META.SEATS_LEFT, total=META.SEATS_TOTAL;
   if(left>0){
-    t.textContent='선착순 '+total+'명만 · 0원';
-    d.textContent=left+'자리 남음';
+    t.textContent='선착순 · 0원';
+    d.textContent='신청 받는 중';
   }else{
     bar.classList.add('closed');
-    t.textContent='1차 '+total+'명 마감되었습니다';
+    t.textContent='1차 신청이 마감되었습니다';
     d.textContent='2차 대기';
   }
 }
@@ -1543,7 +1543,7 @@ function updateBar(){
   const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
   const n=state.screen,p=picked().length;
   if(n===1){bar.classList.add('on');cnt.innerHTML = META.SEATS_LEFT>0
-      ? `선착순 <b>${META.SEATS_TOTAL}명</b> 공개`
+      ? `선착순 공개`
       : `<b>마감</b>`;
     cta.textContent='신청하고 파일 받기';cta.disabled=false;
     cta.onclick=openForm;}
