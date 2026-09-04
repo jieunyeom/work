@@ -349,6 +349,12 @@ body{padding-top:46px}
 .recap-f{font-family:var(--head);font-size:16px;font-weight:800;color:#fff;
   margin-top:16px;letter-spacing:-.025em}
 .recap-f b{color:#DDF56A}
+.trade{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+.trade-h{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.1em;
+  color:#DDF56A;text-transform:uppercase;margin-bottom:10px}
+.trade p{font-size:15px;line-height:1.6;color:#EDE9F5;margin:0 0 6px;font-weight:500}
+.trade p b{color:#fff;font-weight:800}
+.trade-s{font-size:13px !important;color:#9A91AE !important}
 
 /* ===== 왜 번호를 받나 ===== */
 .why{background:rgba(255,255,255,.72);backdrop-filter:blur(16px);border-radius:32px;
@@ -735,7 +741,7 @@ body{padding-top:46px}
     <p class="eyebrow">이커머스 반복 업무 자동화</p>
     <h1>이거만 해도<br>퇴근이<br>빨라집니다</h1>
     <p class="lede">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다.<br>
-      제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.</p>
+      제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.<br><b>선착순 10명</b>, 값 대신 <b>3주차에 한 줄 답장</b>만 받습니다.</p>
 
     <div class="pain-h">
       <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
@@ -812,9 +818,6 @@ body{padding-top:46px}
       </div>
       <div class="dot-row"><i></i><i></i><i></i></div>
     </div>
-    <p class="hero-cap">정상가와 행사가만 넣으면 <b>쿠폰과 적립률을 반영한 최대혜택가·할인율이 자동으로</b> 나옵니다.<br>
-      규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
-
     <p class="hero-cap">이제 <b>정상가와 행사가만 넣습니다.</b> 나머지는 파일이 계산합니다.<br>
       규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
 
@@ -842,6 +845,11 @@ body{padding-top:46px}
       <div class="recap-r"><b>쓰는 법</b><span>지금 하는 방식 → 이후 방식, 한 장씩</span></div>
       <div class="recap-r hero"><b>팀에 공유 가능</b><span>파일 하나라 그냥 보내면 됩니다</span></div>
       <div class="recap-f">전부 0원. <b>그리고 8주면 끝납니다.</b></div>
+      <div class="trade">
+        <div class="trade-h">값은 안 받습니다. 대신</div>
+        <p><b>3주차에 한 번만 답장</b>해 주세요. “썼다” 또는 “안 썼다” 한 줄이면 됩니다.</p>
+        <p class="trade-s">그게 다음 도구를 뭘로 만들지 정합니다.</p>
+      </div>
     </div>
 
   </div>
@@ -857,10 +865,11 @@ body{padding-top:46px}
 
 
   <div class="close">
-    <h3>9월 6일 이후에는<br>잠깁니다</h3>
-    <p>1차 신청은 <b>9월 6일까지</b>입니다.</p>
-    <p>그 뒤에 오시면 <b>1주차부터 다시 시작할 수 없습니다.</b> 지난 주차 파일은 소급 발송하지 않거든요.
-      중간부터 받으면 <b>앞 주차 도구는 못 받습니다.</b> 소급 발송은 하지 않습니다.</p>
+    <h3>10명까지만<br>받습니다</h3>
+    <p>왜 10명이냐면 — <b>3주차에 오는 답장을 한 명씩 다 읽고 반영</b>할 생각이라서요.
+      100명이면 못 읽습니다.</p>
+    <p>10명이 차면 신청을 닫습니다. <b>중간부터는 못 들어옵니다.</b>
+      지난 주차 도구는 소급 발송하지 않거든요.</p>
     <p>0원으로 여는 건 이번 8주뿐입니다.</p>
   </div>
 
@@ -871,6 +880,7 @@ body{padding-top:46px}
           <li><b>구글폼에 정보를 남깁니다</b><span>이름 · 연락처 · 이메일 · 지금 제일 손이 많이 가는 업무</span></li>
           <li><b>제출하면 첫 도구가 바로 받아집니다</b><span>배너 이미지 생성 파일이 그 자리에서 받아집니다</span></li>
           <li><b>2주차부터는 매주 하나씩</b><span>발송일에 알림톡 한 줄 · 8주면 끝납니다</span></li>
+          <li><b>3주차에 한 줄만 답장</b><span>“썼다” 또는 “안 썼다”. 이게 이 자료의 값입니다</span></li>
         </ol>
         <p class="gate-note" id="gateNote">아직 신청이 확인되지 않았습니다. 구글폼을 제출하시면 바로 받으실 수 있어요.</p>
         <button class="submit" id="goForm">신청하고 파일 받기</button>
@@ -917,7 +927,7 @@ body{padding-top:46px}
     </ol>
 
     <div class="warn" style="margin-top:26px">📬 <b>두 번째 도구는 다음 주</b>에 갑니다. 주문서 → ERP 양식 변환이에요.<br>
-      8주 뒤에 도구 8개가 손에 남습니다.</div>
+      <b>3주차에 한 줄만 답장</b>해 주시면 됩니다. 그게 이 자료의 값입니다.</div>
 
     <button class="back" onclick="go(4)">업무 지도 보기 →</button>
   </div>
@@ -1062,24 +1072,23 @@ const META={
   /* 구글폼 '확인 메시지'에만 넣는 열쇠. 이 값이 맞아야 다운로드가 열립니다.
      확인 메시지 링크 예: https://내주소/?dl=1&k=bmk-2609 */
   DL_KEY:'bmk-2609',
-  /* 1차 신청 마감일 (YYYY-MM-DD) — 지나면 상단 바가 '마감'으로 바뀝니다 */
-  DEADLINE:'2026-09-06'
+  /* 선착순 운영 — 신청이 들어올 때마다 SEATS_LEFT만 줄이고 재배포하세요.
+     구글폼 응답 수를 자동으로 읽어올 수는 없어서, 이 숫자가 곧 화면 표시입니다. */
+  SEATS_TOTAL:10,
+  SEATS_LEFT:10
 };
 /* 상단 마감 바 */
 function renderTopbar(){
   const bar=document.getElementById('topbar');
   const t=document.getElementById('tbText'), d=document.getElementById('tbDay');
   if(!bar) return;
-  const end=new Date(META.DEADLINE+'T23:59:59+09:00');
-  const left=Math.ceil((end-new Date())/86400000);
-  const [,mm,dd]=META.DEADLINE.split('-');
-  const md=Number(mm)+'월 '+Number(dd)+'일';
+  const left=META.SEATS_LEFT, total=META.SEATS_TOTAL;
   if(left>0){
-    t.textContent=md+' 마감 · 이후 잠깁니다';
-    d.textContent=left===1?'오늘 마감':'D-'+left;
+    t.textContent='선착순 '+total+'명만 · 0원';
+    d.textContent=left+'자리 남음';
   }else{
     bar.classList.add('closed');
-    t.textContent='1차 신청은 마감되었습니다';
+    t.textContent='1차 '+total+'명 마감되었습니다';
     d.textContent='2차 대기';
   }
 }
@@ -1440,14 +1449,13 @@ function openCard(id){
 }
 
 /* ---------- 구글폼 이동 ---------- */
-var DEADLINE=new Date("2026-09-06T23:59:59+09:00");
-function isClosed(){return (DEADLINE-new Date())<=0;}
-var SHARE_TEXT="일이 많은 게 아니라, 매번 새로 하고 있는 것 — 이커머스 업무 지도";
+function isClosed(){return META.SEATS_LEFT<=0;}
+var SHARE_TEXT="이거만 해도 퇴근이 빨라집니다 — 이커머스 반복 업무 자동화 도구 8개";
 function shMsg(t){var el=document.getElementById("shMsg");if(el){el.textContent=t;setTimeout(function(){el.textContent="";},2500);}}
 function sharePage(){
   var url=location.origin+location.pathname;
   if(navigator.share){
-    navigator.share({title:"이커머스 업무 지도",text:SHARE_TEXT,url:url})
+    navigator.share({title:"이커머스 반복 업무 자동화 도구 8개",text:SHARE_TEXT,url:url})
       .then(function(){shMsg("고맙습니다.");})
       .catch(function(){});
   }else{ copyLink(); }
@@ -1467,7 +1475,13 @@ function copyLink(){
   }
 }
 function openForm(){
-  if(isClosed()){alert("1차 모집이 마감되었습니다. 다음 회차에 다시 열립니다.");return;}
+  if(isClosed()){
+    track('form_closed',{});
+    const n=document.getElementById('gateNote');
+    if(n){ n.textContent='1차 '+META.SEATS_TOTAL+'명이 모두 찼습니다. 다음 회차에 다시 열립니다.';
+           n.style.display='block'; }
+    return false;
+  }
   const u=META.FORM_URL||'';
   /* 설정 실수 방지 — 구글폼 주소가 아니면 열지 않습니다 */
   if(u.includes('REPLACE')||u.indexOf('docs.google.com/forms')===-1){
@@ -1528,7 +1542,9 @@ function go(n){
 function updateBar(){
   const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
   const n=state.screen,p=picked().length;
-  if(n===1){bar.classList.add('on');cnt.innerHTML=`${STAGES.length}칸 중 <b>1칸</b> 공개`;
+  if(n===1){bar.classList.add('on');cnt.innerHTML = META.SEATS_LEFT>0
+      ? `선착순 <b>${META.SEATS_TOTAL}명</b> 공개`
+      : `<b>마감</b>`;
     cta.textContent='신청하고 파일 받기';cta.disabled=false;
     cta.onclick=openForm;}
   else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='파일 다운로드';
