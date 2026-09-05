@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    { "source": "/i",  "destination": "/?utm_source=instagram&utm_medium=profile&utm_campaign=first10&utm_content=bio", "permanent": false },
+    { "source": "/a",  "destination": "/?utm_source=instagram&utm_medium=profile&utm_campaign=first10&utm_content=carousel_01", "permanent": false },
+    { "source": "/b",  "destination": "/?utm_source=instagram&utm_medium=profile&utm_campaign=first10&utm_content=carousel_02", "permanent": false },
+    { "source": "/c",  "destination": "/?utm_source=instagram&utm_medium=profile&utm_campaign=first10&utm_content=carousel_03", "permanent": false },
+    { "source": "/s",  "destination": "/?utm_source=instagram&utm_medium=story&utm_campaign=first10&utm_content=story_01", "permanent": false },
+    { "source": "/bl", "destination": "/?utm_source=blog&utm_medium=post&utm_campaign=first10&utm_content=blogpost_01", "permanent": false },
+    { "source": "/k1", "destination": "/?utm_source=kakao&utm_medium=chat&utm_campaign=first10&utm_content=openchat_a", "permanent": false },
+    { "source": "/k2", "destination": "/?utm_source=kakao&utm_medium=chat&utm_campaign=first10&utm_content=openchat_b", "permanent": false },
+    { "source": "/dm", "destination": "/?utm_source=dm&utm_medium=direct&utm_campaign=first10&utm_content=dm_01", "permanent": false },
+    { "source": "/sl", "destination": "/?utm_source=slack&utm_medium=chat&utm_campaign=first10&utm_content=crew", "permanent": false }
+  ]
+}

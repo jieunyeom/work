@@ -1625,6 +1625,26 @@ function safe(fn,name){try{fn();}catch(e){console.warn('init skip:',name,e.messa
 safe(function(){renderPains('empathy','painEmpathy');},'pains');safe(renderTiers,'tiers');
 
 /* ===== 신청 폼 → Supabase ===== */
+
+/* ===== 유입 경로(UTM) 기억하기 =====
+   첫 진입 때 한 번 저장해두고, 나중에 신청할 때 같이 보냅니다.
+   중간에 스크롤하다 새로고침해도 유지됩니다. */
+function utmCapture(){
+  var q=new URLSearchParams(location.search);
+  var keys=["utm_source","utm_medium","utm_campaign","utm_content"];
+  var got={}, any=false;
+  keys.forEach(function(k){ var v=q.get(k); if(v){ got[k]=v.toLowerCase().trim(); any=true; } });
+  try{
+    if(any){
+      got.referrer=document.referrer||"";
+      got.landing=location.pathname+location.search;
+      sessionStorage.setItem("utm",JSON.stringify(got));
+    }
+  }catch(e){}
+}
+function utmGet(){
+  try{ return JSON.parse(sessionStorage.getItem("utm")||"{}"); }catch(e){ return {}; }
+}
 function sbSeats(){
   fetch(META.SUPABASE_URL+"/rest/v1/rpc/seats_left",{method:"POST",
     headers:{apikey:META.SUPABASE_KEY,"Content-Type":"application/json"},body:"{}"})
@@ -1675,9 +1695,11 @@ function sbInit(){
     fetch(META.SUPABASE_URL+"/rest/v1/signups",{
       method:"POST",
       headers:{apikey:META.SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},
-      body:JSON.stringify({name:name,phone:phone,email:email,task:task||null,
+      body:JSON.stringify(Object.assign({
+        name:name,phone:phone,email:email,task:task||null,
         company:company||null,agree_privacy:true,agree_news:news,
-        source:(location.search||"").replace("?","")||"direct"})
+        source:(utmGet().utm_source||"direct")
+      }, utmGet()))
     }).then(function(r){
       if(r.status>=200&&r.status<300){
         state.unlocked=true;
@@ -1696,6 +1718,7 @@ function sbInit(){
     });
   });
 }
+safe(utmCapture,"utm");
 safe(sbInit,"signup");
 
 safe(renderTopbar,'topbar');safe(renderWeeks,'weeks');safe(renderGrid,'grid');safe(renderProof,'proof');safe(renderLiveMap,'map');safe(updateBar,'bar');
