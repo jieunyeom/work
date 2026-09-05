@@ -1558,34 +1558,8 @@ function copyLink(){
     document.body.removeChild(t);
   }
 }
-function openForm(){
-  if(isClosed()){
-    track('form_closed',{});
-    const n=document.getElementById('gateNote');
-    if(n){ n.textContent='1차 '+META.SEATS_TOTAL+'명이 모두 찼습니다. 다음 회차에 다시 열립니다.';
-           n.style.display='block'; }
-    return false;
-  }
-  const u=META.FORM_URL||'';
-  /* 설정 실수 방지 — 구글폼 주소가 아니면 열지 않습니다 */
-  if(u.includes('REPLACE')||u.indexOf('docs.google.com/forms')===-1){
-    track('form_misconfig',{url:u});
-    const n=document.getElementById('gateNote');
-    if(n){ n.textContent='신청 폼이 아직 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.';
-           n.style.display='block'; }
-    return false;
-  }
-  track('form_click',{});
-  let url=META.FORM_URL;
-  if(META.ENTRY_SOURCE){
-    const q=new URLSearchParams(location.search);
-    const src=q.get('utm_source')||q.get('utm_medium')||'direct';
-    url+=(url.includes('?')?'&':'?')+'usp=pp_url&'+
-      encodeURIComponent(META.ENTRY_SOURCE)+'='+encodeURIComponent(src);
-  }
-  window.open(url,'_blank','noopener');
-  return true;
-}
+/* 구글폼 경로는 페이지 내 폼으로 대체되어 제거됨 */
+
 
 /* ---------- 다운로드 게이트 ----------
    구글폼 제출을 마친 사람만 s5에 도달합니다.
