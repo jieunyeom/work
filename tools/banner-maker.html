@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제품 배너 생성기</title>
+<style>
+:root{
+  --ink:#1B2028; --muted:#6B7280; --line:#E5E7EB; --bg:#F4F5F7;
+  --accent:#7C3AED; --accent-soft:#EDE9FE;
+  --red:#D8342B; --purple:#7A44FE;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:14px;line-height:1.6}
+header{background:#fff;border-bottom:1px solid var(--line);padding:16px 22px}
+header h1{margin:0;font-size:17px;font-weight:800;letter-spacing:-.03em}
+header p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.wrap{display:grid;grid-template-columns:340px 1fr;gap:20px;padding:20px;align-items:start}
+@media (max-width:900px){ .wrap{grid-template-columns:1fr} }
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+.panel h2{margin:0 0 14px;font-size:13px;font-weight:800;letter-spacing:-.02em;
+  text-transform:uppercase;color:var(--accent)}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.fld input,.fld select{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+  font-size:14px;font-family:inherit;background:#fff;color:var(--ink)}
+.fld input:focus,.fld select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:11.5px;color:var(--muted);margin-top:4px}
+.divider{height:1px;background:var(--line);margin:16px 0}
+
+.calc{background:var(--accent-soft);border-radius:10px;padding:12px 14px;margin-top:4px}
+.calc div{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;font-size:13px}
+.calc div span{color:#5B21B6;font-weight:600}
+.calc div b{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--accent)}
+.calc .big b{font-size:22px}
+
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{flex:1;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px;
+  font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.stage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto}
+canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;background:#fff}
+.size{font-size:11.5px;color:var(--muted);margin-top:10px;text-align:center}
+.btns{display:flex;gap:10px;margin-top:14px}
+button.act{flex:1;background:var(--accent);color:#fff;border:0;border-radius:9px;padding:13px;
+  font-family:inherit;font-size:14px;font-weight:800;cursor:pointer}
+button.act.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+button.act:active{transform:scale(.98)}
+.note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.65}
+.note b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>제품 배너 생성기</h1>
+  <p>가격만 넣으면 최대혜택가·할인율이 계산되고, 규격대로 조판됩니다. 인터넷 연결 없이 동작합니다.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 입력 ============ -->
+  <div>
+    <div class="panel">
+      <h2>제품</h2>
+      <div class="fld">
+        <label>제품명</label>
+        <input id="pname" value="무선 스틱청소기 2세대">
+        <div class="hint">대괄호 [ ]는 자동으로 제거됩니다</div>
+      </div>
+      <div class="fld">
+        <label>배지 문구</label>
+        <input id="badge" value="알림받기 + 쿠폰">
+      </div>
+      <div class="fld">
+        <label>제품 이미지</label>
+        <input id="pimg" type="file" accept="image/*">
+        <div class="hint">비워두면 회색 placeholder로 조판됩니다</div>
+      </div>
+
+      <div class="divider"></div>
+      <h2>가격</h2>
+      <div class="two">
+        <div class="fld"><label>정상가</label><input id="listPrice" type="number" value="299000"></div>
+        <div class="fld"><label>즉시할인가</label><input id="salePrice" type="number" value="189000"></div>
+      </div>
+
+      <div class="divider"></div>
+      <h2>혜택가형 규칙</h2>
+      <div class="two">
+        <div class="fld"><label>쿠폰 %</label><input id="couponPct" type="number" value="7"></div>
+        <div class="fld"><label>쿠폰 상한(원)</label><input id="couponCap" type="number" value="50000"></div>
+      </div>
+      <div class="two">
+        <div class="fld"><label>구매적립 %</label><input id="pointPct" type="number" value="3"></div>
+        <div class="fld"><label>쿠폰 최소구매</label><input id="couponMin" type="number" value="10000"></div>
+      </div>
+
+      <div class="divider"></div>
+      <h2>슈퍼적립형 규칙</h2>
+      <div class="two">
+        <div class="fld"><label>알림쿠폰(정액)</label><input id="alarmCoupon" type="number" value="1000"></div>
+        <div class="fld"><label>슈퍼적립 %</label><input id="superPct" type="number" value="10"></div>
+      </div>
+      <div class="fld">
+        <label>서브타이틀</label>
+        <input id="subtitle" value="이번 주만 이 가격">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 미리보기 ============ -->
+  <div>
+    <div class="tabs">
+      <button class="tab on" data-t="benefit">혜택가형 · 860×505</button>
+      <button class="tab" data-t="super">슈퍼적립형 · 860×310</button>
+    </div>
+
+    <div class="stage">
+      <canvas id="cv" width="860" height="505"></canvas>
+      <div class="size" id="sizeLabel">860 × 505 px</div>
+
+      <div class="calc" id="calcBox"></div>
+
+      <div class="btns">
+        <button class="act" id="dl">PNG로 저장</button>
+        <button class="act ghost" id="copy">클립보드에 복사</button>
+      </div>
+
+      <p class="note">
+        <b>계산식</b><br>
+        혜택가형 · 최대혜택가 = (즉시할인가 − 쿠폰할인) × (1 − 구매적립%)<br>
+        슈퍼적립형 · 최대혜택가 = (즉시할인가 − 알림쿠폰) × (1 − 슈퍼적립% − 구매적립%)<br>
+        할인율% = (정상가 − 최대혜택가) ÷ 정상가, 소수점 내림
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cv=$('cv'), ctx=cv.getContext('2d');
+let mode='benefit', productImg=null;
+
+const FONT='Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+const won=n=>Math.round(n).toLocaleString('ko-KR');
+const num=id=>Number($(id).value)||0;
+const cleanName=s=>s.replace(/\[[^\]]*\]/g,'').replace(/\s+/g,' ').trim();
+
+/* ---------- 계산 ---------- */
+function calc(){
+  const list=num('listPrice'), sale=num('salePrice');
+  // 혜택가형
+  let couponOff=0;
+  if(sale>=num('couponMin')) couponOff=Math.min(sale*num('couponPct')/100, num('couponCap'));
+  const afterCoupon=sale-couponOff;
+  const benefitFinal=afterCoupon*(1-num('pointPct')/100);
+  // 슈퍼적립형
+  const superFinal=(sale-num('alarmCoupon'))*(1-(num('superPct')+num('pointPct'))/100);
+
+  const rate=f=>list>0?Math.floor((list-f)/list*100):0;
+  return {list, sale, couponOff, afterCoupon,
+    benefitFinal, benefitRate:rate(benefitFinal),
+    superFinal,   superRate:rate(superFinal)};
+}
+
+/* ---------- 공통 그리기 ---------- */
+function rr(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+function badge(text,x,y,bg,fg,fs,padX,padY){
+  ctx.font='800 '+fs+'px '+FONT;
+  const w=ctx.measureText(text).width+padX*2, h=fs+padY*2;
+  ctx.fillStyle=bg; rr(x,y,w,h,h/2); ctx.fill();
+  ctx.fillStyle=fg; ctx.textBaseline='middle';
+  ctx.fillText(text,x+padX,y+h/2+1);
+  ctx.textBaseline='alphabetic';
+  return {w,h};
+}
+function strike(text,x,y,fs,color){
+  ctx.font='500 '+fs+'px '+FONT; ctx.fillStyle=color;
+  ctx.fillText(text,x,y);
+  const w=ctx.measureText(text).width;
+  ctx.fillRect(x,y-fs*0.32,w,1.6);
+  return w;
+}
+function drawProduct(x,y,w,h){
+  if(productImg){
+    const s=Math.max(w/productImg.width,h/productImg.height);
+    const dw=productImg.width*s, dh=productImg.height*s;
+    ctx.save(); rr(x,y,w,h,14); ctx.clip();
+    ctx.drawImage(productImg,x+(w-dw)/2,y+(h-dh)/2,dw,dh);
+    ctx.restore();
+  }else{
+    ctx.fillStyle='#F1F2F4'; rr(x,y,w,h,14); ctx.fill();
+    ctx.fillStyle='#B6BBC4'; ctx.font='600 15px '+FONT;
+    ctx.textAlign='center'; ctx.fillText('제품 이미지',x+w/2,y+h/2+5); ctx.textAlign='left';
+  }
+}
+
+/* ---------- 혜택가형 860×505 ---------- */
+function drawBenefit(c){
+  cv.width=860; cv.height=505;
+  ctx.fillStyle='#FFFFFF'; ctx.fillRect(0,0,860,505);
+  ctx.fillStyle='#FAFAFB'; ctx.fillRect(0,0,340,505);
+  drawProduct(28,28,284,449);
+
+  const L=372;
+  badge($('badge').value||'혜택',L,54,'#D8342B','#FFFFFF',15,16,9);
+
+  ctx.fillStyle='#1B2028'; ctx.font='800 34px '+FONT;
+  wrapText(cleanName($('pname').value),L,124,440,42,2);
+
+  ctx.font='500 17px '+FONT; ctx.fillStyle='#8A9099';
+  ctx.fillText('정상가',L,232);
+  strike(won(c.list)+'원',L+64,232,17,'#8A9099');
+
+  ctx.font='500 17px '+FONT; ctx.fillStyle='#6B7280';
+  ctx.fillText('즉시할인가',L,266);
+  ctx.font='700 18px '+FONT; ctx.fillStyle='#1B2028';
+  ctx.fillText(won(c.sale)+'원',L+92,266);
+
+  ctx.fillStyle='#EFEFF1'; ctx.fillRect(L,292,440,1);
+
+  ctx.font='700 17px '+FONT; ctx.fillStyle='#D8342B';
+  ctx.fillText('최대혜택가',L,330);
+  ctx.font='900 54px '+FONT; ctx.fillStyle='#D8342B';
+  ctx.fillText(won(c.benefitFinal)+'원',L,392);
+
+  const rb=badge(c.benefitRate+'%',L,414,'#FDECEB','#D8342B',20,14,8);
+  ctx.font='500 15px '+FONT; ctx.fillStyle='#6B7280';
+  ctx.fillText('쿠폰 '+won(c.couponOff)+'원 + 적립 '+num('pointPct')+'% 적용',L+rb.w+12,414+rb.h/2+5);
+}
+
+/* ---------- 슈퍼적립형 860×310 ---------- */
+function drawSuper(c){
+  cv.width=860; cv.height=310;
+  const g=ctx.createLinearGradient(0,0,860,310);
+  g.addColorStop(0,'#F7F2FF'); g.addColorStop(1,'#EFE7FE');
+  ctx.fillStyle=g; ctx.fillRect(0,0,860,310);
+  drawProduct(24,24,262,262);
+
+  const L=326;
+  badge('슈퍼적립 '+num('superPct')+'%',L,36,'#7A44FE','#FFFFFF',15,16,9);
+
+  ctx.font='600 16px '+FONT; ctx.fillStyle='#7A44FE';
+  ctx.fillText($('subtitle').value||'',L,100);
+
+  ctx.fillStyle='#1B2028'; ctx.font='800 30px '+FONT;
+  wrapText(cleanName($('pname').value),L,142,500,38,1);
+
+  let x=L;
+  x+=strike(won(c.list),x,180,16,'#A5A9B3')+14;
+  strike(won(c.sale),x,180,16,'#A5A9B3');
+
+  ctx.font='900 52px '+FONT; ctx.fillStyle='#7A44FE';
+  ctx.fillText(won(c.superFinal)+'원',L,242);
+
+  const w=ctx.measureText(won(c.superFinal)+'원').width;
+  badge(c.superRate+'%',L+w+16,206,'#7A44FE','#FFFFFF',20,14,8);
+
+  ctx.font='500 14px '+FONT; ctx.fillStyle='#7C6BA8';
+  ctx.fillText('알림쿠폰 '+won(num('alarmCoupon'))+'원 + 적립 '+(num('superPct')+num('pointPct'))+'% 적용',L,274);
+}
+
+function wrapText(text,x,y,maxW,lh,maxLines){
+  const words=text.split(' '); let line='', lines=[];
+  for(const w of words){
+    const t=line?line+' '+w:w;
+    if(ctx.measureText(t).width>maxW && line){ lines.push(line); line=w; }
+    else line=t;
+  }
+  if(line) lines.push(line);
+  lines.slice(0,maxLines).forEach((l,i)=>{
+    let s=l;
+    if(i===maxLines-1 && lines.length>maxLines){
+      while(ctx.measureText(s+'…').width>maxW && s.length>1) s=s.slice(0,-1);
+      s+='…';
+    }
+    ctx.fillText(s,x,y+i*lh);
+  });
+}
+
+/* ---------- 렌더 ---------- */
+function render(){
+  const c=calc();
+  ctx.setTransform(1,0,0,1,0,0);
+  if(mode==='benefit'){ drawBenefit(c); $('sizeLabel').textContent='860 × 505 px'; }
+  else               { drawSuper(c);   $('sizeLabel').textContent='860 × 310 px'; }
+
+  const f = mode==='benefit'?c.benefitFinal:c.superFinal;
+  const r = mode==='benefit'?c.benefitRate:c.superRate;
+  $('calcBox').innerHTML=
+    '<div><span>정상가</span><b>'+won(c.list)+'원</b></div>'+
+    '<div><span>즉시할인가</span><b>'+won(c.sale)+'원</b></div>'+
+    (mode==='benefit'
+      ? '<div><span>쿠폰 할인</span><b>−'+won(c.couponOff)+'원</b></div>'
+      : '<div><span>알림쿠폰</span><b>−'+won(num('alarmCoupon'))+'원</b></div>')+
+    '<div class="big"><span>최대혜택가</span><b>'+won(f)+'원</b></div>'+
+    '<div><span>할인율</span><b>'+r+'%</b></div>';
+}
+
+/* ---------- 이벤트 ---------- */
+document.querySelectorAll('input').forEach(el=>{
+  el.addEventListener('input',()=>{ if(el.type!=='file') render(); });
+});
+$('pimg').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const fr=new FileReader();
+  fr.onload=ev=>{ const im=new Image(); im.onload=()=>{productImg=im;render();}; im.src=ev.target.result; };
+  fr.readAsDataURL(f);
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on'); mode=t.dataset.t; render();
+  });
+});
+$('dl').addEventListener('click',()=>{
+  const name=(cleanName($('pname').value)||'배너')+'_'+(mode==='benefit'?'860x505':'860x310')+'.png';
+  const a=document.createElement('a');
+  a.download=name; a.href=cv.toDataURL('image/png'); a.click();
+});
+$('copy').addEventListener('click',async()=>{
+  try{
+    const blob=await new Promise(r=>cv.toBlob(r,'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+    $('copy').textContent='복사됨!';
+    setTimeout(()=>$('copy').textContent='클립보드에 복사',1500);
+  }catch(e){
+    $('copy').textContent='이 브라우저는 미지원';
+    setTimeout(()=>$('copy').textContent='클립보드에 복사',1800);
+  }
+});
+
+render();
+</script>
+</body>
+</html>
