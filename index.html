@@ -899,7 +899,7 @@ body{padding-top:46px}
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
       <div class="form-b">
         <ol class="steps">
-          <li><b>구글폼에 정보를 남깁니다</b><span>이름 · 연락처 · 이메일 · 지금 제일 손이 많이 가는 업무</span></li>
+          <li><b>아래에 정보를 남깁니다</b><span>이름 · 연락처 · 이메일 · 지금 제일 손이 많이 가는 업무</span></li>
           <li><b>제출하면 첫 도구가 바로 받아집니다</b><span>배너 이미지 생성 파일이 그 자리에서 받아집니다</span></li>
           <li><b>2주차부터는 매주 하나씩</b><span>발송일에 알림톡 한 줄 · 8주면 끝납니다</span></li>
           <li><b>3주차에 한 줄만 답장</b><span>“썼다” 또는 “안 썼다”. 이게 이 자료의 값입니다</span></li>
@@ -1640,12 +1640,14 @@ function sbShow(kind,text){
 }
 function gotoForm(){
   try{ track("cta_to_form",{}); }catch(e){}
-  go(3);
+  var f=document.getElementById("sbForm");
+  if(!f) return;
+  var y=f.getBoundingClientRect().top+window.scrollY-90;
+  window.scrollTo({top:y,behavior:"smooth"});
   setTimeout(function(){
-    var f=document.getElementById("sbForm");
-    if(f) f.scrollIntoView({behavior:"smooth",block:"start"});
-    var n=document.getElementById("f-name"); if(n) setTimeout(function(){n.focus();},450);
-  },120);
+    var n=document.getElementById("f-name");
+    if(n && window.innerWidth>760) n.focus({preventScroll:true});
+  },700);
 }
 function sbInit(){
   var f=document.getElementById("sbForm"); if(!f) return;
