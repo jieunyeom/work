@@ -1619,7 +1619,7 @@ safe(function(){renderPains('empathy','painEmpathy');},'pains');safe(renderTiers
 
 /* ===== 신청 폼 → Supabase ===== */
 function sbFill(){
-  var sel=document.getElementById("f-task"); if(!sel||!window.TASKS) return;
+  var sel=document.getElementById("f-task"); if(!sel||typeof TASKS==="undefined") return;
   TASKS.forEach(function(t){
     var o=document.createElement("option");
     o.value=t.name; o.textContent=(t.frequency==="daily"?"[매일] ":"[매주] ")+t.name;
