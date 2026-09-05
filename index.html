@@ -1608,7 +1608,7 @@ function updateBar(){
       ? `선착순 공개`
       : `<b>마감</b>`;
     cta.textContent='신청하고 파일 받기';cta.disabled=false;
-    cta.onclick=openForm;}
+    cta.onclick=gotoForm;}
   else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='파일 다운로드';
     cta.disabled=false;cta.onclick=()=>startDownload('bar');}
   else bar.classList.remove('on');
@@ -1637,6 +1637,15 @@ function sbBad(id,on){var el=document.getElementById(id); if(el) el.classList.to
 function sbShow(kind,text){
   var m=document.getElementById("sbMsg"); if(!m) return;
   m.className="sb-msg "+kind; m.textContent=text;
+}
+function gotoForm(){
+  try{ track("cta_to_form",{}); }catch(e){}
+  go(3);
+  setTimeout(function(){
+    var f=document.getElementById("sbForm");
+    if(f) f.scrollIntoView({behavior:"smooth",block:"start"});
+    var n=document.getElementById("f-name"); if(n) setTimeout(function(){n.focus();},450);
+  },120);
 }
 function sbInit(){
   var f=document.getElementById("sbForm"); if(!f) return;
@@ -1670,6 +1679,7 @@ function sbInit(){
         source:(location.search||"").replace("?","")||"direct"})
     }).then(function(r){
       if(r.status>=200&&r.status<300){
+        state.unlocked=true;
         try{ localStorage.setItem("dl_ok","1"); }catch(e){}
         try{ track("signup_done",{}); }catch(e){}
         sbSeats();
@@ -1689,10 +1699,11 @@ safe(sbInit,"signup");
 
 safe(renderTopbar,'topbar');safe(renderWeeks,'weeks');safe(renderGrid,'grid');safe(renderProof,'proof');safe(renderLiveMap,'map');safe(updateBar,'bar');
 
-const gf=document.getElementById('goForm'); if(gf) gf.onclick=openForm;
+const gf=document.getElementById('goForm'); if(gf) gf.onclick=gotoForm;
 const db=document.getElementById('dlBtn');  if(db) db.onclick=()=>startDownload('card');
 
 /* 구글폼 확인 메시지 → ?dl=1&k=열쇠 로 돌아옵니다 */
+try{ if(localStorage.getItem("dl_ok")==="1") state.unlocked=true; }catch(e){}
 const gate=checkGate();
 if(gate==='ok'){
   state.unlocked=true;
