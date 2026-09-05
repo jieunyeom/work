@@ -1654,7 +1654,7 @@ function sbInit(){
     var bad=false;
     sbBad("r-name",!name); if(!name) bad=true;
     var okPhone=/^01[0-9]{8,9}$/.test(phone); sbBad("r-phone",!okPhone); if(!okPhone) bad=true;
-    var okMail=/^[^@s]+@[^@s]+.[^@s]+$/.test(email); sbBad("r-email",!okMail); if(!okMail) bad=true;
+    var okMail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email); sbBad("r-email",!okMail); if(!okMail) bad=true;
     var pe=document.getElementById("e-privacy"); if(pe) pe.style.display=ok1?"none":"block";
     if(!ok1) bad=true;
     if(bad){ sbShow("err","빨간 표시된 곳을 확인해 주세요."); return; }
