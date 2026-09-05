@@ -1128,6 +1128,8 @@ const META={
      비워두면 그냥 빈 폼으로 열립니다. */
   ENTRY_SOURCE:'',
   DRIVE_ID:'1k_pn3lgLF3DA15dV1RcgBZeL5OsDroPP',
+  /* 같은 서버에 올린 도구 파일. 값이 있으면 드라이브 대신 이걸 씁니다 */
+  FILE_URL:'',   /* ← 도구 HTML 올린 뒤 '/tools/배너이미지-자동생성.html' 로 채우면 드라이브 대신 이걸 씁니다 */
   FILE_NAME:'배너이미지_자동생성.zip',
   /* 구글폼 '확인 메시지'에만 넣는 열쇠. 이 값이 맞아야 다운로드가 열립니다.
      확인 메시지 링크 예: https://내주소/?dl=1&k=bmk-2609 */
@@ -1576,15 +1578,17 @@ function checkGate(){
 
 function startDownload(where){
   if(!state.unlocked){ track('download_blocked',{from:where||'page'}); return false; }
-  if(!META.DRIVE_ID || META.DRIVE_ID.includes('REPLACE')){
+  if(!META.FILE_URL && (!META.DRIVE_ID || META.DRIVE_ID.includes('REPLACE'))){
     track('download_misconfig',{});
     const b=document.getElementById('dlNote');
     if(b) b.textContent='파일 링크가 아직 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.';
     return false;
   }
   track('file_download',{file:META.FILE_NAME,from:where||'page'});
-  const a=document.createElement('a');
-  a.href=driveURL(); a.rel='noopener'; a.download='';
+  var href = META.FILE_URL ? META.FILE_URL : driveURL();
+  var a=document.createElement('a');
+  a.href=href; a.rel='noopener';
+  a.setAttribute('download', META.FILE_NAME || '');
   document.body.appendChild(a); a.click(); a.remove();
   return true;
 }
