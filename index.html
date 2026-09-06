@@ -111,7 +111,8 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 h1{font-size:38px;line-height:1.18;font-weight:900;letter-spacing:-.035em;margin:0 0 24px}
 h2{font-size:27px;line-height:1.28;font-weight:800;letter-spacing:-.03em;margin:0 0 12px}
 h3{font-size:20px;font-weight:800;margin:0 0 12px}
-.lede{color:var(--muted);font-size:16px;line-height:1.68;margin:0;font-weight:500}
+.lede{color:var(--muted);font-size:16.5px;line-height:1.95;margin:0;font-weight:500}
+@media(min-width:620px){ .lede{font-size:18px;line-height:2.05} }
 .mini-lede{color:var(--muted);font-size:14px;font-weight:500;margin:0}
 
 /* ===== cards ===== */
@@ -715,7 +716,7 @@ body{padding-top:46px}
 .cta:disabled{background:#DDD8E8;color:#A9A2B4;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
 
 @media (min-width:620px){
-  .shell{max-width:640px}
+  .shell{max-width:760px}
   h1{font-size:52px} h2{font-size:34px}
   .mg{grid-template-columns:repeat(4,1fr)}
   .proof-i{width:380px}
@@ -826,7 +827,8 @@ body{padding-top:46px}
 /* ── 섹션 리듬 ───────────────────────── */
 .sect{margin-top:72px}
 .pain-h{margin-top:64px}
-.pain{margin-top:22px}
+.pain-h h2{line-height:1.4}
+.pain{margin-top:30px}
 .cmp{margin:64px 0 6px}
 .who{margin:64px 0 6px}
 .story{margin:56px 0}
@@ -841,7 +843,7 @@ body{padding-top:46px}
   letter-spacing:.14em;color:#A78BFA;margin:0 0 12px}
 
 /* 목소리 = 말풍선 */
-.pain p{position:relative;margin:0 0 14px;border-radius:18px;padding:17px 20px;
+.pain p{position:relative;margin:0 0 18px;border-radius:18px;padding:21px 24px;line-height:1.7;
   font-size:14.5px;line-height:1.7;font-weight:600;background:#fff;color:#4A4458;
   border:1px solid #E7E4EE;box-shadow:0 6px 18px -14px rgba(46,40,56,.5);transition:.25s}
 .pain p:nth-child(2n){background:#6D28D9;color:#fff;border-color:#6D28D9;
@@ -854,14 +856,15 @@ body{padding-top:46px}
 .pain-end span{color:#7C3AED}
 
 /* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:60px 18px}
+.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:76px 18px}
+@media(min-width:700px){ .band{padding:104px 18px} }
 .band-in{max-width:520px;margin:0 auto}
 .band.soft{background:#F4F1FA}
 .band.plain{background:#fff}
 .band.deep{background:#EFEAF7}
 .band .sect:first-child,.band .pain-h:first-child{margin-top:0}
 html,body{overflow-x:hidden}
-@media(min-width:700px){ .band-in{max-width:640px} }
+@media(min-width:700px){ .band-in{max-width:760px} }
 .rule{display:none}
 
 /* ── FAQ ───────────────────────────── */
