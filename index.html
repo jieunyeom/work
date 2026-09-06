@@ -822,6 +822,36 @@ body{padding-top:46px}
 .cmp-c.new li::before{content:"✓";background:#EDE6FF;color:#6D28D9}
 .cmp-c.old li{color:#7D7590}
 .cmp-c.new li{color:#2E2838}
+
+/* ── 섹션 리듬 ───────────────────────── */
+.sect{margin-top:72px}
+.pain-h{margin-top:64px}
+.pain{margin-top:22px}
+.cmp{margin:64px 0 6px}
+.who{margin:64px 0 6px}
+.story{margin:56px 0}
+.demo{margin-top:26px !important}
+
+/* 구간 구분선 — 얇게, 넓게 */
+.rule{height:1px;background:linear-gradient(90deg,transparent,#DDD7EA 22%,#DDD7EA 78%,transparent);
+  margin:64px 0;border:0}
+
+/* 구간 라벨 */
+.tag{display:block;font-family:var(--head);font-size:11.5px;font-weight:900;
+  letter-spacing:.14em;color:#A78BFA;margin:0 0 12px}
+
+/* 목소리 = 말풍선 */
+.pain p{position:relative;margin:0 0 14px;border-radius:18px;padding:17px 20px;
+  font-size:14.5px;line-height:1.7;font-weight:600;background:#fff;color:#4A4458;
+  border:1px solid #E7E4EE;box-shadow:0 6px 18px -14px rgba(46,40,56,.5);transition:.25s}
+.pain p:nth-child(2n){background:#6D28D9;color:#fff;border-color:#6D28D9;
+  box-shadow:0 12px 26px -14px rgba(109,40,217,.65)}
+.pain p:nth-child(2n) b{color:#fff}
+.pain p:hover{transform:translateY(-2px)}
+.pain b{font-weight:800}
+.pain-end{margin:18px 0 0;font-family:var(--head);font-size:15px;font-weight:900;
+  letter-spacing:-.03em;color:#2E2838;text-align:center}
+.pain-end span{color:#7C3AED}
 </style>
 </head>
 <body>
@@ -849,10 +879,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="hero-cta" onclick="gotoForm()">지금 신청하고 첫 도구 받기 →</button>
     <p class="hero-sub">이름과 이메일만 · 1분이면 끝납니다</p>
 
+    <hr class="rule">
     <div class="pain-h">
+      <span class="tag">SOUND FAMILIAR?</span>
       <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
     </div>
     <div class="pain" id="painEmpathy"></div>
+    <p class="pain-end">하나라도 익숙하시다면, <span>이 도구들이 그 자리를 대신합니다.</span></p>
 
     <div class="core" style="margin-top:30px">
       <div class="k">그래서</div>
@@ -869,6 +902,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="pf-d">HTML 파일 하나. 링크만 열면 그 자리에서 씁니다</div></div>
     </div>
 
+    <hr class="rule">
     <div class="story">
       <h3>왜 만들었냐면</h3>
       <p>이커머스 담당자라면 아실 겁니다. <b>해야 할 일이 정해져 있지 않고, 쳐내도 계속 나옵니다.</b></p>
@@ -988,6 +1022,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>0원으로 여는 건 이번 8주뿐입니다.</p>
   </div>
 
+    <hr class="rule">
     <div class="who">
       <p class="role">WHO MADE THIS</p>
       <h4>이커머스 마케터 · 5년차</h4>
