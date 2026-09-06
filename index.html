@@ -1178,6 +1178,7 @@ const META={
      구글폼 응답 수를 자동으로 읽어올 수는 없어서, 이 숫자가 곧 화면 표시입니다. */
   SUPABASE_URL:'https://rpchylubijrpzfywbxhp.supabase.co',
   SUPABASE_KEY:'sb_publishable_eRyzvnB4O666FN_gTqP9EA_M_8H7s9Z',
+  MAIL_URL:'https://script.google.com/macros/s/AKfycbwDWKJwRaQfnBJlSwW5n5Q57FxLCQ7gRwjIWFTs1veQcg54D-CIyymamE_SH-CaLck/exec',
   SEATS_TOTAL:10,
   SEATS_LEFT:10
 };
@@ -1667,6 +1668,18 @@ function utmCapture(){
 function utmGet(){
   try{ return JSON.parse(sessionStorage.getItem("utm")||"{}"); }catch(e){ return {}; }
 }
+function sendWelcome(name,email){
+  if(!META.MAIL_URL) return;
+  try{
+    fetch(META.MAIL_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({name:name,email:email})
+    }).catch(function(){});
+    track("welcome_mail_sent",{});
+  }catch(e){}
+}
 function sbSeats(){
   fetch(META.SUPABASE_URL+"/rest/v1/rpc/seats_left",{method:"POST",
     headers:{apikey:META.SUPABASE_KEY,"Content-Type":"application/json"},body:"{}"})
@@ -1723,6 +1736,7 @@ function sbInit(){
     }).then(function(r){
       if(r.status>=200&&r.status<300){
         state.unlocked=true;
+        sendWelcome(name,email);
         try{ localStorage.setItem("dl_ok","1"); }catch(e){}
         try{ track("signup_done",{}); }catch(e){}
         sbSeats();
