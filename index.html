@@ -804,6 +804,24 @@ body{padding-top:46px}
 .voice-c .who2{font-size:12px;color:#8B8496;font-weight:700}
 .voice-e{background:#F7F6FA;border:1px dashed #D6D0E2;border-radius:14px;padding:15px 16px;margin-bottom:9px;
   font-size:12.5px;color:#9A93AC;font-weight:700}
+
+/* 히어로 CTA */
+.hero-cta{display:block;width:100%;max-width:340px;margin:26px 0 8px;background:#7C3AED;color:#fff;
+  border:0;border-radius:14px;padding:17px 22px;font-family:var(--head);font-size:16px;font-weight:900;
+  letter-spacing:-.03em;cursor:pointer;box-shadow:0 8px 22px -8px rgba(124,58,237,.55)}
+.hero-cta:active{transform:scale(.985)}
+.hero-sub{font-size:12.5px;color:#8B8496;margin:0 0 6px;font-weight:600}
+/* 비교 카드 */
+.cmp-c{position:relative}
+.cmp-c.old{background:#F3F1F7;border:1px solid #E3DFEA}
+.cmp-c.new{background:#fff;border:1.5px solid #A78BFA;box-shadow:0 10px 28px -14px rgba(124,58,237,.35)}
+.cmp-c li{display:flex;gap:8px;align-items:flex-start;border-top:1px solid rgba(0,0,0,.055)}
+.cmp-c li::before{flex:none;width:18px;height:18px;border-radius:50%;margin-top:2px;
+  display:grid;place-items:center;font-size:11px;font-weight:900;line-height:1}
+.cmp-c.old li::before{content:"✕";background:#DFDAE6;color:#7D7590}
+.cmp-c.new li::before{content:"✓";background:#EDE6FF;color:#6D28D9}
+.cmp-c.old li{color:#7D7590}
+.cmp-c.new li{color:#2E2838}
 </style>
 </head>
 <body>
@@ -828,6 +846,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1>이거만 해도<br>퇴근이<br>빨라집니다</h1>
     <p class="lede">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다.<br>
       제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.<br><b>선착순 10명</b>, 값 대신 <b>받아보신 도구에 대한 짧은 피드백</b>만 받습니다.</p>
+    <button class="hero-cta" onclick="gotoForm()">지금 신청하고 첫 도구 받기 →</button>
+    <p class="hero-sub">이름과 이메일만 · 1분이면 끝납니다</p>
 
     <div class="pain-h">
       <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
@@ -978,12 +998,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><b>파이썬 · 클로드</b> — 외주 견적을 받다가 결국 직접 만들었습니다</li>
         <li><b>지금도 사용 중</b> — 만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</li>
       </ul>
-    </div>
-
-    <div class="voice">
-      <p class="voice-note">이제 막 시작했습니다. 받은 이야기만 그대로 올리고, <b>빈자리는 비워 둡니다.</b></p>
-      <div class="voice-e">첫 번째 자리 — 도구를 받아보신 분의 이야기가 들어갑니다</div>
-      <div class="voice-e">두 번째 자리 — 선착순 10명 안에서 채워집니다</div>
     </div>
 
     <div class="form" id="formBox">
