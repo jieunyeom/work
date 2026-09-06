@@ -1005,7 +1005,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="top">
     <p class="eyebrow">신청 완료</p>
     <h1>첫 번째 도구,<br>받으셨습니다.</h1>
-    <p class="lede">다운로드가 자동으로 시작됩니다. 안 되면 아래 버튼을 눌러주세요.</p>
+    <p class="lede">아래 버튼을 누르면 새 창에서 바로 열립니다.<br>같은 내용을 메일로도 보내드렸어요.</p>
 
     <div class="dlcard">
       <div class="dlcard-h">
@@ -1013,7 +1013,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span><b>제품 배너 생성기</b>
         <span class="dlsub">단일 HTML · 설치 없이 브라우저에서 실행</span></span>
       </div>
-      <button class="submit" id="dlBtn" style="margin-top:18px">다시 다운로드</button>
+      <button class="submit" id="dlBtn" style="margin-top:18px">도구 열기 →</button>
       <p class="dl-note" id="dlNote"></p>
     </div>
 
@@ -1616,6 +1616,8 @@ function startDownload(where){
     a.href=href; a.rel='noopener'; a.download='';
     document.body.appendChild(a); a.click(); a.remove();
   }
+  var n=document.getElementById('dlNote');
+  if(n) n.textContent='새 창이 열리지 않으면 팝업 차단을 확인해 주세요. 메일로도 링크를 보내드렸습니다.';
   return true;
 }
 
@@ -1639,7 +1641,7 @@ function updateBar(){
       : `<b>마감</b>`;
     cta.textContent='신청하고 파일 받기';cta.disabled=false;
     cta.onclick=gotoForm;}
-  else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='파일 다운로드';
+  else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='도구 열기 →';
     cta.disabled=false;cta.onclick=()=>startDownload('bar');}
   else bar.classList.remove('on');
 }
@@ -1741,7 +1743,6 @@ function sbInit(){
         try{ track("signup_done",{}); }catch(e){}
         sbSeats();
         go(5);
-        setTimeout(function(){ try{ startDownload("form"); }catch(e){} },400);
       }else{
         return r.text().then(function(t){ throw new Error(t||("HTTP "+r.status)); });
       }
