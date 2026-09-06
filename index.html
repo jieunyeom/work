@@ -103,8 +103,9 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 .screen{display:none;padding-bottom:130px}
 .screen.on{display:block;animation:in .4s ease both}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.top{padding-top:96px;padding-bottom:56px}
-@media(min-width:620px){ .top{padding-top:130px;padding-bottom:80px} }
+.top{padding-top:96px;padding-bottom:0}
+@media(min-width:620px){ .top{padding-top:130px;padding-bottom:0} }
+.top .band:first-of-type{margin-top:56px}
 
 /* ===== type ===== */
 .eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
@@ -857,13 +858,13 @@ body{padding-top:46px}
 .pain-end span{color:#7C3AED}
 
 /* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:100px 18px}
-@media(min-width:700px){ .band{padding:140px 18px} }
+.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:80px 18px}
+@media(min-width:700px){ .band{padding:104px 18px} }
 .band-in{max-width:520px;margin:0 auto}
 .band.soft{background:#F4F1FA}
 .band.plain{background:#fff}
 .band.deep{background:#EFEAF7}
-.band .sect:first-child,.band .pain-h:first-child{margin-top:0}
+.band-in>*:first-child{margin-top:0!important}
 html,body{overflow-x:hidden}
 @media(min-width:700px){ .band-in{max-width:760px} }
 .rule{display:none}
