@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>약관 및 방침 · 이커머스 도구 8개</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B2028;--muted:#6B7280;--line:#E7E4EE;--bg:#F7F6FA;--pt:#7C3AED}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:15px;line-height:1.8;padding:0 16px 80px}
+.top{max-width:720px;margin:0 auto;padding:22px 0 0}
+.back{display:inline-block;font-size:13px;font-weight:700;color:var(--pt);text-decoration:none}
+.tabs{display:flex;gap:8px;margin:16px 0 20px;flex-wrap:wrap}
+.tabs a{font-size:13.5px;font-weight:700;text-decoration:none;color:var(--muted);
+  background:#fff;border:1px solid var(--line);border-radius:9999px;padding:9px 16px}
+.tabs a.on{background:var(--pt);color:#fff;border-color:var(--pt)}
+main{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:30px 26px}
+main h1{font-size:23px;font-weight:800;letter-spacing:-.03em;margin:0 0 18px}
+main h2{font-size:17px;font-weight:800;letter-spacing:-.02em;margin:32px 0 10px;padding-top:18px;border-top:1px solid #F1EFF6}
+main h2:first-of-type{border-top:0;padding-top:0}
+main h3{font-size:15px;font-weight:800;margin:22px 0 8px}
+main p{margin:10px 0}
+main ul,main ol{padding-left:20px;margin:10px 0}
+main li{margin:5px 0}
+main table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+main th,main td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+main th{background:#FAF9FD;font-weight:800;font-size:12.5px;color:var(--muted)}
+main blockquote{margin:14px 0;padding:12px 16px;background:#F7F6FA;border-radius:10px;
+  color:var(--muted);font-size:13.5px}
+main blockquote p{margin:4px 0}
+main hr{border:0;border-top:1px solid #F1EFF6;margin:26px 0}
+main code{background:#F2EFF8;padding:2px 6px;border-radius:5px;font-size:13px}
+.todo{background:#FEF3C7;color:#92400E;font-weight:700;font-size:12.5px;
+  padding:2px 8px;border-radius:6px;white-space:nowrap}
+.loading{color:var(--muted);font-size:14px}
+footer{max-width:720px;margin:22px auto 0;font-size:12.5px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="back" href="/">← 신청 페이지로</a>
+  <div class="tabs">
+    <a href="?doc=privacy" id="t-privacy">개인정보 처리방침</a>
+    <a href="?doc=consent" id="t-consent">마케팅 수신동의</a>
+    <a href="?doc=terms"   id="t-terms">서비스 이용약관</a>
+  </div>
+</div>
+<main id="doc"><p class="loading">불러오는 중…</p></main>
+<footer>
+  이 문서는 <b>1차안</b>입니다. 노란색으로 표시된 부분은 아직 정해지지 않았습니다.<br>
+  문의 · 수신 중단 요청은 각 문서에 안내된 연락처로 보내주세요.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script>
+var docs={privacy:'개인정보 처리방침',consent:'마케팅 수신동의',terms:'서비스 이용약관'};
+var q=new URLSearchParams(location.search);
+var key=q.get('doc'); if(!docs[key]) key='privacy';
+document.title=docs[key]+' · 이커머스 도구 8개';
+var tab=document.getElementById('t-'+key); if(tab) tab.className='on';
+
+fetch('/legal/'+key+'.md')
+  .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
+  .then(function(md){
+    var html=marked.parse(md);
+    html=html.replace(/\[\[([^\]]+)\]\]/g,'<span class="todo">미정 · $1</span>');
+    document.getElementById('doc').innerHTML=html;
+  })
+  .catch(function(){
+    document.getElementById('doc').innerHTML='<p class="loading">문서를 불러오지 못했습니다. 잠시 후 다시 열어주세요.</p>';
+  });
+</script>
+</body>
+</html>
