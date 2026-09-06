@@ -103,7 +103,8 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 .screen{display:none;padding-bottom:130px}
 .screen.on{display:block;animation:in .4s ease both}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.top{padding-top:72px;padding-bottom:34px}
+.top{padding-top:96px;padding-bottom:56px}
+@media(min-width:620px){ .top{padding-top:130px;padding-bottom:80px} }
 
 /* ===== type ===== */
 .eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
@@ -254,7 +255,7 @@ body{padding-top:46px}
 
 /* ===== 스텝 목록 ===== */
 .steps{list-style:none;margin:0;padding:0;counter-reset:st}
-.steps li{counter-increment:st;position:relative;padding-left:44px;margin-bottom:18px}
+.steps li{counter-increment:st;position:relative;padding-left:44px;margin-bottom:30px}
 .steps li:last-child{margin-bottom:0}
 .steps li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;
   border-radius:14px;background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;
@@ -262,7 +263,7 @@ body{padding-top:46px}
   justify-content:center;box-shadow:6px 6px 14px rgba(139,92,246,.25)}
 .steps li b{display:block;font-family:var(--head);font-size:16px;font-weight:800;
   letter-spacing:-.03em;line-height:1.4;margin-bottom:4px}
-.steps li span{display:block;font-size:14px;color:var(--muted);line-height:1.6;font-weight:500}
+.steps li span{display:block;font-size:14px;color:var(--muted);line-height:1.75;font-weight:500;margin-top:5px}
 
 /* ===== 게이트 안내 ===== */
 .gate-note{display:none;background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;
@@ -630,7 +631,7 @@ body{padding-top:46px}
 /* ===== form ===== */
 .form{border-radius:40px;overflow:hidden;background:rgba(255,255,255,.82);backdrop-filter:blur(20px);
   box-shadow:var(--clayCard)}
-.form-h{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;padding:24px}
+.form-h{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:#fff;padding:32px 26px}
 .form-h b{display:block;font-family:var(--head);font-size:21px;font-weight:900;letter-spacing:-.03em}
 .form-h span{font-size:13px;opacity:.85;font-weight:500}
 .form-b{padding:24px}
@@ -743,7 +744,7 @@ body{padding-top:46px}
   .cmp-g{gap:8px}
   .cmp-h{font-size:19px}
 }
-.share{margin:30px 0 6px;padding:20px 16px;border-radius:16px;background:#F2ECFF;border:1px solid #D9C9FF;text-align:center}
+.share{margin:48px 0 6px;padding:30px 20px;border-radius:16px;background:#F2ECFF;border:1px solid #D9C9FF;text-align:center}
 .share h4{font-family:var(--head);font-size:16px;font-weight:900;color:#4C2F9E;margin:0 0 6px;letter-spacing:-.03em}
 .share p{font-size:13px;line-height:1.6;color:#6B5B95;margin:0 0 14px}
 .share-b{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -793,7 +794,7 @@ body{padding-top:46px}
 .who{margin:30px 0 6px;background:#fff;border:1px solid #E7E4EE;border-radius:16px;padding:20px 18px}
 .who h4{font-family:var(--head);font-size:16px;font-weight:900;letter-spacing:-.03em;margin:0 0 4px;color:#2E2838}
 .who .role{font-size:12.5px;font-weight:700;color:#7C3AED;margin:0 0 12px}
-.who p{font-size:13.5px;line-height:1.75;color:#4A4458;margin:0 0 10px}
+.who p{font-size:14px;line-height:1.95;color:#4A4458;margin:0 0 14px}
 .who ul{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid #F1EFF6;padding-top:12px}
 .who li{font-size:12.5px;color:#6B6478;padding:4px 0;font-weight:600}
 .who li b{color:#2E2838}
@@ -825,12 +826,12 @@ body{padding-top:46px}
 .cmp-c.new li{color:#2E2838}
 
 /* ── 섹션 리듬 ───────────────────────── */
-.sect{margin-top:72px}
-.pain-h{margin-top:64px}
+.sect{margin-top:104px}
+.pain-h{margin-top:88px}
 .pain-h h2{line-height:1.4}
 .pain{margin-top:30px}
 .cmp{margin:64px 0 6px}
-.who{margin:64px 0 6px}
+.who{margin:88px 0 6px}
 .story{margin:56px 0}
 .demo{margin-top:26px !important}
 
@@ -856,8 +857,8 @@ body{padding-top:46px}
 .pain-end span{color:#7C3AED}
 
 /* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:76px 18px}
-@media(min-width:700px){ .band{padding:104px 18px} }
+.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:100px 18px}
+@media(min-width:700px){ .band{padding:140px 18px} }
 .band-in{max-width:520px;margin:0 auto}
 .band.soft{background:#F4F1FA}
 .band.plain{background:#fff}
