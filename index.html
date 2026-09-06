@@ -852,6 +852,30 @@ body{padding-top:46px}
 .pain-end{margin:18px 0 0;font-family:var(--head);font-size:15px;font-weight:900;
   letter-spacing:-.03em;color:#2E2838;text-align:center}
 .pain-end span{color:#7C3AED}
+
+/* ── 배경 띠로 구간 나누기 ───────────── */
+.band{margin:0 -18px;padding:64px 18px;position:relative}
+.band-in{max-width:520px;margin:0 auto}
+.band.soft{background:#F4F1FA}
+.band.plain{background:#fff}
+.band.deep{background:#F1EDF9}
+@media(min-width:700px){ .band{margin:0 calc((100% - 640px)/2 * -1 - 18px);padding-left:calc((100% - 604px)/2);padding-right:calc((100% - 604px)/2)} }
+.band .sect:first-child,.band .pain-h:first-child,.band > .tag:first-child{margin-top:0}
+.rule{display:none}
+
+/* ── FAQ ───────────────────────────── */
+.faq{margin-top:20px}
+.faq details{background:#fff;border:1px solid #E7E4EE;border-radius:14px;margin-bottom:9px;
+  overflow:hidden;transition:border-color .2s}
+.faq details[open]{border-color:#C9B6FF}
+.faq summary{list-style:none;cursor:pointer;padding:16px 18px;font-family:var(--head);
+  font-size:14.5px;font-weight:800;letter-spacing:-.02em;color:#2E2838;
+  display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:19px;font-weight:800;color:#A78BFA;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq .a{padding:0 18px 17px;font-size:13.5px;line-height:1.8;color:#5A5170}
+.faq .a b{color:#2E2838}
 </style>
 </head>
 <body>
@@ -879,13 +903,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="hero-cta" onclick="gotoForm()">지금 신청하고 첫 도구 받기 →</button>
     <p class="hero-sub">이름과 이메일만 · 1분이면 끝납니다</p>
 
-    <hr class="rule">
+    <div class="band soft"><div class="band-in">
     <div class="pain-h">
       <span class="tag">SOUND FAMILIAR?</span>
       <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
     </div>
     <div class="pain" id="painEmpathy"></div>
     <p class="pain-end">하나라도 익숙하시다면, <span>이 도구들이 그 자리를 대신합니다.</span></p>
+    </div></div>
 
     <div class="core" style="margin-top:30px">
       <div class="k">그래서</div>
@@ -912,6 +937,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
       <p class="sig">— 이커머스 마케터 · 5년차</p>
     </div>
+    <div class="band plain"><div class="band-in">
     <div class="sect">
       <p class="eyebrow" style="margin-bottom:10px">이 페이지가 다루는 것</p>
       <h2>반복만 다룹니다.<br>딱 그것만요</h2>
@@ -923,6 +949,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="lay-t">그만큼 <b>성과를 볼 시간이 생깁니다.</b> 손이 비어야 머리가 돕니다.</span></div>
     </div>
 
+    </div></div>
+
+    <div class="band soft"><div class="band-in">
     <div class="sect">
       <p class="eyebrow" style="margin-bottom:10px">이커머스 업무 전체</p>
       <h2>신규 상품 하나가<br>이 8칸을 다 지나갑니다</h2>
@@ -970,6 +999,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="hero-cap">이제 <b>정상가와 행사가만 넣습니다.</b> 나머지는 파일이 계산합니다.<br>
       규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
 
+    </div></div>
+
+    <div class="band plain"><div class="band-in">
     <div class="sect">
       <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
     </div>
@@ -981,6 +1013,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="punch">설치도, 로그인도, 구독도 없습니다.<br>링크를 열면 그 자리에서 바로 씁니다.</div>
     </div>
 
+    </div></div>
+
+    <div class="band deep"><div class="band-in">
     <div class="sect">
       <h2>8주 뒤에,<br>도구 8개가 남습니다</h2>
       <p class="lede" style="margin-top:12px">한 주에 하나씩. <b>지금 어떻게 하고 있는지</b>와 <b>이후에 어떻게 바뀌는지</b>를 같이 보냅니다.</p>
@@ -1022,7 +1057,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>0원으로 여는 건 이번 8주뿐입니다.</p>
   </div>
 
-    <hr class="rule">
+    </div></div>
+
+    <div class="band plain"><div class="band-in">
     <div class="who">
       <p class="role">WHO MADE THIS</p>
       <h4>이커머스 마케터 · 5년차</h4>
@@ -1034,6 +1071,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><b>지금도 사용 중</b> — 만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</li>
       </ul>
     </div>
+    </div></div>
 
     <div class="form" id="formBox">
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
