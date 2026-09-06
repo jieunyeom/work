@@ -18,6 +18,7 @@ const CFG = {
   FROM_NAME : '케켈',
   TOOL_URL  : 'https://work-jiuen.vercel.app/tools/banner-maker.html',
   SITE_URL  : 'https://work-jiuen.vercel.app',
+  CONTACT   : 'todo1nothing@gmail.com',
   BCC       : ''   // 받은 것을 본인도 보관하려면 본인 메일 주소를 넣으세요
 };
 
@@ -87,6 +88,9 @@ function html(name){
   + '<span style="color:#6B7280">한두 줄이면 충분합니다. 안 쓰셨다면 왜 안 쓰게 됐는지가 저에게는 더 중요한 정보예요.</span></p></div>'
   + '<p style="color:#6B7280;font-size:13px">— ' + CFG.FROM_NAME + '<br>'
   + '<a href="' + CFG.SITE_URL + '" style="color:#7C3AED">' + CFG.SITE_URL + '</a></p>'
+  + '<p style="color:#9A93AC;font-size:12px;border-top:1px solid #EFEDF3;padding-top:12px">'
+  + '더 이상 받고 싶지 않으시면 이 메일에 그대로 회신하시거나 '
+  + '<a href="mailto:' + CFG.CONTACT + '" style="color:#8B8496">' + CFG.CONTACT + '</a> 로 알려주세요. 즉시 중단합니다.</p>'
   + '</div>';
 }
 
