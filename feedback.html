@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>피드백 · 이커머스 도구 8개</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B2028;--muted:#6B7280;--line:#E7E4EE;--bg:#F5F4F9;--pt:#7C3AED;--pt2:#F2ECFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:15px;line-height:1.75;padding:26px 16px 70px}
+.wrap{max-width:560px;margin:0 auto}
+h1{font-size:23px;font-weight:800;letter-spacing:-.035em;line-height:1.35;margin:0 0 8px}
+.lede{font-size:14.5px;color:var(--muted);margin:0 0 22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.pick{display:grid;gap:10px;margin-bottom:18px}
+.pick button{text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:13px;
+  padding:14px 16px;font-family:inherit;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
+  transition:border-color .15s,background .15s}
+.pick button:hover{border-color:#C9B6FF}
+.pick button.on{border-color:var(--pt);background:var(--pt2)}
+.pick span{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-top:3px}
+label{display:block;font-size:12.5px;font-weight:800;color:#4A4458;margin:14px 0 6px}
+textarea,input{width:100%;font-family:inherit;font-size:15px;color:var(--ink);
+  padding:12px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none}
+textarea{min-height:110px;resize:vertical;line-height:1.7}
+textarea:focus,input:focus{border-color:#A78BFA}
+.hint{font-size:12px;color:#9A93AC;margin:5px 0 0}
+.submit{width:100%;margin-top:18px;background:var(--pt);color:#fff;border:0;border-radius:12px;
+  padding:15px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.submit:disabled{opacity:.5;cursor:not-allowed}
+.msg{margin-top:14px;font-size:13.5px;font-weight:700;padding:12px 14px;border-radius:11px;display:none}
+.msg.err{display:block;background:#FDF2F8;color:#BE185D}
+.done{text-align:center;padding:30px 10px}
+.done h2{font-size:20px;font-weight:800;margin:0 0 8px}
+.done p{color:var(--muted);font-size:14px;margin:0}
+.back{display:inline-block;margin-top:22px;font-size:13px;font-weight:700;color:var(--pt);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="form-wrap">
+    <h1 id="ttl">도구, 어떠셨나요</h1>
+    <p class="lede" id="sub">한두 줄이면 충분합니다. 읽고 다음 도구에 반영할게요.</p>
+
+    <div class="card">
+      <div class="pick" id="pick">
+        <button data-k="used" data-u="썼다">써봤어요<span>어디가 좋았는지 · 아쉬웠는지</span></button>
+        <button data-k="used" data-u="안 썼다">아직 안 써봤어요<span>왜 손이 안 갔는지 알려주시면 큰 도움이 됩니다</span></button>
+        <button data-k="ask">이 업무도 자동화 되나요?<span>지금 제일 손 많이 가는 업무를 적어주세요</span></button>
+      </div>
+
+      <label for="msg" id="msgLabel">내용</label>
+      <textarea id="msg" placeholder="편하게 적어주세요"></textarea>
+      <p class="hint" id="msgHint">한두 줄이면 충분합니다.</p>
+
+      <label for="email">이메일 <span style="font-weight:600;color:#9A93AC">(선택 · 답장이 필요하면)</span></label>
+      <input id="email" type="email" placeholder="name@company.com">
+
+      <button class="submit" id="send">보내기</button>
+      <p class="msg" id="err"></p>
+    </div>
+    <a class="back" href="/">← 신청 페이지로</a>
+  </div>
+
+  <div id="done" class="done" style="display:none">
+    <h2>고맙습니다.</h2>
+    <p>보내주신 내용은 제가 직접 읽고<br>다음 도구에 반영하겠습니다.</p>
+    <a class="back" href="/">← 신청 페이지로</a>
+  </div>
+</div>
+
+<script>
+var URL_='https://rpchylubijrpzfywbxhp.supabase.co';
+var KEY_='sb_publishable_eRyzvnB4O666FN_gTqP9EA_M_8H7s9Z';
+var state={kind:'used',used:null};
+var q=new URLSearchParams(location.search);
+var TOOL=q.get('tool')||'1주차 배너 생성기';
+
+var COPY={
+  used:{t:'도구, 어떠셨나요',s:'한두 줄이면 충분합니다. 읽고 다음 도구에 반영할게요.',
+        l:'내용',h:'좋았던 점이든 아쉬운 점이든 편하게 적어주세요.'},
+  ask :{t:'어떤 업무가 제일 손이 많이 가세요?',s:'다음 도구를 그 업무로 만들지 정합니다.',
+        l:'그 업무',h:'예: 매주 채널별 가격 정합성 확인하는 게 제일 오래 걸려요'}
+};
+function apply(k){
+  var c=COPY[k]||COPY.used;
+  document.getElementById('ttl').textContent=c.t;
+  document.getElementById('sub').textContent=c.s;
+  document.getElementById('msgLabel').textContent=c.l;
+  document.getElementById('msgHint').textContent=c.h;
+}
+function selectBtn(btn){
+  [].forEach.call(document.querySelectorAll('#pick button'),function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  state.kind=btn.getAttribute('data-k');
+  state.used=btn.getAttribute('data-u')||null;
+  apply(state.kind);
+}
+[].forEach.call(document.querySelectorAll('#pick button'),function(b){
+  b.addEventListener('click',function(){selectBtn(b);});
+});
+
+// 메일에서 ?t=used / ?t=ask 로 들어오면 미리 선택
+var t=q.get('t');
+var pre=document.querySelector('#pick button[data-k="'+(t==='ask'?'ask':'used')+'"]');
+if(t==='ask'&&pre) selectBtn(pre); else selectBtn(document.querySelector('#pick button'));
+
+document.getElementById('send').addEventListener('click',function(){
+  var msg=document.getElementById('msg').value.trim();
+  var email=document.getElementById('email').value.trim();
+  var err=document.getElementById('err');
+  if(!msg){ err.className='msg err'; err.textContent='내용을 한 줄만 적어주세요.'; return; }
+  var btn=this; btn.disabled=true; btn.textContent='보내는 중…';
+  fetch(URL_+'/rest/v1/feedback',{
+    method:'POST',
+    headers:{apikey:KEY_,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({kind:state.kind,used:state.used,message:msg,email:email||null,tool:TOOL})
+  }).then(function(r){
+    if(r.status>=200&&r.status<300){
+      document.getElementById('form-wrap').style.display='none';
+      document.getElementById('done').style.display='';
+    }else{ throw new Error(r.status); }
+  }).catch(function(){
+    btn.disabled=false; btn.textContent='보내기';
+    err.className='msg err'; err.textContent='전송에 실패했어요. 잠시 뒤 다시 눌러주세요.';
+  });
+});
+</script>
+</body>
+</html>
