@@ -925,16 +925,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
       <div class="form-b">
         <ol class="steps">
-          <li><b>아래에 정보를 남깁니다</b><span>이름과 이메일만 받습니다</span></li>
+          <li><b>아래에 정보를 남깁니다</b><span>닉네임과 이메일만 받습니다</span></li>
           <li><b>제출하면 첫 도구가 바로 받아집니다</b><span>배너 이미지 생성 파일이 그 자리에서 받아집니다</span></li>
           <li><b>2주차부터는 매주 하나씩</b><span>발송일에 알림톡 한 줄 · 8주면 끝납니다</span></li>
           <li><b>3주차에 짧은 피드백</b><span>써봤는지, 뭐가 아쉬웠는지. 이게 이 자료의 값입니다</span></li>
         </ol>
         <form class="sb-form" id="sbForm" novalidate>
           <div class="sb-row" id="r-name">
-            <label for="f-name">이름<i>*</i></label>
-            <input id="f-name" type="text" autocomplete="name" placeholder="어떻게 불러드리면 될까요">
-            <p class="sb-err">이름을 적어주세요.</p>
+            <label for="f-name">닉네임<i>*</i></label>
+            <input id="f-name" type="text" autocomplete="nickname" placeholder="어떻게 불러드리면 될까요">
+            <p class="sb-err">닉네임을 적어주세요.</p>
           </div>
           <div class="sb-row" id="r-email">
             <label for="f-email">이메일<i>*</i></label>
@@ -954,7 +954,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label class="sb-ck" id="r-privacy">
             <input type="checkbox" id="f-privacy">
             <span><b>[필수] 개인정보 수집 · 이용에 동의합니다.</b><br>
-              이름 · 이메일 / 자료 발송 목적 / 발송 완료 후 1개월 보관</span>
+              닉네임 · 이메일 / 자료 발송 목적 / 발송 완료 후 1개월 보관</span>
           </label>
           <p class="sb-err" id="e-privacy" style="display:none">동의가 필요합니다.</p>
           <label class="sb-ck">
@@ -973,6 +973,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>매번 새로 하고 있는 건 혼자만의 일이 아닙니다.<br>옆자리에도, 다른 회사에도 같은 사람이 있어요.</p>
       <div class="share-b">
         <button class="sh-1" onclick="sharePage()">공유하기</button>
+        <button class="sh-2" id="shSms" onclick="shareSms()" style="display:none">문자로 보내기</button>
         <button class="sh-2" onclick="copyLink()">링크 복사</button>
       </div>
       <p class="sh-ok" id="shMsg"></p>
@@ -1549,6 +1550,14 @@ function sharePage(){
       .catch(function(){});
   }else{ copyLink(); }
 }
+function shareSms(){
+  var url=location.origin+location.pathname;
+  var txt=SHARE_TEXT+String.fromCharCode(10)+url;
+  var ua=navigator.userAgent||"";
+  var sep=/iPhone|iPad|iPod|Mac/i.test(ua)?"&":"?";
+  try{ track("share_sms",{}); }catch(e){}
+  location.href="sms:"+sep+"body="+encodeURIComponent(txt);
+}
 function copyLink(){
   var url=location.origin+location.pathname;
   var txt=SHARE_TEXT+String.fromCharCode(10)+url;
@@ -1716,6 +1725,10 @@ function sbInit(){
   });
 }
 safe(utmCapture,"utm");
+safe(function(){
+  var b=document.getElementById("shSms");
+  if(b && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent||"")) b.style.display="";
+},"sms-btn");
 safe(sbInit,"signup");
 
 safe(renderTopbar,'topbar');safe(renderWeeks,'weeks');safe(renderGrid,'grid');safe(renderProof,'proof');safe(renderLiveMap,'map');safe(updateBar,'bar');
