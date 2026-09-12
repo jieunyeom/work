@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<!-- GA4: 초기화는 반드시 <head> 인라인 · 측정ID는 공개값 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX',{send_page_view:true,anonymize_ip:true});</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>신청 현황</title>
+<style>
+:root{--ink:#1A1A1A;--gray:#767676;--gray2:#A5A5A5;--hair:#E8E8E8;--soft:#F7F6F4;--camel:#C1926B;--line:#06C755}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fff;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  font-size:15px;line-height:1.8;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  padding-bottom:70px}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+.topbar{background:#000;color:#fff;text-align:center;font-size:12px;font-weight:700;padding:10px 20px;letter-spacing:.01em}
+header{padding:30px 0 6px}
+h1{font-size:22px;font-weight:700;letter-spacing:-.028em}
+.sub{font-size:12.5px;color:var(--gray);margin-top:4px}
+.hero{background:var(--soft);border-radius:7px;padding:28px 22px;margin-top:20px;text-align:center}
+.big{font-size:64px;font-weight:700;line-height:1;letter-spacing:-.04em}
+.big small{font-size:20px;font-weight:700;color:var(--gray2);letter-spacing:-.02em}
+.goal{font-size:12.5px;color:var(--gray);margin-top:9px}
+.goal .term{color:var(--gray2);margin-left:5px}
+.bar{height:9px;background:#E4E2DE;border-radius:23px;overflow:hidden;margin-top:15px}
+.bar i{display:block;height:100%;background:var(--line);border-radius:23px;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.done{background:#EAF9EF}
+.done .bar i{background:var(--line)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}
+.card{border:1px solid var(--hair);border-radius:7px;padding:15px 16px}
+.card .k{font-size:11.5px;color:var(--gray2);font-weight:700}
+.card .v{font-size:27px;font-weight:700;letter-spacing:-.03em;margin-top:2px}
+h2{font-size:13px;font-weight:700;color:var(--gray);margin:26px 0 10px;letter-spacing:-.01em}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 2px;border-bottom:1px solid var(--hair)}
+th{font-size:11.5px;color:var(--gray2);font-weight:700}
+td.n{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.spark{display:flex;justify-content:flex-start;align-items:flex-end;gap:5px;height:76px;margin-top:6px}
+.spark div{flex:0 1 46px;background:var(--camel);border-radius:3px 3px 0 0;min-height:3px;position:relative}
+.spark div span{position:absolute;bottom:-19px;left:0;right:0;text-align:center;font-size:9.5px;color:var(--gray2)}
+.spark{padding-bottom:20px}
+.note{font-size:11.5px;color:var(--gray2);line-height:1.75;margin-top:26px;padding-top:16px;border-top:1px solid var(--hair)}
+.err{background:#FDF3F2;color:#B4514A;font-size:13px;padding:14px 16px;border-radius:7px;margin-top:16px}
+.empty{color:var(--gray2);font-size:13px;padding:14px 0}
+</style>
+</head>
+<body>
+
+<p class="topbar">신청 현황 안내</p>
+
+<div class="wrap">
+  <header>
+    <h1>신청 현황</h1>
+    <p class="sub" id="upd">불러오는 중…</p>
+  </header>
+
+  <div class="hero" id="hero">
+    <p class="big"><span id="total">–</span><small> 건</small></p>
+    <p class="goal">목표 <b id="goalTxt">500</b> 건</p>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div class="two">
+    <div class="card"><p class="k">오늘</p><p class="v" id="today">–</p></div>
+    <div class="card"><p class="k">최근 7일</p><p class="v" id="week">–</p></div>
+  </div>
+
+  <h2>유입 경로</h2>
+  <table id="srcTbl"><thead><tr><th>경로</th><th class="n" style="text-align:right">건수</th></tr></thead><tbody></tbody></table>
+  <p class="empty" id="srcEmpty" hidden>아직 신청이 없습니다.</p>
+
+  <h2>일별</h2>
+  <div class="spark" id="spark"></div>
+  <p class="empty" id="dayEmpty" hidden>아직 신청이 없습니다.</p>
+
+  <p class="note">
+    이 페이지는 <b>건수만</b> 표시합니다. 이메일 주소 등 개인정보는 포함되지 않습니다.<br>
+    집계는 서버 기준 시간대로 계산됩니다. 페이지를 열 때마다 최신 수치를 가져옵니다.
+  </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+var GOAL = 500;
+var LABEL = {ig_bio:'인스타그램 프로필', ig_story:'인스타그램 스토리', ig_post:'인스타그램 게시물', direct:'직접 접속'};
+
+document.getElementById('goalTxt').textContent = GOAL;
+
+try {
+  if(!window.supabase) throw new Error('Supabase 라이브러리를 불러오지 못했습니다.');
+  if(!window.SUPABASE_URL || !window.SUPABASE_ANON) throw new Error('연결 설정을 불러오지 못했습니다.');
+  var sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);
+  sb.rpc('waitlist_stats').then(render).catch(function(e){ fail(String(e && e.message || e)); });
+} catch(e) { fail(String(e && e.message || e)); }
+
+function render(r){
+  if(r.error){ fail(r.error.message); return; }
+  var d = r.data;
+
+  document.getElementById('total').textContent = d.total;
+  document.getElementById('today').textContent = d.today;
+  document.getElementById('week').textContent  = d.week;
+
+  var pct = Math.min(100, Math.round(d.total / GOAL * 100));
+  document.getElementById('bar').style.width = pct + '%';
+  if(d.total >= GOAL) document.getElementById('hero').classList.add('done');
+
+  var tb = document.querySelector('#srcTbl tbody');
+  var rows = Object.keys(d.by_source||{}).map(function(k){return [k, d.by_source[k]]})
+                   .sort(function(a,b){return b[1]-a[1]});
+  if(!rows.length){ document.getElementById('srcTbl').hidden = true; document.getElementById('srcEmpty').hidden = false; }
+  rows.forEach(function(x){
+    var tr = document.createElement('tr');
+    var td1 = document.createElement('td'); td1.textContent = LABEL[x[0]] || x[0];
+    var td2 = document.createElement('td'); td2.className='n'; td2.textContent = x[1];
+    tr.appendChild(td1); tr.appendChild(td2); tb.appendChild(tr);
+  });
+
+  var days = d.daily || [];
+  if(!days.length){ document.getElementById('spark').hidden = true; document.getElementById('dayEmpty').hidden = false; }
+  else {
+    days.sort(function(a,b){ return a.day < b.day ? -1 : 1 });
+    days = days.slice(-14);
+    var max = Math.max.apply(null, days.map(function(x){return x.c}));
+    var sp = document.getElementById('spark');
+    days.forEach(function(x){
+      var b = document.createElement('div');
+      b.style.height = Math.round(x.c / max * 100) + '%';
+      b.title = x.day + ' — ' + x.c + '건';
+      var s = document.createElement('span'); s.textContent = x.day.slice(5).replace('-','/');
+      b.appendChild(s); sp.appendChild(b);
+    });
+  }
+
+  var t = new Date(d.updated_at);
+  document.getElementById('upd').textContent =
+    '최종 업데이트 ' + t.toLocaleString('ko-KR', {timeZone:'Asia/Tokyo', month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit'});
+}
+
+function fail(m){
+  document.getElementById('upd').textContent = '';
+  var p = document.createElement('p');
+  p.className = 'err';
+  p.textContent = '집계를 불러오지 못했습니다. ' + m;
+  document.querySelector('.wrap').appendChild(p);
+}
+</script>
+<script src="/ga.js" defer></script>
+</body>
+</html>

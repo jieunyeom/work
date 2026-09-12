@@ -1,0 +1,64 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>성과 대시보드｜관리자</title>
+<link rel="stylesheet" href="/tools/_admin.css">
+</head><body><div class="wrap" id="app"></div>
+<script src="/tools/_admin.js"></script>
+<script>
+gate(async function(){
+  var app=document.getElementById('app');
+  app.innerHTML='<nav><span class="brand">관리자</span><a href="/tools/utm">UTM 링크</a><a class="on" href="/tools/dashboard">대시보드</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
+  +'<h1>성과 대시보드</h1><p class="sub">숫자는 모두 서버가 실제로 집계한 값입니다. 추정치는 포함되지 않습니다.</p>'
+  +'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:16px"><button class="btn sec sm" data-r="today">오늘</button><button class="btn sec sm" data-r="7">7일</button><button class="btn sec sm on" data-r="30">30일</button><button class="btn sec sm" data-r="all">전체 기간</button>'
+  +'<span class="faint" style="margin:0 6px">또는</span><div><label>부터</label><input type="date" id="from"></div><div><label>까지</label><input type="date" id="to"></div><button class="btn sm" id="apply">적용</button><span class="msg" id="m"></span></div>'
+  +'<div class="grid g4" id="tiles"></div>'
+  +'<h2>일별 추이 (클릭=선 / 등록=막대)</h2><div class="card"><canvas id="chart" width="1000" height="220"></canvas><p class="faint" style="font-size:11px;margin:8px 0 0" id="chartNote"></p></div>'
+  +'<h2>채널별</h2><div id="byChan"></div>'
+  +'<h2>소재 상위</h2><div id="topC"></div>'
+  +'<h2>링크별</h2><div id="byLink"></div>'
+  +'<h2>구글 애널리틱스</h2><div class="card" id="ga"><span class="muted">미연동 상태입니다. 연동하면 여기에 「세션·주요 이벤트·유입 경로」가 표시됩니다.</span></div>';
+
+  var range='30';
+  function bounds(){
+    if(range==='custom') return {from:document.getElementById('from').value||null,to:document.getElementById('to').value||null};
+    if(range==='all') return {from:null,to:null};
+    var t=todayJST(); if(range==='today') return {from:t,to:t};
+    var d=new Date(Date.now()+9*3600e3); d.setDate(d.getDate()-(+range-1)); return {from:d.toISOString().slice(0,10),to:t};
+  }
+  document.querySelectorAll('[data-r]').forEach(function(b){ b.onclick=function(){ range=b.dataset.r; document.querySelectorAll('[data-r]').forEach(function(x){x.classList.remove('on')}); b.classList.add('on'); load(); }; });
+  document.getElementById('apply').onclick=function(){ range='custom'; document.querySelectorAll('[data-r]').forEach(function(x){x.classList.remove('on')}); load(); };
+
+  async function load(){
+    var m=document.getElementById('m'); m.className='msg'; m.textContent='불러오는 중…';
+    var b=bounds(); var qs=[]; if(b.from) qs.push('from='+b.from); if(b.to) qs.push('to='+b.to);
+    try{ var d=await api('/api/stats'+(qs.length?'?'+qs.join('&'):'')); render(d); m.textContent=''; }catch(e){ m.className='msg err'; m.textContent=e.message; }
+  }
+  function render(d){
+    var s=d.summary;
+    document.getElementById('tiles').innerHTML=[['클릭',s.clicks,'짧은 링크 경유 · 봇 제외'],['등록',s.conversions,'UTM 일치 '+s.conv_matched+' / 불일치 '+s.conv_unmatched],['등록률',s.cvr+'%','등록 ÷ 클릭'],['유효 링크',s.active_links,'보관된 것 제외']]
+      .map(function(t){return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'}).join('');
+    drawChart(d.daily);
+    var bc=document.getElementById('byChan');
+    bc.innerHTML=d.by_channel.length?'<table><thead><tr><th>채널</th><th class="n">링크</th><th class="n">클릭</th><th class="n">등록</th><th class="n">등록률</th></tr></thead><tbody>'+d.by_channel.map(function(c){return '<tr><td>'+esc(c.name)+'<br><span class="mono faint">'+esc(c.source)+' / '+esc(c.medium)+'</span></td><td class="n">'+c.links+'</td><td class="n">'+c.clicks+'</td><td class="n">'+c.conv+'</td><td class="n">'+c.cvr+'%</td></tr>'}).join('')+'</tbody></table>':'<p class="empty">데이터가 없습니다</p>';
+    var tc=document.getElementById('topC');
+    tc.innerHTML=d.top_content.length?'<table><thead><tr><th>소재</th><th>채널</th><th class="n">클릭</th><th class="n">등록</th></tr></thead><tbody>'+d.top_content.map(function(c){return '<tr><td class="mono">'+esc(c.content)+'</td><td class="mono muted">'+esc(c.source)+' / '+esc(c.medium)+'</td><td class="n">'+c.clicks+'</td><td class="n">'+c.conv+'</td></tr>'}).join('')+'</tbody></table>':'<p class="empty">소재 코드가 있는 링크가 아직 없습니다</p>';
+    var bl=document.getElementById('byLink');
+    bl.innerHTML=d.links.length?'<div style="overflow-x:auto"><table><thead><tr><th>짧은 링크</th><th>채널 / 소재</th><th>메모</th><th class="n">클릭</th><th class="n">등록</th><th class="n">등록률</th></tr></thead><tbody>'+d.links.map(function(l){return '<tr'+(l.archived?' style="opacity:.45"':'')+'><td class="mono">/l/'+esc(l.short_code)+'</td><td>'+esc(l.source)+' / '+esc(l.medium)+(l.content?' · <span class="mono">'+esc(l.content)+'</span>':'')+'</td><td class="muted">'+esc(l.label||'')+'</td><td class="n">'+l.clicks+'</td><td class="n">'+l.conv+'</td><td class="n">'+l.cvr+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="empty">아직 링크가 없습니다</p>';
+  }
+  function drawChart(series){
+    var cv=document.getElementById('chart'), ctx=cv.getContext('2d'); var W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
+    document.getElementById('chartNote').textContent=series.length?'':'아직 데이터가 없습니다';
+    if(!series.length) return;
+    var pad={l:36,r:12,t:12,b:26}, w=W-pad.l-pad.r, h=H-pad.t-pad.b;
+    var max=Math.max(1,Math.max.apply(null,series.map(function(s){return Math.max(s.clicks,s.conv)})));
+    var n=series.length, bw=Math.max(4,Math.min(28,w/n*0.5));
+    ctx.strokeStyle='#e7e3de'; ctx.lineWidth=1; for(var i=0;i<=4;i++){ var y=pad.t+h-h*i/4; ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke(); ctx.fillStyle='#a49c93'; ctx.font='10px ui-monospace,Menlo,monospace'; ctx.textAlign='right'; ctx.fillText(Math.round(max*i/4),pad.l-6,y+3); }
+    series.forEach(function(s,i){ var x=pad.l+(i+0.5)*(w/n); var bh=h*s.conv/max; ctx.fillStyle='#06c755'; ctx.fillRect(x-bw/2,pad.t+h-bh,bw,bh); });
+    ctx.strokeStyle='#b8845a'; ctx.lineWidth=2; ctx.beginPath();
+    series.forEach(function(s,i){ var x=pad.l+(i+0.5)*(w/n), y=pad.t+h-h*s.clicks/max; i?ctx.lineTo(x,y):ctx.moveTo(x,y); }); ctx.stroke();
+    ctx.fillStyle='#b8845a'; series.forEach(function(s,i){ var x=pad.l+(i+0.5)*(w/n), y=pad.t+h-h*s.clicks/max; ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fill(); });
+    ctx.fillStyle='#7a736c'; ctx.textAlign='center'; var step=Math.ceil(n/10);
+    series.forEach(function(s,i){ if(i%step===0||i===n-1) ctx.fillText(s.day.slice(5).replace('-','/'),pad.l+(i+0.5)*(w/n),H-8); });
+  }
+  load();
+});
+</script></body></html>

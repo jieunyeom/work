@@ -1,0 +1,87 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>UTM 링크 생성｜관리자</title>
+<link rel="stylesheet" href="/tools/_admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head><body><div class="wrap" id="app"></div>
+<script src="/tools/_admin.js"></script>
+<script>
+gate(async function(){
+  var app=document.getElementById('app');
+  app.innerHTML='<nav><span class="brand">관리자</span><a class="on" href="/tools/utm">UTM 링크</a><a href="/tools/dashboard">대시보드</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
+  +'<h1>UTM 링크 만들기</h1><p class="sub">채널을 선택하고 「생성」. 같은 조합은 두 번 만들어지지 않고, 기존 링크가 반환됩니다.</p>'
+  +'<div class="card"><label>채널 (여러 개 선택 가능)</label><div id="chips" class="grid g3" style="margin-bottom:14px"></div>'
+  +'<div class="grid g3"><div><label>캠페인명 <span class="faint">utm_campaign</span></label><input type="text" id="campaign" value="campaign-2026"></div>'
+  +'<div><label>랜딩</label><select id="landing"><option value="/">/ (캠페인 페이지)</option><option value="/guide.html">/guide.html (가이드)</option></select></div>'
+  +'<div><label>메모 (선택)</label><input type="text" id="label" placeholder="예: 9/12 스토리 1번째"></div></div>'
+  +'<div class="grid g2" style="margin-top:10px"><div><label>소재 코드 <span class="faint">utm_content</span> — 채널 방식에 맞춰 자동 제안. 비우면 붙이지 않습니다</label><input type="text" id="content" placeholder="자동"></div>'
+  +'<div><label>검색어 <span class="faint">utm_term</span> (보통 비워둠)</label><input type="text" id="term"></div></div>'
+  +'<p style="margin:14px 0 0"><button class="btn" id="make">링크 생성</button> <span class="msg" id="mm"></span></p></div>'
+  +'<div id="result"></div>'
+  +'<h2>링크 대장</h2><label style="display:inline-flex;gap:6px;align-items:center;margin-bottom:8px"><input type="checkbox" id="showArch"> 보관된 것도 표시</label><div id="ledger"></div>'
+  +'<h2>채널 관리</h2><div id="chan"></div>';
+
+  var channels=[], links=[];
+  async function loadChannels(){ channels=(await api('/api/channels')).channels; renderChips(); renderChan(); }
+  async function loadLinks(){ links=(await api('/api/utm-links'+(document.getElementById('showArch').checked?'?archived=1':''))).links; renderLedger(); }
+
+  function suggest(){
+    var sel=channels.filter(function(c){return document.querySelector('#chip_'+c.id+':checked')});
+    if(sel.length!==1){ document.getElementById('content').placeholder = sel.length? '여러 채널: 각 채널 방식대로 자동' : '자동'; return; }
+    var c=sel[0], v='';
+    if(c.content_mode==='date') v=todayJST().slice(5).replace('-','');
+    else if(c.content_mode==='serial'){ var n=links.filter(function(l){return l.channel_id===c.id && l.content}).length+1; v=(c.content_prefix||'n')+String(n).padStart(2,'0'); }
+    document.getElementById('content').placeholder = v || '자동 (붙이지 않음)';
+  }
+  function autoContent(c){
+    var typed=document.getElementById('content').value.trim(); if(typed) return typed;
+    if(c.content_mode==='date') return todayJST().slice(5).replace('-','');
+    if(c.content_mode==='serial'){ var n=links.filter(function(l){return l.channel_id===c.id && l.content}).length+1; return (c.content_prefix||'n')+String(n).padStart(2,'0'); }
+    return null;
+  }
+  function renderChips(){
+    document.getElementById('chips').innerHTML=channels.filter(function(c){return c.active}).map(function(c){
+      return '<label class="chip" id="lab_'+c.id+'"><input type="checkbox" id="chip_'+c.id+'" value="'+c.id+'"><span>'+esc(c.name)+'<br><small>'+esc(c.source)+' / '+esc(c.medium)+' · '+({none:'소재 없음',serial:'연번',date:'날짜',free:'자유'}[c.content_mode])+'</small></span></label>';
+    }).join('');
+    document.querySelectorAll('#chips input').forEach(function(i){ i.addEventListener('change',function(){ document.getElementById('lab_'+i.value).classList.toggle('on',i.checked); suggest(); }); });
+  }
+  document.getElementById('make').onclick=async function(){
+    var sel=channels.filter(function(c){return document.querySelector('#chip_'+c.id+':checked')});
+    var mm=document.getElementById('mm'); if(!sel.length){ mm.className='msg err'; mm.textContent='채널을 1개 이상 선택하세요'; return; }
+    var camp=document.getElementById('campaign').value.trim(); if(!camp){ mm.className='msg err'; mm.textContent='캠페인명은 필수입니다'; return; }
+    var items=sel.map(function(c){ return { channel_id:c.id, source:c.source, medium:c.medium, campaign:camp, content:autoContent(c), term:document.getElementById('term').value.trim()||null, landing_path:document.getElementById('landing').value, label:document.getElementById('label').value.trim()||null, created_by:'admin' }; });
+    this.disabled=true; mm.className='msg'; mm.textContent='생성 중…';
+    try{ var r=await api('/api/utm-links',{method:'POST',body:{items:items}}); renderResult(r.links); mm.className='msg ok'; mm.textContent=r.links.length+'건'; await loadLinks(); }
+    catch(e){ mm.className='msg err'; mm.textContent=e.message; }
+    this.disabled=false;
+  };
+  function renderResult(rs){
+    var box=document.getElementById('result'); box.innerHTML='<h2>생성된 링크</h2>'+rs.map(function(l,i){
+      if(l.error) return '<div class="card" style="margin-bottom:10px;color:var(--red)">'+esc(l.error)+'</div>';
+      return '<div class="card" style="margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start"><div>'
+        +'<div><span class="tag'+(l.existed?'':' ok')+'">'+(l.existed?'기존':'신규')+'</span> <b>'+esc(l.source)+' / '+esc(l.medium)+'</b>'+(l.content?' · <span class="mono">'+esc(l.content)+'</span>':'')+'</div>'
+        +'<div style="margin-top:8px"><span class="mono" style="font-size:15px;font-weight:600">'+esc(l.short_url)+'</span> <button class="copy" onclick="copyText(\''+l.short_url+'\',this)">짧은 링크 복사</button></div>'
+        +'<div class="mono muted" style="margin-top:4px;word-break:break-all">'+esc(l.url)+' <button class="copy" onclick="copyText(\''+esc(l.url)+'\',this)">전체 링크 복사</button></div>'
+        +'</div><div class="qr" id="qr_'+i+'"></div></div>';
+    }).join('');
+    rs.forEach(function(l,i){ if(!l.error) new QRCode(document.getElementById('qr_'+i),{text:l.short_url,width:96,height:96,correctLevel:QRCode.CorrectLevel.M}); });
+  }
+  function renderLedger(){
+    var el=document.getElementById('ledger'); if(!links.length){ el.innerHTML='<p class="empty">아직 링크가 없습니다</p>'; return; }
+    el.innerHTML='<div style="overflow-x:auto"><table><thead><tr><th>채널</th><th>소재</th><th>메모</th><th>짧은 링크</th><th class="n">클릭</th><th class="n">최종</th><th>생성</th><th></th></tr></thead><tbody>'
+      +links.map(function(l){ return '<tr'+(l.archived?' style="opacity:.45"':'')+'><td>'+esc(l.mj_channels?l.mj_channels.name:l.source+'/'+l.medium)+'<br><span class="mono faint">'+esc(l.campaign)+'</span></td><td class="mono">'+esc(l.content||'—')+'</td><td>'+esc(l.label||'')+'</td>'
+        +'<td><span class="mono">/l/'+esc(l.short_code)+'</span> <button class="copy" onclick="copyText(\''+l.short_url+'\',this)">복사</button></td><td class="n">'+l.clicks+'</td><td class="n faint">'+(l.last_clicked_at?fmtDate(l.last_clicked_at):'—')+'</td><td class="faint">'+fmtDate(l.created_at)+'</td>'
+        +'<td><button class="btn sec sm" onclick="arch('+l.id+','+(!l.archived)+')">'+(l.archived?'복원':'보관')+'</button></td></tr>'; }).join('')+'</tbody></table></div>';
+  }
+  window.arch=async function(id,a){ await api('/api/utm-links',{method:'PATCH',body:{id:id,archived:a}}); loadLinks(); };
+  function renderChan(){
+    document.getElementById('chan').innerHTML='<table><thead><tr><th>코드</th><th>이름</th><th>source / medium</th><th>소재 방식</th><th>메모</th><th></th></tr></thead><tbody>'
+      +channels.map(function(c){ return '<tr'+(c.active?'':' style="opacity:.45"')+'><td class="mono">'+esc(c.code)+'</td><td>'+esc(c.name)+'</td><td class="mono">'+esc(c.source)+' / '+esc(c.medium)+'</td><td>'+({none:'없음',serial:'연번 '+(c.content_prefix||''),date:'날짜',free:'자유'}[c.content_mode])+'</td><td class="muted">'+esc(c.note||'')+'</td><td><button class="btn sec sm" onclick="tog('+c.id+','+(!c.active)+')">'+(c.active?'숨기기':'표시')+'</button></td></tr>'; }).join('')+'</tbody></table>'
+      +'<div class="card" style="margin-top:12px"><b style="font-size:13px">채널 추가</b><div class="grid g4" style="margin-top:8px"><div><label>코드</label><input type="text" id="nc_code" placeholder="yt_desc"></div><div><label>이름</label><input type="text" id="nc_name" placeholder="YouTube 설명란"></div><div><label>source</label><input type="text" id="nc_src" placeholder="youtube"></div><div><label>medium</label><input type="text" id="nc_med" placeholder="description"></div></div>'
+      +'<div class="grid g3" style="margin-top:8px"><div><label>소재 방식</label><select id="nc_mode"><option value="none">없음</option><option value="serial">연번</option><option value="date">날짜</option><option value="free">자유</option></select></div><div><label>연번 접두사</label><input type="text" id="nc_pre" placeholder="post"></div><div><label>&nbsp;</label><button class="btn sec" id="nc_add">추가</button></div></div><p class="msg" id="ncm"></p></div>';
+    document.getElementById('nc_add').onclick=async function(){ var m=document.getElementById('ncm'); try{ await api('/api/channels',{method:'POST',body:{code:nc_code.value,name:nc_name.value,source:nc_src.value,medium:nc_med.value,content_mode:nc_mode.value,content_prefix:nc_pre.value}}); m.className='msg ok'; m.textContent='추가되었습니다'; loadChannels(); }catch(e){ m.className='msg err'; m.textContent=e.message; } };
+  }
+  window.tog=async function(id,a){ await api('/api/channels',{method:'PATCH',body:{id:id,active:a}}); loadChannels(); };
+  document.getElementById('showArch').onchange=loadLinks;
+  await loadChannels(); await loadLinks(); suggest();
+});
+</script></body></html>
