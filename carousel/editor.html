@@ -457,10 +457,9 @@ function elNode(e, interactive=true){
         m.style.inset = '0';
         m.style.backgroundImage = 'url(' + e.src + ')';
         m.style.backgroundRepeat = 'no-repeat';
-        m.style.backgroundSize =
-          e.fit === 'contain' ? 'contain' : (e.fit === 'fill' ? '100% 100%' : 'cover');
-        m.style.backgroundPosition =
-          (e.posX==null?50:e.posX) + '% ' + (e.posY==null?50:e.posY) + '%';
+        /* 이미 상자 크기대로 구워둔 그림이라 그대로 채운다 */
+        m.style.backgroundSize = e.origSrc ? '100% 100%' : (e.fit === 'contain' ? 'contain' : (e.fit === 'fill' ? '100% 100%' : 'cover'));
+        m.style.backgroundPosition = 'center';
         d.appendChild(m);
       }
     } else {
@@ -568,6 +567,47 @@ async function idbGet(){
     q.onerror = () => rej(q.error);
   });
 }
+/* =========================================================
+   자르기를 미리 굽는다.
+   PNG 저장 라이브러리가 object-fit / background-size 를 제대로
+   그리지 못해, 화면과 저장본이 달라졌다. 그래서 올리는 시점에
+   상자 크기대로 잘라낸 이미지를 따로 만들어 두고, 화면과 저장
+   양쪽 모두 그 이미지를 그대로 그린다.
+   ========================================================= */
+function bakeMedia(e){
+  return new Promise(res => {
+    const src = e.origSrc || e.src;
+    if(!src || e.mediaType === 'video'){ res(); return; }
+    const img = new Image();
+    img.onload = () => {
+      const w = Math.max(1, Math.round(e.w)), h = Math.max(1, Math.round(e.h));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const g = c.getContext('2d');
+      const iw = img.naturalWidth, ih = img.naturalHeight;
+      if(e.fit === 'fill'){
+        g.drawImage(img, 0, 0, w, h);
+      } else {
+        const scale = e.fit === 'contain'
+          ? Math.min(w/iw, h/ih)
+          : Math.max(w/iw, h/ih);
+        const dw = iw*scale, dh = ih*scale;
+        const px = (e.posX==null?50:e.posX)/100, py = (e.posY==null?50:e.posY)/100;
+        g.drawImage(img, (w-dw)*px, (h-dh)*py, dw, dh);
+      }
+      e.origSrc = src;
+      e.src = c.toDataURL('image/png');
+      res();
+    };
+    img.onerror = () => res();
+    img.src = src;
+  });
+}
+let bakeTimer = null;
+function scheduleBake(e){
+  clearTimeout(bakeTimer);
+  bakeTimer = setTimeout(() => { bakeMedia(e).then(renderAll); }, 200);
+}
+
 let saveTimer = null, saving = false;
 function setSaveMark(text){ const el = document.getElementById('saveMark'); if(el) el.textContent = text; }
 function scheduleSave(){
@@ -802,16 +842,16 @@ function bindInsp(){
   /* 미디어 */
   on('mUpload','click', () => pickFile(e));
   on('mClear','click', () => { e.src = null; renderAll(); });
-  on('mFit','change', ev => { e.fit = ev.target.value; renderAll(); });
-  live('mPosY',   v => e.posY = v);
-  live('mPosX',   v => e.posX = v);
+  on('mFit','change', ev => { e.fit = ev.target.value; renderAll(); scheduleBake(e); });
+  live('mPosY',   v => { e.posY = v; scheduleBake(e); });
+  live('mPosX',   v => { e.posX = v; scheduleBake(e); });
   live('mDim',    v => e.dim = v);
   live('mRadius', v => e.radius = v, 'px');
   live('mBorder', v => e.borderW = v, 'px');
   on('mDimColor','input', ev => { e.dimColor = ev.target.value; $('#mDimHex').value = ev.target.value; renderStage(); });
   on('mDimHex','change', ev => { e.dimColor = ev.target.value; renderAll(); });
   on('mBorderColor','input', ev => { e.borderColor = ev.target.value; renderStage(); });
-  on('mH','change', ev => { e.h = +ev.target.value; renderAll(); });
+  on('mH','change', ev => { e.h = +ev.target.value; renderAll(); scheduleBake(e); });
 
   /* 구분선 */
   live('dTh', v => e.thickness = v, 'px');
@@ -851,9 +891,10 @@ $('#filePick').addEventListener('change', ev => {
   const r = new FileReader();
   r.onload = () => {
     pendingEl.src = r.result;
+    pendingEl.origSrc = r.result;
     pendingEl.mediaType = isVid ? 'video' : 'image';
-    renderAll();
-    toast(isVid ? '영상을 넣었습니다' : '이미지를 넣었습니다');
+    if(isVid){ renderAll(); toast('영상을 넣었습니다'); }
+    else bakeMedia(pendingEl).then(() => { renderAll(); toast('이미지를 넣었습니다'); });
   };
   r.readAsDataURL(file);
 });
@@ -910,7 +951,7 @@ stage.addEventListener('pointermove', ev => {
 });
 
 ['pointerup','pointercancel'].forEach(t =>
-  stage.addEventListener(t, () => { if(drag){ drag = null; renderAll(); } }));
+  stage.addEventListener(t, () => { if(drag){ const el = sel(); drag = null; renderAll(); if(el && el.type==='media') scheduleBake(el); } }));
 
 document.addEventListener('keydown', ev => {
   if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
@@ -1149,9 +1190,22 @@ $('#capTxt').onclick = () => {
    ========================================================= */
 window.addEventListener('resize', () => { fitStage(); });
 fitStage();
-restoreSaved().then(ok => {
+restoreSaved().then(async ok => {
   renderAll();
-  if(ok){ setSaveMark('저장됨'); toast('직전 작업을 불러왔습니다'); }
+  if(ok){
+    /* 예전에 넣은 사진은 구워둔 게 없다. 한 번 구워서 저장본과 화면을 맞춘다. */
+    const old = [];
+    doc.slides.forEach(sl => sl.els.forEach(e => {
+      if(e.type === 'media' && e.src && !e.origSrc && e.mediaType !== 'video') old.push(e);
+    }));
+    if(old.length){
+      for(const e of old) await bakeMedia(e);
+      renderAll();
+      toast(old.length + '장의 사진을 저장용으로 다시 맞췄습니다', 3500);
+    } else {
+      setSaveMark('저장됨'); toast('직전 작업을 불러왔습니다');
+    }
+  }
 });
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(renderAll);
 </script>
