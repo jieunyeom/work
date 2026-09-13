@@ -440,12 +440,29 @@ function elNode(e, interactive=true){
     d.style.borderRadius = e.radius + 'px';
     if(e.borderW > 0) d.style.border = `${e.borderW}px solid ${e.borderColor}`;
     if(e.src){
-      const m = document.createElement(e.mediaType === 'video' ? 'video' : 'img');
-      m.src = e.src;
-      m.style.objectFit = e.fit;
-      m.style.objectPosition = (e.posX==null?50:e.posX) + '% ' + (e.posY==null?50:e.posY) + '%';
-      if(e.mediaType === 'video'){ m.autoplay = true; m.loop = true; m.muted = true; m.playsInline = true; }
-      d.appendChild(m);
+      d.style.background = 'transparent';   // 다 보이기일 때 뒤에 슬라이드 배경이 비치게
+      if(e.mediaType === 'video'){
+        const m = document.createElement('video');
+        m.src = e.src;
+        m.style.objectFit = e.fit;
+        m.style.objectPosition = (e.posX==null?50:e.posX) + '% ' + (e.posY==null?50:e.posY) + '%';
+        m.autoplay = true; m.loop = true; m.muted = true; m.playsInline = true;
+        d.appendChild(m);
+      } else {
+        /* 사진은 background 로 그린다.
+           PNG 저장 라이브러리가 object-fit 을 무시하고 늘려버려서,
+           어디서나 같게 나오는 background-size 로 바꿨다. */
+        const m = document.createElement('div');
+        m.style.position = 'absolute';
+        m.style.inset = '0';
+        m.style.backgroundImage = 'url(' + e.src + ')';
+        m.style.backgroundRepeat = 'no-repeat';
+        m.style.backgroundSize =
+          e.fit === 'contain' ? 'contain' : (e.fit === 'fill' ? '100% 100%' : 'cover');
+        m.style.backgroundPosition =
+          (e.posX==null?50:e.posX) + '% ' + (e.posY==null?50:e.posY) + '%';
+        d.appendChild(m);
+      }
     } else {
       const p = document.createElement('div');
       p.className = 'ph'; p.textContent = e.label || '이미지';
