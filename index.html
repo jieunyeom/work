@@ -100,21 +100,21 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 
 /* ===== shell ===== */
 .shell{max-width:520px;margin:0 auto;padding:0 18px}
-.screen{display:none;padding-bottom:130px}
+.screen{display:none;padding-bottom:40px}
 .screen.on{display:block;animation:in .4s ease both}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.top{padding-top:96px;padding-bottom:0}
-@media(min-width:620px){ .top{padding-top:130px;padding-bottom:0} }
-.top .band:first-of-type{margin-top:56px}
+.top{padding-top:64px;padding-bottom:0}
+@media(min-width:620px){ .top{padding-top:84px;padding-bottom:0} }
+.top .band:first-of-type{margin-top:40px}
 
 /* ===== type ===== */
 .eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
   color:var(--accent);text-transform:uppercase;margin:0 0 20px}
-h1{font-size:38px;line-height:1.18;font-weight:900;letter-spacing:-.035em;margin:0 0 24px}
+h1{font-size:36px;line-height:1.2;font-weight:900;letter-spacing:-.035em;margin:0 0 18px}
 h2{font-size:27px;line-height:1.28;font-weight:800;letter-spacing:-.03em;margin:0 0 12px}
 h3{font-size:20px;font-weight:800;margin:0 0 12px}
-.lede{color:var(--muted);font-size:16.5px;line-height:1.95;margin:0;font-weight:500}
-@media(min-width:620px){ .lede{font-size:18px;line-height:2.05} }
+.lede{color:var(--muted);font-size:16px;line-height:1.72;margin:0;font-weight:500}
+@media(min-width:620px){ .lede{font-size:17px;line-height:1.78} }
 .mini-lede{color:var(--muted);font-size:14px;font-weight:500;margin:0}
 
 /* ===== cards ===== */
@@ -809,7 +809,7 @@ body{padding-top:46px}
   font-size:12.5px;color:#9A93AC;font-weight:700}
 
 /* 히어로 CTA */
-.hero-cta{display:block;width:100%;max-width:340px;margin:34px 0 10px;background:#7C3AED;color:#fff;
+.hero-cta{display:block;width:100%;max-width:340px;margin:24px 0 10px;background:#7C3AED;color:#fff;
   border:0;border-radius:14px;padding:17px 22px;font-family:var(--head);font-size:16px;font-weight:900;
   letter-spacing:-.03em;cursor:pointer;box-shadow:0 8px 22px -8px rgba(124,58,237,.55)}
 .hero-cta:active{transform:scale(.985)}
@@ -903,9 +903,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="screen on" id="s1">
   <div class="top">
     <p class="eyebrow">이커머스 반복 업무 자동화</p>
-    <h1>이거만 해도<br>퇴근이<br>빨라집니다</h1>
-    <p class="lede">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다.<br>
-      제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.<br><b>선착순 10명</b>, 값 대신 <b>받아보신 도구에 대한 짧은 피드백</b>만 받습니다.</p>
+    <h1>이거만 해도<br>퇴근이 빨라집니다</h1>
+    <p class="lede">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다. 제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.<br><b>선착순 10명</b>, 값 대신 <b>받아보신 도구에 대한 짧은 피드백</b>만 받습니다.</p>
     <button class="hero-cta" onclick="gotoForm()">지금 신청하고 첫 도구 받기 →</button>
     <p class="hero-sub">닉네임과 이메일만 · 1분이면 끝납니다</p>
 
@@ -943,20 +942,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
       <p class="sig">— 이커머스 마케터 · 5년차</p>
     </div>
-    <div class="band plain"><div class="band-in">
-    <div class="sect">
-      <p class="eyebrow" style="margin-bottom:10px">이 페이지가 다루는 것</p>
-      <h2>반복만 다룹니다.<br>딱 그것만요</h2>
-    </div>
-    <div class="layers">
-      <div class="lay"><span class="lay-b">O</span>
-        <span class="lay-t"><b>매번 똑같이 하는 일</b>을 파일 하나로 바꿉니다. 배너 만들기, 주문서 변환, 링크 생성, 보고서 작성.</span></div>
-      <div class="lay"><span class="lay-b">→</span>
-        <span class="lay-t">그만큼 <b>성과를 볼 시간이 생깁니다.</b> 손이 비어야 머리가 돕니다.</span></div>
-    </div>
-
-    </div></div>
-
     <div class="band soft"><div class="band-in">
     <div class="sect">
       <p class="eyebrow" style="margin-bottom:10px">이커머스 업무 전체</p>
@@ -1191,10 +1176,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 </div>
 
-<div class="bar" id="bar"><div class="bar-in">
-  <span class="cnt" id="count"></span>
-  <button class="cta" id="cta"></button>
-</div></div>
 
 <script>
 /* ============================================================
@@ -1781,6 +1762,7 @@ function go(n){
 
 function updateBar(){
   const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
+  if(!bar||!cta||!cnt) return;   // 하단 바를 없앴으므로 조용히 빠진다
   const n=state.screen,p=picked().length;
   if(n===1){bar.classList.add('on');cnt.innerHTML = META.SEATS_LEFT>0
       ? `선착순 공개`
