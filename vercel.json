@@ -27,7 +27,7 @@
     },
     {
       "source": "/bl",
-      "destination": "/?utm_source=blog&utm_medium=post&utm_campaign=first10&utm_content=blogpost_01",
+      "destination": "/?utm_source=naver&utm_medium=blog&utm_campaign=first10&utm_content=blogpost_01",
       "permanent": false
     },
     {
