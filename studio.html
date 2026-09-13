@@ -1,0 +1,350 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>이거만 해도 퇴근이 빨라집니다 — 이커머스 도구 8개</title>
+<meta name="description" content="이커머스 업무 중 매번 똑같이 반복하는 것들만 골라 도구로 만들었습니다. 8주에 걸쳐 8개.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF;--fg:#000;--sub:#525252;--line:rgba(0,0,0,.1);--dark:#0A0A0A;--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:Inter,-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  font-weight:400;letter-spacing:-.02em;line-height:1.5;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;text-transform:uppercase;letter-spacing:.1em}
+h1,h2,h3{font-weight:700;letter-spacing:-.05em;line-height:.9;margin:0}
+
+/* 헤더 */
+.hd{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:difference;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;padding:24px}
+.hd .logo{font-size:24px;font-weight:700;letter-spacing:-.05em}
+.hd .plus{background:none;border:0;color:inherit;font-size:28px;line-height:1;padding:4px 8px;font-family:inherit}
+
+/* 히어로 */
+.hero{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:120px 24px 64px}
+.hero h1{font-size:12vw}
+.rv{display:block;overflow:hidden}
+.rv>span{display:inline-block;transform:translateY(100%);transition:transform 1s var(--ease)}
+.on .rv>span{transform:translateY(0)}
+.hero .sub{font-size:24px;color:var(--sub);margin-top:32px;max-width:36ch;line-height:1.5}
+.hero .meta{margin-top:40px;color:var(--sub)}
+
+/* 마퀴 */
+.mq{overflow:hidden;padding:64px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.mq-t{display:flex;gap:24px;width:max-content;animation:run 30s linear infinite}
+.mq:hover .mq-t{animation-play-state:paused}
+@keyframes run{to{transform:translateX(-50%)}}
+.card{width:240px;aspect-ratio:5/7;flex:0 0 auto;border:1px solid var(--line);
+  padding:24px;display:flex;flex-direction:column;justify-content:space-between;
+  transition:background .7s var(--ease),color .7s var(--ease),transform .7s var(--ease)}
+.card:hover{background:var(--fg);color:#fff;transform:scale(1.05)}
+.card:nth-child(3n+1){border-top-left-radius:100px}
+.card:nth-child(3n+2){border-top-right-radius:100px;border-bottom-left-radius:40px}
+.card:nth-child(3n+3){border-radius:40px}
+.card .n{font-size:56px;font-weight:700;letter-spacing:-.05em;line-height:.9}
+.card .t{font-size:18px;font-weight:500;letter-spacing:-.03em;line-height:1.3}
+
+/* 문장 */
+.stmt{padding:140px 24px;text-align:center}
+.stmt p{max-width:20ch;margin:0 auto;font-size:clamp(32px,5vw,64px);font-weight:700;letter-spacing:-.05em;line-height:.95}
+.stmt .sub{max-width:52ch;margin:32px auto 0;font-size:18px;color:var(--sub);font-weight:400;letter-spacing:-.02em;line-height:1.5}
+
+/* 그리드 */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:64px 40px;padding:0 0 140px}
+.it .fr{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:#F5F5F5;
+  display:flex;align-items:center;justify-content:center}
+.it .fr .big{font-size:120px;font-weight:700;letter-spacing:-.05em;color:var(--fg);opacity:.12;
+  transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.it:hover .fr .big{opacity:1;transform:scale(1.05)}
+.it .ov{position:absolute;inset:0;background:rgba(0,0,0,.1);opacity:0;transition:opacity .5s var(--ease)}
+.it:hover .ov{opacity:1}
+.it .ar{position:absolute;top:16px;right:16px;font-size:24px;opacity:0;transform:translate(-8px,8px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.it:hover .ar{opacity:1;transform:translate(0,0)}
+.it .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  border-top:1px solid var(--line);margin-top:20px;padding-top:16px}
+.it .row h3{font-size:24px;letter-spacing:-.03em;line-height:1.2}
+.it .row .c{color:var(--sub)}
+.it .was{margin:12px 0 0;color:var(--sub);font-size:15px;line-height:1.5}
+
+/* 신청 */
+.form-s{border-top:1px solid var(--line);padding:140px 0}
+.form-s h2{font-size:clamp(40px,7vw,88px)}
+.fw{max-width:560px;margin:56px 0 0}
+label{display:block;margin:0 0 8px}
+input[type=text],input[type=email]{width:100%;padding:16px 0;border:0;border-bottom:1px solid var(--fg);
+  background:none;font:inherit;font-size:18px;letter-spacing:-.02em;color:var(--fg);border-radius:0}
+input:focus{outline:none;border-bottom-width:2px}
+.f{margin:0 0 36px}
+.hint{color:var(--sub);font-size:14px;margin:8px 0 0}
+.ck{display:flex;gap:12px;align-items:flex-start;margin:0 0 20px;font-size:15px;line-height:1.5}
+.ck input{margin:3px 0 0;width:18px;height:18px;accent-color:#000;flex:0 0 auto}
+.sb{width:100%;margin-top:24px;padding:24px;background:var(--fg);color:#fff;border:0;
+  font:inherit;font-size:18px;font-weight:700;letter-spacing:-.02em;border-radius:0;
+  transition:opacity .5s var(--ease)}
+.sb:hover{opacity:.75}
+.sb:disabled{opacity:.4}
+.msg{margin-top:20px;font-size:15px}
+.msg.err{border-left:2px solid #000;padding-left:12px}
+.bad{border-bottom-color:#000!important;border-bottom-width:2px!important}
+
+/* 완료 */
+.done{display:none;padding:40px 0 0;text-align:center}
+.done.on{display:block}
+.done h2{font-size:clamp(40px,7vw,88px)}
+.done .sb{max-width:360px;margin:40px auto 0}
+
+/* 푸터 */
+footer{background:var(--dark);color:#fff;padding:100px 0 0}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+.fg h3{font-size:clamp(32px,4vw,56px)}
+.fg p{color:#A3A3A3;margin:20px 0 0;max-width:40ch;font-size:16px}
+.fg .mono{color:#737373;margin:0 0 20px}
+.fg ul{list-style:none;margin:0;padding:0}
+.fg li{margin:0 0 12px}
+.fg a{text-decoration:none;transition:opacity .5s var(--ease)}
+.fg a:hover{opacity:.6}
+.fbar{margin-top:80px;border-top:1px solid rgba(255,255,255,.1);padding:24px 0 40px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#737373}
+
+/* 커서 — 마우스가 있는 기기에서만 */
+#cur{display:none}
+@media (hover:hover) and (pointer:fine){
+  body{cursor:none}
+  a,button,input,label,.it,.card{cursor:none}
+  #cur{display:block;position:fixed;top:0;left:0;width:32px;height:32px;border-radius:50%;
+    border:1px solid #000;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:9999;
+    will-change:transform}
+  #cur .in{display:block;width:100%;height:100%;border-radius:50%;background:#fff;
+    transition:transform .5s var(--ease)}
+  #cur.big .in{transform:scale(2.5)}
+}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr;gap:48px}
+  .fg{grid-template-columns:1fr;gap:48px}
+  .hero h1{font-size:15vw}
+  .hero .sub{font-size:19px}
+  .stmt{padding:100px 24px}
+  .form-s,footer{padding-top:100px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv>span{transform:none}
+}
+</style></head><body>
+
+<div id="cur"><span class="in"></span></div>
+
+<header class="hd">
+  <span class="logo">kk</span>
+  <button class="plus" id="toTop" aria-label="맨 위로">+</button>
+</header>
+
+<section class="hero" id="hero">
+  <h1 id="h1"></h1>
+  <p class="sub">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다.</p>
+  <p class="mono meta">8주 · 8개 · 선착순 10명 · 0원</p>
+</section>
+
+<section class="mq"><div class="mq-t" id="mqT"></div></section>
+
+<section class="stmt">
+  <p>반복을 덜면 시간이 남습니다</p>
+  <p class="sub">제가 지금 쓰고 있는 파일 그대로 보내드립니다. 값은 돈이 아니라, 받아보신 도구에 대한 짧은 피드백으로 받습니다.</p>
+</section>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<section class="form-s" id="signup"><div class="wrap">
+  <h2>신청하고<br>첫 도구 받기</h2>
+  <p class="mono" style="color:var(--sub);margin-top:24px">닉네임과 이메일만 · 1분</p>
+
+  <form class="fw" id="f" novalidate>
+    <div class="f"><label class="mono" for="f-name">닉네임 *</label>
+      <input id="f-name" type="text" autocomplete="nickname" placeholder="어떻게 불러드리면 될까요"></div>
+    <div class="f"><label class="mono" for="f-email">이메일 *</label>
+      <input id="f-email" type="email" autocomplete="email" placeholder="name@company.com"></div>
+    <div class="f"><label class="mono" for="f-task">지금 제일 손이 많이 가는 업무</label>
+      <input id="f-task" type="text" placeholder="예: 배너 가격 계산, 주문서 ERP 변환">
+      <p class="hint">안 적으셔도 괜찮아요. 적어주시면 그 업무를 기준으로 정리해서 보내드릴게요.</p></div>
+    <div class="f"><label class="mono" for="f-co">회사 · 직무</label>
+      <input id="f-co" type="text" placeholder="안 적으셔도 괜찮아요"></div>
+
+    <label class="ck"><input type="checkbox" id="f-privacy">
+      <span><b>[필수] 개인정보 수집 · 이용에 동의합니다.</b><br>
+      <span style="color:var(--sub)">닉네임 · 이메일 / 자료 발송 목적 / 발송 완료 후 1개월 보관 · 실명은 받지 않습니다</span></span></label>
+    <label class="ck"><input type="checkbox" id="f-news">
+      <span>[선택] 다음 도구가 열릴 때 소식 받기<br>
+      <span style="color:var(--sub)">동의하지 않으셔도 위 자료는 그대로 받으실 수 있어요.</span></span></label>
+
+    <button class="sb" type="submit" id="sb">신청하고 파일 받기</button>
+    <p class="msg" id="msg"></p>
+  </form>
+
+  <div class="done" id="done">
+    <h2>첫 번째 도구,<br>받으셨습니다.</h2>
+    <p class="sub" style="color:var(--sub);margin-top:24px">메일함도 확인해 주세요. 다음 도구는 다음 주에 보내드립니다.</p>
+    <button class="sb" id="dl">도구 열기 →</button>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div>
+      <h3>퇴근이<br>빨라집니다</h3>
+      <p>이커머스 마케터가 직접 쓰는 자동화 파일을 8주에 걸쳐 하나씩 보내드립니다. 반복만 다룹니다.</p>
+    </div>
+    <div><p class="mono">문의</p><ul>
+      <li><a href="mailto:todo1nothing@gmail.com">todo1nothing@gmail.com</a></li>
+      <li><a href="/feedback.html">피드백 남기기</a></li>
+    </ul></div>
+    <div><p class="mono">약관</p><ul>
+      <li><a href="/legal.html?doc=privacy">개인정보 처리방침</a></li>
+      <li><a href="/legal.html?doc=consent">마케팅 수신동의</a></li>
+      <li><a href="/legal.html?doc=terms">서비스 이용약관</a></li>
+    </ul></div>
+  </div>
+  <div class="fbar"><span>&copy; 2026 케켈</span><span class="mono">Made in Seoul</span></div>
+</div></footer>
+
+<script>
+var META={
+  SUPABASE_URL:'https://rpchylubijrpzfywbxhp.supabase.co',
+  SUPABASE_KEY:'sb_publishable_eRyzvnB4O666FN_gTqP9EA_M_8H7s9Z',
+  MAIL_URL:'https://script.google.com/macros/s/AKfycbwlM2IJ__ox5O3gu28b8N1zrf2p48yNxFiHVSvIrqJv0qikFME8Furj-x58LFU7Dk8/exec',
+  FILE_URL:'/tools/banner-maker.html'
+};
+var WEEKS=[
+ {w:1,t:'배너 이미지 자동 생성',c:'상세·배너',was:'가격 계산해서 포토샵으로 배너를 하나씩 만듦'},
+ {w:2,t:'주문서 → ERP 양식 변환',c:'주문·재고',was:'쿠팡·스마트스토어 주문서를 손으로 ERP 양식에 맞춤'},
+ {w:3,t:'상품등록용 이미지 주소 정리',c:'상품 등록',was:'일괄등록용 이미지 주소를 상품마다 하나씩 확인'},
+ {w:4,t:'상세페이지 HTML 자동 생성',c:'상세·배너',was:'이미지 목록 보면서 HTML 코드를 하나씩 타이핑'},
+ {w:5,t:'광고 유입 추적 링크 생성',c:'광고 운영',was:'광고 링크에 붙일 추적 코드를 매번 손으로 조합'},
+ {w:6,t:'상품별 광고 분석',c:'데이터 분석',was:'매체별 리포트를 상품 기준으로 일일이 합산'},
+ {w:7,t:'주간 보고서 자동 작성',c:'데이터 분석',was:'매주 같은 항목을 처음부터 다시 채움'},
+ {w:8,t:'CS·CRM 답변 문구 생성',c:'고객 관리',was:'리셀러 신고, 반복 문의, 발송 문구를 매번 새로 씀'}
+];
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function pad(n){return n<10?'0'+n:''+n;}
+
+/* 히어로 — 글자 하나씩 올라오기 */
+(function(){
+  var lines=['이거만 해도','퇴근이 빨라집니다'], out='';
+  for(var i=0;i<lines.length;i++){
+    var l=lines[i], inner='';
+    for(var j=0;j<l.length;j++){
+      var ch=l.charAt(j);
+      inner+='<span style="transition-delay:'+(j*35)+'ms">'+(ch===' '?'&nbsp;':esc(ch))+'</span>';
+    }
+    out+='<span class="rv">'+inner+'</span>';
+  }
+  document.getElementById('h1').innerHTML=out;
+  requestAnimationFrame(function(){document.getElementById('hero').classList.add('on');});
+})();
+
+/* 마퀴 — 같은 묶음을 두 번 이어 붙여 끊김 없이 */
+(function(){
+  var one='';
+  for(var i=0;i<WEEKS.length;i++){
+    one+='<div class="card"><span class="n">'+pad(WEEKS[i].w)+'</span>'+
+         '<span class="t">'+esc(WEEKS[i].t)+'</span></div>';
+  }
+  document.getElementById('mqT').innerHTML=one+one;
+})();
+
+/* 그리드 */
+(function(){
+  var h='';
+  for(var i=0;i<WEEKS.length;i++){
+    var w=WEEKS[i];
+    h+='<article class="it"><div class="fr"><span class="big">'+pad(w.w)+'</span>'+
+       '<span class="ov"></span><span class="ar">&#8599;</span></div>'+
+       '<div class="row"><h3>'+esc(w.t)+'</h3><span class="mono c">'+esc(w.c)+'</span></div>'+
+       '<p class="was">'+esc(w.was)+'</p></article>';
+  }
+  document.getElementById('grid').innerHTML=h;
+})();
+
+/* 커서 — lerp 로 부드럽게 따라오게 */
+(function(){
+  var c=document.getElementById('cur');
+  if(!window.matchMedia||!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  var x=window.innerWidth/2, y=window.innerHeight/2, tx=x, ty=y;
+  document.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
+  (function loop(){
+    x+=(tx-x)*0.18; y+=(ty-y)*0.18;
+    c.style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop);
+  })();
+  var HOT='a,button,input,label,.it,.card';
+  document.addEventListener('mouseover',function(e){
+    if(e.target.closest&&e.target.closest(HOT)) c.classList.add('big');});
+  document.addEventListener('mouseout',function(e){
+    if(e.target.closest&&e.target.closest(HOT)) c.classList.remove('big');});
+})();
+
+document.getElementById('toTop').onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+document.getElementById('dl').onclick=function(){window.open(META.FILE_URL,'_blank','noopener');};
+
+/* UTM */
+function utmCapture(){try{
+  var p=new URLSearchParams(location.search),o={},k=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  for(var i=0;i<k.length;i++){ if(p.get(k[i])) o[k[i]]=p.get(k[i]); }
+  if(Object.keys(o).length){o.referrer=document.referrer||null;o.landing=location.pathname;
+    sessionStorage.setItem('utm',JSON.stringify(o));}
+}catch(e){}}
+function utmGet(){try{return JSON.parse(sessionStorage.getItem('utm')||'{}');}catch(e){return {};}}
+utmCapture();
+
+function sendWelcome(name,email){
+  if(!META.MAIL_URL) return;
+  try{ fetch(META.MAIL_URL,{method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({name:name,email:email})})['catch'](function(){}); }catch(e){}
+}
+
+document.getElementById('f').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  function g(id){return document.getElementById(id);}
+  var name=g('f-name').value.trim(), email=g('f-email').value.trim();
+  var task=g('f-task').value.trim(), co=g('f-co').value.trim();
+  var ok1=g('f-privacy').checked, news=g('f-news').checked;
+  var msg=g('msg'), bad=false;
+  g('f-name').classList.toggle('bad',!name); if(!name) bad=true;
+  var okMail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  g('f-email').classList.toggle('bad',!okMail); if(!okMail) bad=true;
+  if(!ok1) bad=true;
+  if(bad){ msg.className='msg err'; msg.textContent='필수 항목과 동의를 확인해 주세요.'; return; }
+
+  var btn=g('sb'); btn.disabled=true; btn.textContent='보내는 중…'; msg.textContent=''; msg.className='msg';
+  var row={name:name,email:email,task:task||null,company:co||null,
+    agree_privacy:true,agree_news:news,source:(utmGet().utm_source||'direct')};
+  var u=utmGet(); for(var k in u){ if(Object.prototype.hasOwnProperty.call(u,k)) row[k]=u[k]; }
+
+  fetch(META.SUPABASE_URL+'/rest/v1/signups',{method:'POST',
+    headers:{apikey:META.SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify(row)
+  }).then(function(r){
+    if(r.ok){
+      sendWelcome(name,email);
+      g('f').style.display='none';
+      g('done').classList.add('on');
+      g('done').scrollIntoView({behavior:'smooth',block:'center'});
+    } else {
+      return r.text().then(function(t){ throw new Error(t||('HTTP '+r.status)); });
+    }
+  })['catch'](function(e){
+    btn.disabled=false; btn.textContent='신청하고 파일 받기';
+    msg.className='msg err'; msg.textContent='전송에 실패했어요. 잠시 뒤 다시 눌러주세요.';
+    if(window.console) console.warn('signup fail:',e.message);
+  });
+});
+</script></body></html>
