@@ -860,10 +860,18 @@ $('#addText').onclick = () => {
   slide().els.push(e); selId = e.id; renderAll();
 };
 $('#addImage').onclick = () => {
+  // 빈 이미지 자리가 선택돼 있으면 새로 만들지 않고 그 자리에 넣는다
+  const cur = sel();
+  if(cur && cur.type === 'media'){ pickFile(cur); return; }
+  // 선택이 없으면 이 장의 첫 빈 이미지 자리를 찾아 거기에 넣는다
+  const empty = slide().els.find(e => e.type === 'media' && !e.src);
+  if(empty){ selId = empty.id; renderAll(); pickFile(empty); return; }
   const e = mediaBox({ y:200, x:PAD, w:W-PAD*2, h:600, label:'이미지' });
   slide().els.push(e); selId = e.id; renderAll(); pickFile(e);
 };
 $('#addVideo').onclick = () => {
+  const cur = sel();
+  if(cur && cur.type === 'media'){ cur.mediaType = 'video'; pickFile(cur); return; }
   const e = mediaBox({ y:200, x:PAD, w:W-PAD*2, h:600, mediaType:'video', label:'영상' });
   slide().els.push(e); selId = e.id; renderAll(); pickFile(e);
 };
