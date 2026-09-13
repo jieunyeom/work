@@ -235,7 +235,7 @@ function mediaBox(o={}){
   return Object.assign({
     id:nid(), type:'media', mediaType:'image', src:null,
     x:0, y:0, w:W, h:Math.round(H*0.55),
-    fit:'cover', dim:0, dimColor:'#000000',
+    fit:'cover', posX:50, posY:50, dim:0, dimColor:'#000000',
     radius:0, borderW:0, borderColor:'#FFFFFF',
     label:'이미지 · 클릭 후 오른쪽에서 업로드'
   }, o);
@@ -441,6 +441,7 @@ function elNode(e, interactive=true){
       const m = document.createElement(e.mediaType === 'video' ? 'video' : 'img');
       m.src = e.src;
       m.style.objectFit = e.fit;
+      m.style.objectPosition = (e.posX==null?50:e.posX) + '% ' + (e.posY==null?50:e.posY) + '%';
       if(e.mediaType === 'video'){ m.autoplay = true; m.loop = true; m.muted = true; m.playsInline = true; }
       d.appendChild(m);
     } else {
@@ -611,6 +612,8 @@ function renderInsp(){
         <option value="contain" ${e.fit=='contain'?'selected':''}>다 보이기</option>
         <option value="fill"    ${e.fit=='fill'?'selected':''}>늘이기</option>
       </select>`)}
+      ${e.fit === 'cover' ? ctl('사진 상하', range('mPosY', 0, 100, 1, e.posY==null?50:e.posY, '%')) : ''}
+      ${e.fit === 'cover' ? ctl('사진 좌우', range('mPosX', 0, 100, 1, e.posX==null?50:e.posX, '%')) : ''}
       ${ctl('딤 농도', range('mDim', 0, 1, 0.01, e.dim))}
       ${ctl('딤 색', `<input type="color" id="mDimColor" value="${e.dimColor}">
                       <input type="text" id="mDimHex" value="${e.dimColor}">`)}
@@ -729,7 +732,9 @@ function bindInsp(){
   /* 미디어 */
   on('mUpload','click', () => pickFile(e));
   on('mClear','click', () => { e.src = null; renderAll(); });
-  on('mFit','change', ev => { e.fit = ev.target.value; renderStage(); renderThumbs(); });
+  on('mFit','change', ev => { e.fit = ev.target.value; renderAll(); });
+  live('mPosY',   v => e.posY = v);
+  live('mPosX',   v => e.posX = v);
   live('mDim',    v => e.dim = v);
   live('mRadius', v => e.radius = v, 'px');
   live('mBorder', v => e.borderW = v, 'px');
