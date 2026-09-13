@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="640" viewBox="0 0 1080 640" font-family="Pretendard, 'Malgun Gothic', sans-serif">
+  <rect width="1080" height="640" fill="#F4F1FA"/>
+
+  <!-- 좌측 입력 패널 -->
+  <rect x="40" y="40" width="470" height="560" rx="16" fill="#FFFFFF"/>
+  <text x="72" y="88" font-size="22" font-weight="700" fill="#2E2838">제품</text>
+
+  <text x="72" y="132" font-size="15" font-weight="600" fill="#6B6478">제품명</text>
+  <rect x="72" y="146" width="406" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="88" y="176" font-size="17" fill="#2E2838">무선 청소기 X200</text>
+
+  <text x="72" y="228" font-size="15" font-weight="600" fill="#6B6478">정상가</text>
+  <rect x="72" y="242" width="190" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="88" y="272" font-size="17" fill="#2E2838">289,000</text>
+
+  <text x="288" y="228" font-size="15" font-weight="600" fill="#6B6478">가격</text>
+  <rect x="288" y="242" width="190" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="304" y="272" font-size="17" fill="#2E2838">198,000</text>
+
+  <text x="72" y="324" font-size="15" font-weight="600" fill="#6B6478">쿠폰 %</text>
+  <rect x="72" y="338" width="120" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="88" y="368" font-size="17" fill="#2E2838">10</text>
+
+  <text x="218" y="324" font-size="15" font-weight="600" fill="#6B6478">구매적립 %</text>
+  <rect x="218" y="338" width="120" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="234" y="368" font-size="17" fill="#2E2838">5</text>
+
+  <text x="364" y="324" font-size="15" font-weight="600" fill="#6B6478">슈퍼적립 %</text>
+  <rect x="364" y="338" width="114" height="46" rx="8" fill="#F7F5FB"/>
+  <text x="380" y="368" font-size="17" fill="#2E2838">3</text>
+
+  <!-- 자동 계산 결과 -->
+  <rect x="72" y="414" width="406" height="120" rx="10" fill="#F2ECFF"/>
+  <text x="92" y="446" font-size="14" font-weight="700" fill="#7C3AED" letter-spacing="1">자동 계산</text>
+  <text x="92" y="484" font-size="15" fill="#6B6478">할인율</text>
+  <text x="200" y="486" font-size="30" font-weight="800" fill="#7C3AED">31%</text>
+  <text x="92" y="518" font-size="13" fill="#8B8496">계산식  289,000 → 198,000  ·  쿠폰 10% 적용</text>
+
+  <!-- 우측 결과 배너 -->
+  <text x="556" y="66" font-size="15" font-weight="700" fill="#6B6478" letter-spacing="1">생성된 배너</text>
+  <rect x="556" y="84" width="484" height="286" rx="12" fill="#1C1B22"/>
+  <rect x="586" y="116" width="86" height="30" rx="6" fill="#DDF56A"/>
+  <text x="600" y="137" font-size="16" font-weight="800" fill="#1C1B22">31% OFF</text>
+  <text x="586" y="196" font-size="34" font-weight="800" fill="#FFFFFF">무선 청소기 X200</text>
+  <text x="586" y="248" font-size="20" fill="#A9A2B4" text-decoration="line-through">289,000원</text>
+  <text x="586" y="296" font-size="40" font-weight="800" fill="#DDF56A">198,000원</text>
+  <text x="586" y="336" font-size="16" fill="#A9A2B4">쿠폰 10% · 구매적립 5% · 슈퍼적립 3%</text>
+
+  <rect x="556" y="392" width="484" height="86" rx="12" fill="#FFFFFF"/>
+  <text x="586" y="426" font-size="15" font-weight="600" fill="#6B6478">860 × 505</text>
+  <text x="586" y="456" font-size="15" font-weight="600" fill="#6B6478">860 × 310</text>
+  <rect x="890" y="412" width="120" height="46" rx="8" fill="#7C3AED"/>
+  <text x="912" y="442" font-size="16" font-weight="700" fill="#FFFFFF">내려받기</text>
+
+  <!-- 예시 표식 -->
+  <rect x="556" y="500" width="484" height="100" rx="12" fill="#FFF4D6"/>
+  <text x="580" y="536" font-size="16" font-weight="800" fill="#8A6D1F">예시 이미지입니다</text>
+  <text x="580" y="566" font-size="14" fill="#8A6D1F">발행 전에 실제 도구 화면 캡처로 바꿔주세요.</text>
+  <text x="580" y="588" font-size="14" fill="#8A6D1F">work-jiuen.vercel.app/tools/banner-maker.html</text>
+</svg>
