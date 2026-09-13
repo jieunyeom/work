@@ -139,6 +139,8 @@
     <button class="btn" id="addDivider">구분선</button>
     <button class="btn" id="capToggle">캡션</button>
     <div class="spacer"></div>
+    <span id="saveMark" style="font-size:12px;color:#8b8b8b;margin-right:6px"></span>
+    <button class="btn ghost" id="resetDoc">새로 시작</button>
     <button class="btn ghost" id="saveJson">프로젝트 저장</button>
     <button class="btn ghost" id="loadJson">불러오기</button>
     <button class="btn" id="pngOne">PNG 1장</button>
@@ -517,7 +519,58 @@ function fitStage(){
   stage._scale = k;
 }
 
-function renderAll(){ applyFont(); renderStage(); renderThumbs(); renderInsp(); }
+function renderAll(){ applyFont(); renderStage(); renderThumbs(); renderInsp(); scheduleSave(); }
+
+/* =========================================================
+   자동 저장 — 브라우저 DB(IndexedDB). 사진이 들어가도 용량 여유가 있다.
+   이 브라우저 안에만 남는다. 다른 기기로는 안 따라간다.
+   ========================================================= */
+const DB_NAME = 'carousel-editor', STORE = 'doc', KEY = 'current';
+function idb(){
+  return new Promise((res, rej) => {
+    const q = indexedDB.open(DB_NAME, 1);
+    q.onupgradeneeded = () => q.result.createObjectStore(STORE);
+    q.onsuccess = () => res(q.result);
+    q.onerror = () => rej(q.error);
+  });
+}
+async function idbPut(v){
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const t = db.transaction(STORE, 'readwrite');
+    t.objectStore(STORE).put(v, KEY);
+    t.oncomplete = res; t.onerror = () => rej(t.error);
+  });
+}
+async function idbGet(){
+  const db = await idb();
+  return new Promise((res, rej) => {
+    const t = db.transaction(STORE, 'readonly');
+    const q = t.objectStore(STORE).get(KEY);
+    q.onsuccess = () => res(q.result || null);
+    q.onerror = () => rej(q.error);
+  });
+}
+let saveTimer = null, saving = false;
+function setSaveMark(text){ const el = document.getElementById('saveMark'); if(el) el.textContent = text; }
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    if(saving) return; saving = true;
+    try{ await idbPut(JSON.parse(JSON.stringify(doc))); setSaveMark('저장됨'); }
+    catch(e){ setSaveMark('저장 실패'); console.warn('autosave', e); }
+    saving = false;
+  }, 700);
+}
+async function restoreSaved(){
+  try{
+    const d = await idbGet();
+    if(!d || !d.slides || !Array.isArray(d.slides) || !d.slides.length) return false;
+    doc = d; cur = 0; selId = null;
+    uid = 0; doc.slides.forEach(sl => { sl.id = nid(); sl.els.forEach(e => e.id = nid()); });
+    return true;
+  }catch(e){ console.warn('restore', e); return false; }
+}
 
 /* =========================================================
    인스펙터
@@ -1011,6 +1064,10 @@ $('#saveJson').onclick = () => {
   download(URL.createObjectURL(blob), 'carousel-project.json');
   toast('프로젝트 파일을 내려받았습니다');
 };
+$('#resetDoc').onclick = async () => {
+  if(!confirm('지금 작업을 버리고 처음 구성으로 돌아갑니다. 계속할까요?')) return;
+  doc = initialDoc(); cur = 0; selId = null; renderAll(); toast('처음 구성으로 돌아갔습니다');
+};
 $('#loadJson').onclick = () => { const f = $('#jsonPick'); f.value=''; f.click(); };
 $('#jsonPick').addEventListener('change', ev => {
   const file = ev.target.files[0]; if(!file) return;
@@ -1075,6 +1132,9 @@ $('#capTxt').onclick = () => {
    ========================================================= */
 window.addEventListener('resize', () => { fitStage(); });
 fitStage();
-renderAll();
+restoreSaved().then(ok => {
+  renderAll();
+  if(ok){ setSaveMark('저장됨'); toast('직전 작업을 불러왔습니다'); }
+});
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(renderAll);
 </script>
