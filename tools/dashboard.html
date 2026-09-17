@@ -15,6 +15,7 @@ gate(async function(){
   +'<h2>채널별</h2><div id="byChan"></div>'
   +'<h2>소재 상위</h2><div id="topC"></div>'
   +'<h2>링크별</h2><div id="byLink"></div>'
+  +'<h2>메일 회신</h2><div id="repSum" class="grid g4"></div><div id="repList"></div>'
   +'<h2>피드백</h2><div id="fbSum" class="grid g4"></div><div id="fbList"></div>'
   +'<h2>구글 애널리틱스</h2><div class="card" id="ga"><span class="muted">미연동 상태입니다. 연동하면 여기에 「세션·주요 이벤트·유입 경로」가 표시됩니다.</span></div>';
 
@@ -35,6 +36,8 @@ gate(async function(){
     try{ var d=await api('/api/stats'+qstr); render(d); m.textContent=''; }catch(e){ m.className='msg err'; m.textContent=e.message; }
     try{ renderFeedback(await api('/api/feedback'+qstr)); }
     catch(e){ document.getElementById('fbList').innerHTML='<p class="empty">피드백을 불러오지 못했습니다 — '+esc(e.message)+'</p>'; }
+    try{ renderReplies(await api('/api/replies')); }
+    catch(e){ document.getElementById('repList').innerHTML='<p class="empty">회신을 불러오지 못했습니다 — '+esc(e.message)+'</p>'; }
   }
   function render(d){
     var s=d.summary;
@@ -48,6 +51,31 @@ gate(async function(){
     var bl=document.getElementById('byLink');
     bl.innerHTML=d.links.length?'<div style="overflow-x:auto"><table><thead><tr><th>짧은 링크</th><th>채널 / 소재</th><th>메모</th><th class="n">클릭</th><th class="n">등록</th><th class="n">등록률</th></tr></thead><tbody>'+d.links.map(function(l){return '<tr'+(l.archived?' style="opacity:.45"':'')+'><td class="mono">/l/'+esc(l.short_code)+'</td><td>'+esc(l.source)+' / '+esc(l.medium)+(l.content?' · <span class="mono">'+esc(l.content)+'</span>':'')+'</td><td class="muted">'+esc(l.label||'')+'</td><td class="n">'+l.clicks+'</td><td class="n">'+l.conv+'</td><td class="n">'+l.cvr+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="empty">아직 링크가 없습니다</p>';
   }
+  function renderReplies(d){
+    var it=d.items||[];
+    document.getElementById('repSum').innerHTML=[
+      ['받은 회신', d.total, '웰컴메일 답장'],
+      ['안 읽음', d.unhandled, '아직 처리 안 한 것']
+    ].map(function(t){return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'}).join('');
+
+    document.getElementById('repList').innerHTML = it.length
+      ? '<div style="overflow-x:auto"><table><thead><tr><th>날짜</th><th>보낸 사람</th><th>내용</th><th></th></tr></thead><tbody>'
+        + it.map(function(x){
+            return '<tr'+(x.handled?' style="opacity:.5"':'')+'>'
+              + '<td class="mono faint" style="white-space:nowrap">'+fmtDate(x.received_at)+'</td>'
+              + '<td><b>'+esc(x.from_name||'-')+'</b><br><span class="muted" style="font-size:11.5px">'+esc(x.from_email||'')+'</span></td>'
+              + '<td style="max-width:460px;white-space:pre-wrap;font-size:13px">'+esc((x.body||'').slice(0,400))+'</td>'
+              + '<td><button class="btn sm ghost" data-rep="'+x.id+'" data-h="'+(x.handled?0:1)+'">'+(x.handled?'되돌리기':'처리함')+'</button></td>'
+              + '</tr>'; }).join('')
+        + '</tbody></table></div>'
+      : '<p class="empty">아직 받은 회신이 없습니다. Apps Script 트리거를 설치하면 1시간마다 수집합니다</p>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-rep]'),function(b){
+      b.onclick=async function(){
+        try{ await api('/api/replies',{method:'POST',body:{id:b.dataset.rep,handled:b.dataset.h==='1'}}); load(); }
+        catch(e){ alert('저장하지 못했습니다 — '+e.message); } }; });
+  }
+
   function renderFeedback(f){
     var L=f.labels||{};
     var used=f.by_used||{};
