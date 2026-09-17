@@ -875,6 +875,40 @@ body{padding-top:46px}
 .band.plain{background:#fff}
 .band.deep{background:#EFEAF7}
 .band.tail{padding-bottom:0}
+
+/* ── 섹션 번호 라벨 ─────────────────── */
+.secno{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.secno i{font-style:normal;font-family:var(--head);font-size:13px;font-weight:900;
+  letter-spacing:.06em;color:#fff;background:#7C3AED;border-radius:6px;padding:4px 9px}
+.secno span{font-family:var(--head);font-size:12.5px;font-weight:800;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase}
+.band.deep .secno i{background:#5B21B6}
+
+/* ── 섹션 제목 키우기 ───────────────── */
+.band h2{font-size:31px;line-height:1.26}
+@media(min-width:620px){ .band h2{font-size:38px} }
+
+/* ── 중간 CTA ──────────────────────── */
+.midcta{margin:34px 0 0;text-align:center}
+.midcta button{display:block;width:100%;max-width:420px;margin:0 auto;background:#7C3AED;color:#fff;
+  border:0;border-radius:16px;padding:19px 22px;font-family:var(--head);font-size:17px;font-weight:900;
+  letter-spacing:-.02em;cursor:pointer;box-shadow:0 10px 24px rgba(124,58,237,.28);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1)}
+.midcta button:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(124,58,237,.34)}
+.midcta p{margin:10px 0 0;font-size:12.5px;color:var(--muted);font-weight:600}
+.band.deep .midcta button{background:#DDF56A;color:#1F2A05;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.band.deep .midcta p{color:#A9BF4E}
+
+/* ── FAQ ───────────────────────────── */
+.faq{margin-top:26px;border-top:1px solid #E7E4EE}
+.faq details{border-bottom:1px solid #E7E4EE}
+.faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;position:relative;
+  font-family:var(--head);font-size:16px;font-weight:800;color:#2E2838;letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:15px;font-size:20px;
+  font-weight:700;color:#A78BFA;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{margin:0 0 18px;font-size:14.5px;line-height:1.8;color:#4A4458}
 .band-in>*:first-child{margin-top:0!important}
 html,body{overflow-x:hidden}
 @media(min-width:700px){ .band-in{max-width:760px} }
@@ -930,6 +964,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="band soft"><div class="band-in">
     <div class="pain-h">
       <span class="tag">SOUND FAMILIAR?</span>
+      <div class="secno"><i>01</i><span>이런 적 있으시죠</span></div>
       <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
     </div>
     <div class="pain" id="painEmpathy"></div>
@@ -955,14 +990,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="band soft"><div class="band-in">
     <div class="sect">
-      <p class="eyebrow" style="margin-bottom:10px">이커머스 업무 전체</p>
+      <div class="secno"><i>02</i><span>업무 전체 지도</span></div>
       <h2>신규 상품 하나가<br>이 8칸을 다 지나갑니다</h2>
       <p class="lede" style="margin-top:12px">등록하고, 상세 만들고, 행사 넣고, 가격 잡고, 광고 돌리고, 출고하고, 문의 받고, 성과 봅니다. <b>상품이 바뀌어도 순서는 같습니다.</b></p>
     </div>
     <div class="gx" id="grid"></div>
 
     <div class="sect">
-      <p class="eyebrow" style="margin-bottom:10px">1주차 미리보기</p>
+      <div class="secno"><i>03</i><span>1주차 미리보기</span></div>
+      
       <h2>배너 하나 만드는 데<br>뭐가 필요했는지 <span class="tagno">02 상세·배너</span></h2>
       <p class="lede" style="margin-top:12px">정상가 보고, 쿠폰 계산하고, 적립 빼고, 할인율 구하고, 그다음에 이미지 만들기. 매주 다섯 개씩.</p>
     </div>
@@ -1001,10 +1037,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="hero-cap">이제 <b>정상가와 행사가만 넣습니다.</b> 나머지는 파일이 계산합니다.<br>
       규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
 
+    <div class="midcta">
+      <button onclick="gotoForm()">이 도구, 지금 받기 →</button>
+      <p>닉네임과 이메일만 · 1분이면 끝납니다</p>
+    </div>
+
     </div></div>
 
     <div class="band plain"><div class="band-in">
     <div class="sect">
+      <div class="secno"><i>04</i><span>자주 묻는 것</span></div>
       <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
     </div>
     <div class="rebut">
@@ -1019,6 +1061,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="band deep"><div class="band-in">
     <div class="sect">
+      <div class="secno"><i>05</i><span>8주 로드맵</span></div>
       <h2>8주 뒤에,<br>도구 8개가 남습니다</h2>
       <p class="lede" style="margin-top:12px">한 주에 하나씩. <b>지금 어떻게 하고 있는지</b>와 <b>이후에 어떻게 바뀌는지</b>를 같이 보냅니다.</p>
     </div>
@@ -1036,6 +1079,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>도구를 받아보신 뒤 <b>짧은 피드백</b>만 주세요. 써보셨는지, 어디가 걸렸는지 — <b>한두 줄이면 충분합니다.</b></p>
         <p class="trade-s">그게 다음 도구를 뭘로 만들지 정합니다.</p>
       </div>
+    </div>
+
+    <div class="midcta">
+      <button onclick="gotoForm()">8주치 신청하고 첫 도구 받기 →</button>
+      <p>0원 · 설치 없음 · 언제든 중단</p>
+    </div>
+
+    </div></div>
+
+    <div class="band plain"><div class="band-in">
+    <div class="sect">
+      <div class="secno"><i>06</i><span>자주 묻는 질문</span></div>
+      <h2>궁금하실 것들</h2>
+    </div>
+    <div class="faq">
+      <details><summary>정말 0원인가요? 나중에 결제하라고 하지 않나요?</summary>
+        <p>0원입니다. 카드 정보도 안 받습니다. 값은 돈이 아니라 <b>받아보신 도구에 대한 짧은 피드백</b>으로 받습니다. 한두 줄이면 충분하고, 안 주셔도 다음 도구는 그대로 갑니다.</p></details>
+
+      <details><summary>코딩을 전혀 모르는데 쓸 수 있나요?</summary>
+        <p>쓸 수 있습니다. HTML 파일 하나라 <b>더블클릭하면 브라우저에서 열립니다.</b> 설치도 로그인도 없고, 숫자만 넣으면 됩니다. 인터넷 연결 없이도 동작합니다.</p></details>
+
+      <details><summary>제 업무랑 안 맞으면요?</summary>
+        <p>신청할 때 <b>지금 제일 손이 많이 가는 업무</b>를 적는 칸이 있습니다. 거기 적어주시면 그걸 기준으로 순서를 조정합니다. 그래도 안 맞으면 회신 한 줄로 중단하실 수 있습니다.</p></details>
+
+      <details><summary>회사 보안 때문에 외부 파일을 못 쓰는데요</summary>
+        <p>서버로 데이터를 보내지 않습니다. <b>파일 안에서만 계산하고 끝납니다.</b> 그래서 인터넷을 끊어도 동작합니다. 다만 사내 규정은 회사마다 달라서, 파일을 먼저 받아 보안 담당자에게 보여주시는 게 확실합니다.</p></details>
+
+      <details><summary>팀원에게 공유해도 되나요?</summary>
+        <p>됩니다. 파일 하나라 그냥 보내시면 됩니다. 다만 <b>메일은 신청하신 분께만</b> 갑니다. 팀원도 받고 싶으시면 따로 신청하시면 됩니다.</p></details>
+
+      <details><summary>개인정보는 어떻게 관리되나요?</summary>
+        <p><b>닉네임과 이메일만</b> 받습니다. 실명·연락처는 받지 않습니다. 자료 발송 목적으로만 쓰고 <b>발송 완료 후 1개월</b> 뒤 파기합니다. 자세한 내용은 페이지 맨 아래 개인정보 처리방침에 있습니다.</p></details>
     </div>
 
   </div>
