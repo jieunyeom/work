@@ -1040,7 +1040,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="proof" id="proof" style="display:none"></div>
 <section class="screen" id="s1b" style="display:none"></section>
 
-<div class="screen on" id="s1c" style="display:block">
+<div class="screen on" id="s1c">
 
 
 
@@ -1072,7 +1072,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     </div></div>
 
-    <div class="band plain tail"><div class="band-in">
+    <div class="band plain tail" id="tailBand"><div class="band-in">
     <div class="form" id="formBox">
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
       <div class="form-b">
@@ -1759,9 +1759,10 @@ function startDownload(where){
 
 function go(n){
   state.screen=n;
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.screen').forEach(s=>{ s.classList.remove('on'); s.style.display=''; });
   document.getElementById('s1').style.display=n===1?'':'none';
   document.getElementById('s1c').style.display=n===1?'block':'none';
+  var tb=document.getElementById('tailBand'); if(tb) tb.style.display=n===1?'':'none';
   if(n===1)document.getElementById('s1').classList.add('on');
   else document.getElementById('s'+n).classList.add('on');
   window.scrollTo(0,0);
@@ -1883,6 +1884,7 @@ function sbInit(){
         try{ localStorage.setItem("dl_ok","1"); }catch(e){}
         try{ track("signup_done",{}); }catch(e){}
         sbSeats();
+        btn.disabled=false; btn.textContent="신청하고 파일 받기";
         go(5);
       }else{
         return r.text().then(function(t){ throw new Error(t||("HTTP "+r.status)); });
