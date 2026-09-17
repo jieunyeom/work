@@ -776,6 +776,9 @@ body{padding-top:46px}
 .sb-msg{font-size:13px;font-weight:700;line-height:1.6;padding:11px 13px;border-radius:11px;display:none}
 .sb-msg.err{display:block;background:#FDF2F8;color:#BE185D;border:1px solid #FBCFE8}
 .sb-msg.ok{display:block;background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0}
+.mailnote{font-size:14px;line-height:1.7;color:#4A4458;background:#F2ECFF;border:1px solid #D9C9FF;
+  border-radius:12px;padding:14px 16px;margin:16px 0 0}
+.mailnote b{color:#5B21B6}
 .sb-form button[disabled]{opacity:.55;cursor:not-allowed}
 .site-foot{width:100vw;margin:56px 0 0;margin-left:50%;transform:translateX(-50%);
   background:#0A0A0A;color:#A3A3A3;padding:48px 18px 40px;text-align:center;
@@ -1144,7 +1147,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="top">
     <p class="eyebrow">신청 완료</p>
     <h1>첫 번째 도구,<br>받으셨습니다.</h1>
-    <p class="lede">아래 버튼을 누르면 새 창에서 바로 열립니다.<br>같은 내용을 메일로도 보내드렸어요.</p>
+    <p class="lede">아래 버튼을 누르면 새 창에서 바로 열립니다.</p>
+    <p class="mailnote"><b>메일도 보내드렸어요.</b> 입력하신 주소로 도구 링크와 쓰는 법을 함께 보냈습니다.<br>
+      몇 분 안에 안 보이면 <b>스팸함</b>도 한 번 확인해 주세요.</p>
 
     <div class="dlcard">
       <div class="dlcard-h">
@@ -1867,7 +1872,8 @@ function sbInit(){
     if(bad){ sbShow("err","빨간 표시된 곳을 확인해 주세요."); return; }
 
     var btn=document.getElementById("sbSubmit");
-    btn.disabled=true; btn.textContent="보내는 중…"; sbShow("","");
+    btn.disabled=true; btn.textContent="보내는 중…";
+    sbShow("ok","저장하고 메일을 보내는 중이에요. 잠시만요…");
 
     fetch(META.SUPABASE_URL+"/rest/v1/signups",{
       method:"POST",
@@ -1885,6 +1891,7 @@ function sbInit(){
         try{ track("signup_done",{}); }catch(e){}
         sbSeats();
         btn.disabled=false; btn.textContent="신청하고 파일 받기";
+        sbShow("ok","신청되었습니다. 입력하신 메일로 도구를 보내드렸어요.");
         go(5);
       }else{
         return r.text().then(function(t){ throw new Error(t||("HTTP "+r.status)); });
