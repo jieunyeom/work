@@ -208,14 +208,14 @@ function drawProduct(x,y,w,h){
 function drawBenefit(c){
   cv.width=860; cv.height=505;
   ctx.fillStyle='#FFFFFF'; ctx.fillRect(0,0,860,505);
-  ctx.fillStyle='#FAFAFB'; ctx.fillRect(0,0,340,505);
-  drawProduct(28,28,284,449);
+  ctx.fillStyle='#FAFAFB'; ctx.fillRect(0,0,268,505);
+  drawProduct(26,40,216,425);
 
-  const L=372;
+  const L=300;
   badge($('badge').value||'혜택',L,54,'#D8342B','#FFFFFF',15,16,9);
 
   ctx.fillStyle='#1B2028'; ctx.font='800 34px '+FONT;
-  wrapText(cleanName($('pname').value),L,124,440,42,2);
+  wrapText(cleanName($('pname').value),L,124,532,42,2);
 
   ctx.font='500 17px '+FONT; ctx.fillStyle='#8A9099';
   ctx.fillText('정상가',L,232);
@@ -226,7 +226,7 @@ function drawBenefit(c){
   ctx.font='700 18px '+FONT; ctx.fillStyle='#1B2028';
   ctx.fillText(won(c.sale)+'원',L+92,266);
 
-  ctx.fillStyle='#EFEFF1'; ctx.fillRect(L,292,440,1);
+  ctx.fillStyle='#EFEFF1'; ctx.fillRect(L,292,532,1);
 
   ctx.font='700 17px '+FONT; ctx.fillStyle='#D8342B';
   ctx.fillText('최대혜택가',L,330);

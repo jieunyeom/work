@@ -15,6 +15,7 @@ gate(async function(){
   +'<h2>채널별</h2><div id="byChan"></div>'
   +'<h2>소재 상위</h2><div id="topC"></div>'
   +'<h2>링크별</h2><div id="byLink"></div>'
+  +'<h2>피드백</h2><div id="fbSum" class="grid g4"></div><div id="fbList"></div>'
   +'<h2>구글 애널리틱스</h2><div class="card" id="ga"><span class="muted">미연동 상태입니다. 연동하면 여기에 「세션·주요 이벤트·유입 경로」가 표시됩니다.</span></div>';
 
   var range='30';
@@ -30,7 +31,10 @@ gate(async function(){
   async function load(){
     var m=document.getElementById('m'); m.className='msg'; m.textContent='불러오는 중…';
     var b=bounds(); var qs=[]; if(b.from) qs.push('from='+b.from); if(b.to) qs.push('to='+b.to);
-    try{ var d=await api('/api/stats'+(qs.length?'?'+qs.join('&'):'')); render(d); m.textContent=''; }catch(e){ m.className='msg err'; m.textContent=e.message; }
+    var qstr=(qs.length?'?'+qs.join('&'):'');
+    try{ var d=await api('/api/stats'+qstr); render(d); m.textContent=''; }catch(e){ m.className='msg err'; m.textContent=e.message; }
+    try{ renderFeedback(await api('/api/feedback'+qstr)); }
+    catch(e){ document.getElementById('fbList').innerHTML='<p class="empty">피드백을 불러오지 못했습니다 — '+esc(e.message)+'</p>'; }
   }
   function render(d){
     var s=d.summary;
@@ -44,6 +48,32 @@ gate(async function(){
     var bl=document.getElementById('byLink');
     bl.innerHTML=d.links.length?'<div style="overflow-x:auto"><table><thead><tr><th>짧은 링크</th><th>채널 / 소재</th><th>메모</th><th class="n">클릭</th><th class="n">등록</th><th class="n">등록률</th></tr></thead><tbody>'+d.links.map(function(l){return '<tr'+(l.archived?' style="opacity:.45"':'')+'><td class="mono">/l/'+esc(l.short_code)+'</td><td>'+esc(l.source)+' / '+esc(l.medium)+(l.content?' · <span class="mono">'+esc(l.content)+'</span>':'')+'</td><td class="muted">'+esc(l.label||'')+'</td><td class="n">'+l.clicks+'</td><td class="n">'+l.conv+'</td><td class="n">'+l.cvr+'%</td></tr>'}).join('')+'</tbody></table></div>':'<p class="empty">아직 링크가 없습니다</p>';
   }
+  function renderFeedback(f){
+    var L=f.labels||{};
+    var used=f.by_used||{};
+    document.getElementById('fbSum').innerHTML=[
+      ['받은 피드백', f.total, '검증용 제외'],
+      ['내용 있음', f.with_message, '한 줄이라도 적힌 것'],
+      ['썼다', used['썼다']||0, '도구를 실제로 사용'],
+      ['안 썼다', used['안 썼다']||0, '여기가 고칠 지점']
+    ].map(function(t){return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'}).join('');
+
+    var it=f.items||[];
+    document.getElementById('fbList').innerHTML = it.length
+      ? '<div style="overflow-x:auto"><table><thead><tr><th>날짜</th><th>경로</th><th>썼나</th><th>남긴 내용</th><th>도구</th></tr></thead><tbody>'
+        + it.map(function(x){
+            var d=new Date(x.created_at);
+            var day=(d.getMonth()+1)+'/'+d.getDate();
+            return '<tr><td class="mono faint">'+day+'</td>'
+              + '<td>'+esc(L[x.kind]||x.kind||'-')+'</td>'
+              + '<td class="mono">'+esc(x.used||'-')+'</td>'
+              + '<td>'+(x.message?esc(x.message):'<span class="faint">(없음)</span>')+'</td>'
+              + '<td class="mono muted">'+esc(x.tool||'-')+'</td></tr>';
+          }).join('')
+        + '</tbody></table></div>'
+      : '<p class="empty">아직 받은 피드백이 없습니다</p>';
+  }
+
   function drawChart(series){
     var cv=document.getElementById('chart'), ctx=cv.getContext('2d'); var W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
     document.getElementById('chartNote').textContent=series.length?'':'아직 데이터가 없습니다';
