@@ -6,7 +6,7 @@
 <script>
 gate(async function(){
   var app=document.getElementById('app');
-  app.innerHTML='<nav><span class="brand">관리자</span><a href="/tools/utm">UTM 링크</a><a class="on" href="/tools/dashboard">대시보드</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
+  app.innerHTML='<nav><span class="brand">관리자</span><a href="/tools/utm">UTM 링크</a><a class="on" href="/tools/dashboard">대시보드</a><a href="/tools/crm">가두리망</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
   +'<h1>성과 대시보드</h1><p class="sub">숫자는 모두 서버가 실제로 집계한 값입니다. 추정치는 포함되지 않습니다.</p>'
   +'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:16px"><button class="btn sec sm" data-r="today">오늘</button><button class="btn sec sm" data-r="7">7일</button><button class="btn sec sm on" data-r="30">30일</button><button class="btn sec sm" data-r="all">전체 기간</button>'
   +'<span class="faint" style="margin:0 6px">또는</span><div><label>부터</label><input type="date" id="from"></div><div><label>까지</label><input type="date" id="to"></div><button class="btn sm" id="apply">적용</button><span class="msg" id="m"></span></div>'

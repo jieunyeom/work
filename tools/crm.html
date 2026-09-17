@@ -1,0 +1,100 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>가두리망 보드｜관리자</title>
+<link rel="stylesheet" href="/tools/_admin.css">
+<style>
+  .pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .pill.active{background:#EFEBF5;color:#7C3AED}
+  .pill.paused{background:#F4F1FA;color:#635F69}
+  .pill.stopped{background:#FBEFEC;color:#B4341E}
+  .pill.done{background:#DDF56A;color:#1F2A05}
+  .due{background:#FFFBEA}
+  .wkbar{display:flex;gap:3px;align-items:center}
+  .wkbar i{width:11px;height:11px;border-radius:3px;background:#E4DFEE;display:block}
+  .wkbar i.on{background:#7C3AED}
+  .memo{width:100%;border:1px solid #E4DFEE;border-radius:8px;padding:7px 9px;font:inherit;font-size:12.5px}
+  .who b{display:block;font-size:13.5px;color:#332F3A}
+  .who span{font-size:11.5px;color:#635F69}
+  .task{font-size:12.5px;color:#332F3A;max-width:260px}
+  .fb{font-size:12px;color:#635F69;max-width:240px}
+  td .btn.sm{padding:5px 9px;font-size:11.5px}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+  .filters button{border:1px solid #E4DFEE;background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:12.5px;font-weight:700;color:#635F69;cursor:pointer}
+  .filters button.on{background:#7C3AED;border-color:#7C3AED;color:#fff}
+</style>
+</head><body><div class="wrap" id="app"></div>
+<script src="/tools/_admin.js"></script>
+<script>
+gate(async function(){
+  var DATA=null, FILTER='all';
+  var app=document.getElementById('app');
+  app.innerHTML='<nav><span class="brand">관리자</span><a href="/tools/utm">UTM 링크</a><a href="/tools/dashboard">대시보드</a><a class="on" href="/tools/crm">가두리망</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
+    +'<h1>가두리망 보드</h1><p class="sub">신청한 사람이 지금 몇 주차까지 받았는지, 다음에 뭘 보내야 하는지 봅니다. <b>이 화면에는 이메일이 보입니다.</b> 화면 공유할 때 주의하세요.</p>'
+    +'<div class="grid g4" id="tiles"></div>'
+    +'<h2>주차별 분포</h2><div class="card" id="byWeek"></div>'
+    +'<h2>명단</h2><div class="filters" id="filters"></div><div id="list"></div>';
+
+  function tiles(s){
+    return [['전체',s.total,'검증용 제외'],['보낼 차례',s.due,'다음 주차가 밀린 사람'],
+            ['진행중',s.active,'멈춤 '+s.paused+' · 중단 '+s.stopped],['피드백 받음',s.with_feedback,'소식받기 동의 '+s.news_ok]]
+      .map(function(t){return '<div class="tile"><div class="k">'+t[0]+'</div><div class="v">'+t[1]+'</div><div class="s">'+t[2]+'</div></div>'}).join('');
+  }
+  function weekBar(w,total){
+    var h=''; for(var i=1;i<=total;i++) h+='<i class="'+(i<=w?'on':'')+'"></i>';
+    return '<div class="wkbar">'+h+'<span style="margin-left:6px;font-size:11.5px;color:#635F69">'+w+'/'+total+'</span></div>';
+  }
+  function render(){
+    var d=DATA, s=d.summary;
+    document.getElementById('tiles').innerHTML=tiles(s);
+
+    var bw='<table><thead><tr><th>받은 주차</th><th class="n">인원</th></tr></thead><tbody>';
+    for(var w=0; w<=d.total_weeks; w++){ if(!d.by_week[w]) continue;
+      bw+='<tr><td>'+(w===0?'아직 없음':w+'주차까지')+'</td><td class="n">'+d.by_week[w]+'</td></tr>'; }
+    document.getElementById('byWeek').innerHTML=bw+'</tbody></table>';
+
+    var F=[['all','전체'],['due','보낼 차례'],['active','진행중'],['paused','멈춤'],['stopped','중단'],['done','완주']];
+    document.getElementById('filters').innerHTML=F.map(function(f){
+      return '<button data-f="'+f[0]+'" class="'+(FILTER===f[0]?'on':'')+'">'+f[1]+'</button>'}).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('#filters button'),function(b){
+      b.onclick=function(){ FILTER=b.dataset.f; render(); }; });
+
+    var it=d.items.filter(function(x){
+      if(FILTER==='all') return true;
+      if(FILTER==='due') return !!x.next_week;
+      return x.status===FILTER; });
+
+    document.getElementById('list').innerHTML = it.length
+      ? '<div style="overflow-x:auto"><table><thead><tr><th>신청자</th><th>유입</th><th>적은 업무</th><th>진행</th><th>상태</th><th>피드백</th><th>메모</th><th></th></tr></thead><tbody>'
+        + it.map(function(x){
+            return '<tr class="'+(x.next_week?'due':'')+'">'
+            + '<td class="who"><b>'+esc(x.name||'-')+'</b><span>'+esc(x.email||'')+'</span><span>'+fmtDate(x.created_at)+'</span></td>'
+            + '<td class="mono muted" style="font-size:11.5px">'+esc(x.utm_source||x.source||'direct')+(x.utm_medium?'<br>'+esc(x.utm_medium):'')+'</td>'
+            + '<td class="task">'+esc(x.task||'')+(x.company?'<br><span class="muted" style="font-size:11.5px">'+esc(x.company)+'</span>':'')+'</td>'
+            + '<td>'+weekBar(x.sent_week,d.total_weeks)+(x.last_sent_at?'<span class="muted" style="font-size:11px">'+fmtDate(x.last_sent_at)+'</span>':'')+'</td>'
+            + '<td><span class="pill '+x.status+'">'+({active:'진행중',paused:'멈춤',stopped:'중단',done:'완주'}[x.status]||x.status)+'</span></td>'
+            + '<td class="fb">'+(x.feedback_count?esc(x.used||'')+' '+esc((x.feedback_last||'').slice(0,40)):'<span class="muted">-</span>')+'</td>'
+            + '<td><input class="memo" data-id="'+x.id+'" value="'+esc(x.memo||'')+'" placeholder="메모"></td>'
+            + '<td style="white-space:nowrap">'
+              + (x.next_week?'<button class="btn sm" data-send="'+x.id+'" data-w="'+x.next_week+'">'+x.next_week+'주차 보냄</button> ':'')
+              + '<button class="btn sm ghost" data-stop="'+x.id+'">중단</button></td>'
+            + '</tr>'; }).join('')
+        + '</tbody></table></div>'
+      : '<p class="empty">해당하는 사람이 없습니다</p>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-send]'),function(b){
+      b.onclick=function(){ save({id:b.dataset.send, sent_week:+b.dataset.w}); }; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-stop]'),function(b){
+      b.onclick=function(){ if(confirm('이 분께 더 보내지 않습니다. 계속할까요?')) save({id:b.dataset.stop, status:'stopped'}); }; });
+    Array.prototype.forEach.call(document.querySelectorAll('.memo'),function(i){
+      i.onchange=function(){ save({id:i.dataset.id, memo:i.value}, true); }; });
+  }
+  async function save(body, quiet){
+    try{ await api('/api/crm',{method:'POST',body:body}); if(!quiet) await load(); }
+    catch(e){ alert('저장하지 못했습니다 — '+e.message); }
+  }
+  async function load(){
+    try{ DATA=await api('/api/crm'); render(); }
+    catch(e){ document.getElementById('list').innerHTML='<p class="empty">불러오지 못했습니다 — '+esc(e.message)+'</p>'; }
+  }
+  load();
+});
+</script></body></html>

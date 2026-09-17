@@ -63,6 +63,10 @@
     {
       "source": "/tools/dashboard",
       "destination": "/tools/dashboard.html"
+    },
+    {
+      "source": "/tools/crm",
+      "destination": "/tools/crm.html"
     }
   ],
   "headers": [

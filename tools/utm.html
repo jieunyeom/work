@@ -7,7 +7,7 @@
 <script>
 gate(async function(){
   var app=document.getElementById('app');
-  app.innerHTML='<nav><span class="brand">관리자</span><a class="on" href="/tools/utm">UTM 링크</a><a href="/tools/dashboard">대시보드</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
+  app.innerHTML='<nav><span class="brand">관리자</span><a class="on" href="/tools/utm">UTM 링크</a><a href="/tools/crm">가두리망</a><a href="/tools/dashboard">대시보드</a><a href="/stats.html" target="_blank">공개 대시보드</a><span class="sp"></span><a href="/" target="_blank">사이트 열기 ↗</a></nav>'
   +'<h1>UTM 링크 만들기</h1><p class="sub">채널을 선택하고 「생성」. 같은 조합은 두 번 만들어지지 않고, 기존 링크가 반환됩니다.</p>'
   +'<div class="card"><label>채널 (여러 개 선택 가능)</label><div id="chips" class="grid g3" style="margin-bottom:14px"></div>'
   +'<div class="grid g3"><div><label>캠페인명 <span class="faint">utm_campaign</span></label><input type="text" id="campaign" value="first10"></div>'
