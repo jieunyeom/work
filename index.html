@@ -1204,6 +1204,13 @@ body{ background:#FAFCF2 }
 .mapgift p{ margin:0 0 6px; font-size:14px; line-height:1.75; color:#EDF3DA }
 .mapgift p b{ color:#DDF56A }
 .mapgift-s{ opacity:.85 }
+
+/* ===== 8칸에 주차 표시 =================================== */
+.cell8{ position:relative }
+.c8-wk{ display:inline-block; margin-left:auto; flex:none;
+  font-family:var(--head); font-size:11px; font-weight:800; letter-spacing:-.01em;
+  color:#1F2A05; background:#DDF56A; border-radius:999px; padding:3px 9px; white-space:nowrap }
+.c8-wk.none{ background:#EFEFE8; color:#8A8F80 }
 </style>
 </head>
 <body>
@@ -1908,21 +1915,19 @@ const WEEKS=[
 
 function renderWeeks(){
   const el=document.getElementById('weeks'); if(!el) return;
-  /* 1주차만 펼치고 나머지는 제목 한 줄. 스크롤을 줄이되
-     「8개가 있다」는 증거는 남긴다 */
-  el.innerHTML=WEEKS.map(x=>{
-    const open = x.w===1;
-    return `<div class="wk ${open?'on':'slim'} ${x.fin?'fin':''}">
+  /* 8칸 지도(02)에 이미 주차가 표시되므로 여기서는 1주차 실물만 보여준다 */
+  const x=WEEKS[0];
+  el.innerHTML=`<div class="wk on">
       <span class="wk-n">${x.w}주차</span>
       <span class="wk-dot"><i></i></span>
       <span class="wk-b">
-        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool}${open?' <em>신청 즉시</em>':''}</span>
-        ${open?`<span class="wk-3">
+        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool} <em>신청 즉시</em></span>
+        <span class="wk-3">
           <span><i class="l-was">지금</i>${x.was}</span>
           <span><i class="l-now">이후</i>${x.now}</span>
-        </span>`:''}
+        </span>
       </span>
-    </div>`;}).join('');
+    </div>`;
 }
 
 function renderGrid(){
@@ -1938,11 +1943,19 @@ function renderGrid(){
    ['07','고객 관리','문의 응대, 리셀러 신고, CRM'],
    ['08','데이터 분석','성과 취합, 상품별 광고 분석, 주간보고']
   ];
-  el.innerHTML=CELLS.map(([no,nm,kw])=>
-    `<div class="cell8">
+  /* 칸마다 몇 주차 도구가 오는지 붙인다 — 지도와 로드맵을 한 장으로 */
+  const BYCELL={};
+  WEEKS.forEach(w=>{ (BYCELL[w.no]=BYCELL[w.no]||[]).push(w); });
+  el.innerHTML=CELLS.map(([no,nm,kw])=>{
+    const ws=(BYCELL[no]||[]).sort((a,b)=>a.w-b.w);
+    const tag=ws.length
+      ? `<span class="c8-wk">${ws.map(w=>w.w+'주차').join(' · ')}</span>`
+      : `<span class="c8-wk none">도구 없음</span>`;
+    return `<div class="cell8 ${ws.length?'has':''}">
       <span class="c8-no">${no}</span>
       <span class="c8-b"><span class="c8-nm">${nm}</span><span class="c8-kw">${kw}</span></span>
-    </div>`).join('');
+      ${tag}
+    </div>`;}).join('');
 }
 
 const LOCKED=WEEKS.map(x=>({no:x.no, nm:x.file, wk:x.w, open:!!x.open, fin:!!x.fin}));
