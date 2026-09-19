@@ -981,7 +981,7 @@ h1,h2,h3,.lede,p{ word-break:keep-all; }
 .band+.band{ border-top:1px solid rgba(31,42,5,.06) }
 
 /* ===== 바닥 흰색 + 구간 색 대비 ========================== */
-body{ background:#FFFFFF }
+body{ background:#FAFCF2 }
 .band.plain{ background:#FFFFFF }
 .band.soft{ background:#F1F6DF }      /* 브랜드 연보라 */
 .band.deep{ background:#1F2A05 }      /* 브랜드 잉크 */
@@ -1030,7 +1030,7 @@ body{ background:#FFFFFF }
 .band.soft{ background:#F1F6DF }
 .band.plain{ background:#FFFFFF }
 .band.deep{ background:#1F2A05 }
-.top{ background:#FAFCF2 }
+/* .top 배경 제거 — shell 안이라 폭이 잘렸다 */
 
 /* 히어로 블러도 라임 계열로 */
 .b1{ background:rgba(221,245,106,.30) }
@@ -1052,6 +1052,23 @@ body{ background:#FFFFFF }
   background:#283610!important; border:1px solid #3A4A1C!important; box-shadow:none!important }
 .band.deep .wk-box *,.band.deep .recap *{ color:#EDF3DA }
 .band.deep .wk-box b,.band.deep .recap b{ color:#DDF56A }
+
+/* ===== 받는 것 카드 구분 · 신청 구간 강조 ================ */
+/* 8주 목록과 「받는 것」이 같은 톤이라 구분이 안 됐다.
+   받는 것은 라임 카드로 띄워 성격이 다르다는 걸 보여준다 */
+.band.deep .recap{
+  background:#DDF56A!important; border:0!important; border-radius:24px }
+.band.deep .recap *{ color:#1F2A05!important }
+.band.deep .recap .recap-h{ font-weight:800; opacity:.7 }
+.band.deep .recap .trade{ border-top:1px solid rgba(31,42,5,.22) }
+.band.deep .recap .trade-s{ opacity:.7 }
+
+/* 신청 구간 — 여백 줄이고 제목을 앞세운다 */
+.band.tail{ padding-top:64px }
+@media(min-width:700px){ .band.tail{ padding-top:88px } }
+.band.tail .sect{ margin-bottom:28px }
+.form{ margin-top:0 }
+.form-h{ display:none }        /* 위에 07 제목이 생겨 중복이다 */
 </style>
 </head>
 <body>
@@ -1261,6 +1278,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
     <div class="band plain tail" id="tailBand"><div class="band-in">
+    <div class="sect">
+      <div class="secno"><i>07</i><span>신청 방법</span></div>
+      <h2>지금 신청하면<br>첫 도구가 바로 열립니다</h2>
+      <p class="lede">닉네임과 이메일만 받습니다. 1분이면 끝나고, 같은 내용을 메일로도 보내드려요.</p>
+    </div>
     <div class="form" id="formBox">
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
       <div class="form-b">

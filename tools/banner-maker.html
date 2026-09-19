@@ -192,7 +192,8 @@ function strike(text,x,y,fs,color){
 }
 function drawProduct(x,y,w,h){
   if(productImg){
-    const s=Math.max(w/productImg.width,h/productImg.height);
+    ctx.fillStyle="#F7F8FA"; rr(x,y,w,h,14); ctx.fill();   // 여백 바탕
+    const s=Math.min(w/productImg.width,h/productImg.height);
     const dw=productImg.width*s, dh=productImg.height*s;
     ctx.save(); rr(x,y,w,h,14); ctx.clip();
     ctx.drawImage(productImg,x+(w-dw)/2,y+(h-dh)/2,dw,dh);
