@@ -35,7 +35,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>퇴근이 빨라지는 이커머스 도구 8개</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --canvas:#F4F1FA;
@@ -49,8 +48,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --amber:#8A9E2E;
   --recess:#EFEBF5;
 
-  --head:"IBM Plex Sans KR","Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
-  --body:"IBM Plex Sans KR","Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
+  --head:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
+  --body:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
 
   --clayCard:
@@ -931,78 +930,6 @@ html,body{overflow-x:hidden}
 .faq details[open] summary::after{content:"−"}
 .faq .a{padding:0 18px 17px;font-size:13.5px;line-height:1.8;color:#635F69}
 .faq .a b{color:#332F3A}
-
-/* ===== 다크 테마 — best-ing.vercel.app 포트폴리오와 같은 값 ===== */
-:root{
-  --navy:#0E1027; --panel:#12142E; --panel2:#1A1D3A;
-  --blue:#4B5FE8; --ink2:#EDEFFD; --dim:#A9AFD0; --line2:#2C3157;
-}
-body{background:var(--navy);color:var(--ink2)}
-.shell{color:var(--ink2)}
-
-/* 글자 */
-h1,h2,h3,h4{color:var(--ink2)}
-.lede,.note,p{color:var(--dim)}
-b,strong{color:#fff}
-.eyebrow{color:#8E9AF0}
-.muted,.faint,.hero-sub,.dl-note{color:#8A92AB}
-
-/* 구간 배경 — 기본 / 진한 패널 / 파랑 */
-.band.plain{background:var(--navy)}
-.band.soft{background:var(--panel)}
-.band.deep{background:var(--blue)}
-.band.deep h2,.band.deep h3,.band.deep p,.band.deep .lede{color:#fff}
-.band.deep .secno i{background:#fff;color:var(--blue)}
-.band.deep .secno span{color:rgba(255,255,255,.75)}
-
-/* 카드 — 흰 배경을 패널로 */
-.pf-c,.who,.voice-c,.demo,.mini.full,.sh-2,.bn-t,.cmp-c.new,.share,.form,.wk-box,.rebut,.recap,.core,.locked,.st div,.faq details{
-  background:var(--panel)!important;border-color:var(--line2)!important;color:var(--ink2)}
-.cmp-c.old{background:#151834!important;border-color:var(--line2)!important}
-.pain p{background:var(--panel)!important;border-color:var(--line2)!important;color:var(--ink2)}
-.pain p:nth-child(2n){background:var(--blue)!important;border-color:var(--blue)!important;color:#fff}
-.pain p:hover{background:var(--panel2)!important}
-
-/* 선 */
-.faq,.faq details,.who ul,.site-foot,.sb-row input,.sb-row select,hr,.trade{border-color:var(--line2)!important}
-.faq summary{color:var(--ink2)}
-.faq p{color:var(--dim)}
-
-/* 강조색 — 보라를 파랑으로 */
-.secno i{background:var(--blue)}
-.hero-cta,.midcta button,.submit,.cta{background:var(--blue)!important;color:#fff!important;
-  box-shadow:0 8px 24px rgba(75,95,232,.35)!important}
-.band.deep .midcta button{background:#fff!important;color:var(--blue)!important}
-.tagno,.pf-n,.offer-p,.lm-n{color:#8E9AF0}
-.sb-row input:focus,.sb-row select:focus{border-bottom-color:var(--blue)!important}
-.site-foot a{color:#fff}
-.site-foot{background:var(--panel);color:var(--dim)}
-
-/* 입력칸 */
-.sb-row input,.sb-row select{background:transparent!important;color:var(--ink2)!important}
-.sb-row input::placeholder{color:#6E76A0}
-.sb-ck input{accent-color:var(--blue)}
-
-/* 메시지 */
-.sb-msg.ok{background:rgba(75,95,232,.14)!important;color:#C7CEFF!important;border-color:rgba(75,95,232,.4)!important}
-.sb-msg.err{background:rgba(180,52,30,.16)!important;color:#FFB4A6!important;border-color:rgba(180,52,30,.45)!important}
-.mailnote{background:rgba(75,95,232,.12)!important;border-color:rgba(75,95,232,.35)!important;color:var(--dim)}
-.mailnote b{color:#C7CEFF}
-
-/* 그림자 걷어내기 */
-.pf-c,.who,.voice-c,.demo,.form,.share,.wk-box{box-shadow:none!important}
-
-/* 글자 크기 — 포트폴리오와 같은 값 */
-body{font-size:16.5px;line-height:1.8}
-h1{font-size:34px;line-height:1.14;font-weight:700;letter-spacing:-.03em}
-@media(min-width:620px){ h1{font-size:40px;line-height:1.08} }
-.band h2,h2{font-size:25px;line-height:1.28;font-weight:700;letter-spacing:-.025em}
-@media(min-width:620px){ .band h2,h2{font-size:28px;line-height:1.24} }
-h3{font-size:19px;line-height:1.42;font-weight:600;letter-spacing:-.02em}
-@media(min-width:620px){ h3{font-size:21px} }
-.lede{font-size:16.5px;line-height:1.8}
-.band{padding:64px 20px}
-@media(min-width:700px){ .band{padding:80px 20px} }
 </style>
 </head>
 <body>
