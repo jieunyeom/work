@@ -1132,6 +1132,24 @@ body{ background:#FAFCF2 }
   letter-spacing:-.02em; color:#1F2A05 }
 .form-h span{ font-size:12.5px; color:#5E6356 }
 .form-b{ padding:26px 24px 28px }
+
+/* ===== 필수 칸만 강조 ==================================== */
+/* 네 칸이 똑같이 생겨서 다 써야 하는 줄 안다.
+   필수 두 칸만 라임으로 묶고, 선택 칸은 눌러 둔다 */
+#r-name,#r-email{
+  background:#F7FBEA; border-left:3px solid #DDF56A;
+  border-radius:0 12px 12px 0; padding:14px 16px; margin-bottom:14px }
+#r-name label,#r-email label{ color:#1F2A05 }
+#r-name label i,#r-email label i{ color:#7A8F22 }
+
+#r-task,#r-company{ opacity:.82 }
+#r-task label::after,#r-company label::after{
+  content:"선택"; margin-left:7px; font-size:10.5px; font-weight:800;
+  color:#5E6356; background:#EFEFE8; border-radius:999px; padding:2px 7px;
+  vertical-align:1px }
+
+/* 폼 머리말에 한 줄 더 */
+.form-h span{ display:block; margin-top:3px }
 </style>
 </head>
 <body>
@@ -1352,7 +1370,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><b>받아보시고 피드백만 부탁드려요</b><span>한두 줄이면 충분합니다</span></li>
     </ol>
     <div class="form" id="formBox">
-      <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
+      <div class="form-h"><b>신청하고 받기</b><span>라임 표시된 두 칸만 채우시면 됩니다 · 1분</span></div>
       <div class="form-b">
         <form class="sb-form" id="sbForm" novalidate>
           <div class="sb-row" id="r-name">
