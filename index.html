@@ -979,6 +979,13 @@ h1,h2,h3,.lede,p{ word-break:keep-all; }
 
 /* 경계선 — 색만으로 부족할 때 */
 .band+.band{ border-top:1px solid rgba(31,42,5,.06) }
+
+/* ===== 바닥 흰색 + 구간 색 대비 ========================== */
+body{ background:#FFFFFF }
+.band.plain{ background:#FFFFFF }
+.band.soft{ background:#EFEBF5 }      /* 브랜드 연보라 */
+.band.deep{ background:#1F2A05 }      /* 브랜드 잉크 */
+.band+.band{ border-top:0 }           /* 색으로 구분되니 선은 뺀다 */
 </style>
 </head>
 <body>
@@ -1040,7 +1047,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
       <p class="sig">— 이커머스 마케터 · 5년차</p>
     </div>
-    <div class="band soft"><div class="band-in">
+    <div class="band plain"><div class="band-in">
     <div class="sect">
       <div class="secno"><i>02</i><span>업무 전체 지도</span></div>
       <h2>신규 상품 하나가<br>이 8칸을 다 지나갑니다</h2>
@@ -1096,7 +1103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div></div>
 
-    <div class="band plain"><div class="band-in">
+    <div class="band soft"><div class="band-in">
     <div class="sect">
       <div class="secno"><i>04</i><span>자주 묻는 것</span></div>
       <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
@@ -1180,7 +1187,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div></div>
 
-    <div class="band plain"><div class="band-in">
+    <div class="band soft"><div class="band-in">
     <div class="who">
       <p class="role">WHO MADE THIS</p>
       <h4>이커머스 마케터 · 5년차</h4>
