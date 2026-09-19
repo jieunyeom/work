@@ -36,1199 +36,345 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
+/* ============================================================
+   TOKENS — 라임 · 잉크 · 흰색. 이 값만 고치면 전체가 따라옵니다
+   ============================================================ */
 :root{
-  --canvas:#F4F1FA;
-  --fg:#262A1C;
-  --muted:#5E6356;
-  --accent:#1F2A05;
-  --accent-lite:#BBCC85;
-  --pink:#B4341E;
-  --sky:#1F2A05;
-  --emerald:#8A9E2E;
-  --amber:#8A9E2E;
-  --recess:#F1F6DF;
-
-  --head:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
-  --body:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
-
-  --clayCard:
-    16px 16px 32px rgba(160,150,180,.20),
-    -10px -10px 24px rgba(255,255,255,.9),
-    inset 6px 6px 12px rgba(31,42,5,.03),
-    inset -6px -6px 12px rgba(255,255,255,1);
-  --clayCardHover:
-    22px 26px 44px rgba(160,150,180,.28),
-    -12px -12px 28px rgba(255,255,255,.95),
-    inset 6px 6px 12px rgba(31,42,5,.04),
-    inset -6px -6px 12px rgba(255,255,255,1);
-  --clayButton:
-    12px 12px 24px rgba(31,42,5,.30),
-    -8px -8px 16px rgba(255,255,255,.4),
-    inset 4px 4px 8px rgba(255,255,255,.4),
-    inset -4px -4px 8px rgba(0,0,0,.1);
-  --clayButtonHover:
-    16px 18px 32px rgba(31,42,5,.38),
-    -8px -8px 18px rgba(255,255,255,.5),
-    inset 4px 4px 8px rgba(255,255,255,.45),
-    inset -4px -4px 8px rgba(0,0,0,.1);
-  --clayPressed:
-    inset 10px 10px 20px #E2E7D0,
-    inset -10px -10px 20px #ffffff;
-  --claySoft:
-    10px 10px 22px rgba(160,150,180,.16),
-    -7px -7px 18px rgba(255,255,255,.9);
+  --ink:#1F2A05;
+  --ink-2:#4A5138;
+  --ink-3:#7C8368;
+  --paper:#FFFFFF;
+  --paper-2:#F7F9EE;
+  --card:#FFFFFF;
+  --line:#E2E7D0;
+  --line-2:#CFD7B6;
+  --lime:#DDF56A;
+  --lime-ink:#26330A;
+  --lime-dim:#F1FBC7;
+  --dark:#1F2A05;
+  --radius:16px;
+  --radius-lg:22px;
+  --maxw:1060px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--canvas);color:var(--fg);font-family:var(--body);
-  font-size:16px;line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased}
-button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;text-align:left}
-:focus-visible{outline:0;box-shadow:0 0 0 4px rgba(31,42,5,.3)!important;border-radius:20px}
-h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 
-/* ===== blobs ===== */
-.blobs{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
-.blob{position:absolute;height:60vh;width:60vh;border-radius:9999px;filter:blur(80px)}
-.b1{background:rgba(31,42,5,.14);top:-12%;left:-16%;animation:cfloat 8s ease-in-out infinite}
-.b2{background:rgba(236,72,153,.12);top:22%;right:-20%;animation:cfloatAlt 10s ease-in-out infinite 2s}
-.b3{background:rgba(14,165,233,.12);bottom:-14%;left:-8%;animation:cfloat 12s ease-in-out infinite 4s}
-.b4{background:rgba(16,185,129,.10);bottom:8%;right:-12%;animation:cfloatAlt 9s ease-in-out infinite 1s}
-@keyframes cfloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(2deg)}}
-@keyframes cfloatAlt{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-15px) rotate(-2deg)}}
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
-
-/* ===== shell ===== */
-.shell{max-width:520px;margin:0 auto;padding:0 20px}
-.screen{display:none;padding-bottom:40px}
-.screen.on{display:block;animation:in .4s ease both}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.top{padding-top:52px;padding-bottom:0}
-@media(min-width:620px){ .top{padding-top:64px;padding-bottom:0} }
-/* .top .band:first-of-type 는 첫 div 가 .pf 라 잡히지 않아 제거 */
-
-/* ===== type ===== */
-.eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
-  color:var(--accent);text-transform:uppercase;margin:0 0 20px}
-h1{font-size:36px;line-height:1.2;font-weight:900;letter-spacing:-.035em;margin:0 0 18px}
-@media(min-width:620px){ h1{font-size:50px;line-height:1.16} }
-@media(min-width:1024px){ h1{font-size:58px} }
-h2{font-size:27px;line-height:1.28;font-weight:800;letter-spacing:-.03em;margin:0 0 12px}
-h3{font-size:20px;font-weight:800;margin:0 0 12px}
-.lede{color:var(--muted);font-size:16px;line-height:1.72;margin:0;font-weight:500}
-@media(min-width:620px){ .lede{font-size:17px;line-height:1.78} }
-.mini-lede{color:var(--muted);font-size:14px;font-weight:500;margin:0}
-
-/* ===== cards ===== */
-.card{background:#FFFFFF;border-radius:32px;
-  box-shadow:var(--clayCard);padding:24px;transition:all .5s cubic-bezier(.2,.8,.2,1)}
-.card.lift:hover{transform:translateY(-8px);box-shadow:var(--clayCardHover)}
-.core{background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;border-radius:32px;
-  padding:26px 24px;box-shadow:var(--clayButton);margin-top:26px}
-.core .k{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.12em;
-  opacity:.75;text-transform:uppercase;margin-bottom:10px}
-.core p{margin:0;font-family:var(--head);font-size:18px;font-weight:800;line-height:1.5;letter-spacing:-.02em}
-.core b{color:#DDF56A}
-.sect{margin-top:44px}
-.tagno{display:inline-block;font-family:var(--head);font-size:11.5px;font-weight:800;
-  color:var(--accent);background:rgba(31,42,5,.1);padding:5px 11px;border-radius:9999px;
-  vertical-align:middle;margin-left:6px;letter-spacing:0}
-
-/* ===== 혜택 바 ===== */
-.offer{display:flex;gap:16px;align-items:center;justify-content:space-between;
-  background:#DDF56A;border-radius:32px;padding:22px 24px;
-  margin-top:28px;box-shadow:16px 16px 32px rgba(31,42,5,.28),
-  -10px -10px 24px rgba(255,255,255,.9),inset -6px -6px 12px rgba(255,255,255,.5)}
-.offer-l{list-style:none;margin:0;padding:0;flex:1;min-width:0}
-.offer-l li{font-family:var(--head);font-size:14.5px;font-weight:800;color:#1F2A05;
-  letter-spacing:-.025em;padding-left:26px;position:relative;margin-bottom:9px;line-height:1.4}
-.offer-l li:last-child{margin-bottom:0}
-.offer-l li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;
-  border-radius:9999px;background:#fff;color:#8A9E2E;font-size:11px;font-weight:900;
-  display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 7px rgba(120,140,50,.25)}
-.offer-r{flex:none;text-align:right}
-.offer-sub{display:block;font-family:var(--head);font-size:12px;font-weight:800;color:#8A9E2E}
-.offer-p{display:block;font-family:var(--head);font-size:44px;font-weight:900;
-  letter-spacing:-.05em;line-height:1.05;color:#1F2A05;margin:2px 0 8px}
-.offer-bd{display:inline-block;font-family:var(--head);font-size:11px;font-weight:800;
-  color:#DDF56A;background:#1F2A05;padding:6px 13px;border-radius:9999px}
-
-/* ===== 고민 인용 ===== */
-.pain-h{margin-top:46px}
-.pain-h h2{margin:0}
-.pain{margin-top:20px}
-.pain p{margin:0 0 12px;background:var(--recess);box-shadow:var(--clayPressed);
-  border-radius:24px;padding:18px 20px;font-size:15px;line-height:1.65;color:var(--muted);
-  font-weight:500;transition:.35s}
-.pain p:last-child{margin-bottom:0}
-.pain p:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--claySoft)}
-.pain b{color:var(--fg);font-weight:700}
-
-.lede b{color:var(--fg);font-weight:700}
-
-/* ===== NumberedGain (01~04) ===== */
-.gain{display:flex;gap:16px;background:#FFFFFF;
-  border-radius:28px;box-shadow:var(--claySoft);padding:22px;margin-bottom:14px;transition:.35s}
-.gain:hover{transform:translateY(-4px);box-shadow:var(--clayCardHover)}
-.gain-n{font-family:var(--head);font-size:22px;font-weight:900;color:#E2E7D0;flex:none;
-  line-height:1.1;letter-spacing:-.04em}
-.gain-t{display:block;font-family:var(--head);font-size:16px;font-weight:800;
-  letter-spacing:-.03em;line-height:1.42;margin-bottom:8px}
-.gain-d{display:block;font-size:15px;line-height:1.68;color:var(--muted);font-weight:500}
-.gain.hero{background:#DDF56A;
-  box-shadow:16px 16px 32px rgba(31,42,5,.28),-10px -10px 24px rgba(255,255,255,.9)}
-.gain.hero .gain-n{color:#8A9E2E}
-.gain.hero .gain-t{color:#1F2A05}
-.gain.hero .gain-d{color:#1F2A05}
-
-/* ===== DarkChecklist ===== */
-.dark{background:#1F2A05;border-radius:36px;padding:26px 24px;
-  box-shadow:18px 18px 36px rgba(80,70,110,.3),-8px -8px 20px rgba(255,255,255,.7)}
-.dark li{list-style:none;display:flex;gap:12px;align-items:flex-start;margin-bottom:15px;
-  font-size:15px;font-weight:600;color:#F1F6DF;line-height:1.5;letter-spacing:-.02em}
-.dark li:last-child{margin-bottom:0}
-.dark ul{margin:0;padding:0}
-.dark .tk{flex:none;width:20px;height:20px;border-radius:9999px;background:rgba(167,139,250,.2);
-  color:#BBCC85;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:2px}
-.dark li.hero .tk{background:#DDF56A;color:#1F2A05}
-.dark li.hero{color:#DDF56A}
-.dark .olabel{display:block;font-size:16px;font-weight:700;letter-spacing:-.025em}
-.dark .osub{display:block;font-size:12.5px;font-weight:500;color:#5E6356;margin-top:4px;line-height:1.5}
-.dark li.hero .osub{color:#8A9E2E}
-.dark li{align-items:flex-start}
-
-/* ===== Process (PART) ===== */
-.part{border-left:4px solid #DDF56A;padding-left:18px;margin-bottom:26px}
-.part-t{font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.03em;margin-bottom:12px}
-.part li{list-style:none;display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;
-  font-size:14.5px;line-height:1.6;color:var(--muted);font-weight:500}
-.part ul{margin:0;padding:0}
-.part li::before{content:"✓";color:var(--accent);font-weight:900;font-size:12px;flex:none;margin-top:3px}
-.part li b{color:var(--fg);font-weight:700}
-.part .qt{background:#262A1C;color:#fff;border-radius:20px;padding:15px 18px;margin-top:14px;
-  font-family:var(--head);font-size:14.5px;font-weight:800;letter-spacing:-.025em}
-.closing{text-align:center;font-family:var(--head);font-size:15px;font-weight:800;
-  color:var(--muted);margin-top:8px;line-height:1.6;letter-spacing:-.025em}
-.closing b{color:var(--accent)}
-
-/* ===== PainList · 자기선별 ===== */
-.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pick div{background:#FFFFFF;border-radius:24px;
-  box-shadow:var(--claySoft);padding:18px 16px;transition:.3s}
-.pick div:hover{transform:translateY(-4px)}
-.pick .n{font-family:var(--head);font-size:12px;font-weight:900;color:#DDF56A;
-  display:block;margin-bottom:7px}
-.pick .t{display:block;font-size:13.5px;line-height:1.55;color:var(--muted);font-weight:600;letter-spacing:-.02em}
-
-/* ===== TierBenefit ===== */
-.tier-l{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
-  margin:18px 0 9px;padding-left:6px;letter-spacing:.03em}
-.tier-l:first-child{margin-top:0}
-.tier{background:#1F2A05;border-radius:24px;padding:18px 20px;
-  box-shadow:14px 14px 28px rgba(80,70,110,.26),-6px -6px 16px rgba(255,255,255,.7);margin-bottom:8px}
-.tier.hero{background:#DDF56A;
-  box-shadow:14px 14px 28px rgba(31,42,5,.3),-6px -6px 16px rgba(255,255,255,.9)}
-.tier .trow{display:flex;gap:11px;align-items:flex-start;font-size:16px;font-weight:700;
-  color:#F4F1FA;line-height:1.5;letter-spacing:-.025em}
-.tier.hero .trow{color:#1F2A05}
-.tier .trow i{font-style:normal;color:#BBCC85;font-weight:900;flex:none}
-.tier.hero .trow i{color:#8A9E2E}
-.tier .sub{font-size:13px;color:#BBCC85;font-weight:500;margin-top:6px;padding-left:24px;line-height:1.55}
-.tier.hero .sub{color:#1F2A05}
-.warn{background:#DDF56A;border-radius:24px;padding:18px 20px;
-  margin-top:16px;font-size:14px;font-weight:600;color:#1F2A05;line-height:1.62;
-  box-shadow:var(--claySoft)}
-.warn b{font-weight:800}
-
-/* ===== 상단 마감 바 ===== */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:60;
-  background:#1F2A05;
-  box-shadow:0 6px 20px rgba(31,42,5,.22);
-  padding:calc(9px + env(safe-area-inset-top)) 16px 9px}
-.topbar-in{max-width:520px;margin:0 auto;display:flex;align-items:center;
-  justify-content:center;gap:10px;flex-wrap:wrap}
-.tb-t{font-family:var(--head);font-size:13.5px;font-weight:900;color:#DDF56A;letter-spacing:-.03em}
-.tb-d{font-family:var(--head);font-size:11.5px;font-weight:900;color:#1F2A05;
-  background:#DDF56A;padding:3px 11px;border-radius:9999px;letter-spacing:.02em}
-.topbar.closed{background:#262A1C;box-shadow:0 2px 12px rgba(51,47,58,.22)}
-.topbar.closed .tb-t{color:#BBCC85}
-.topbar.closed .tb-d{background:#BBCC85;color:#262A1C}
-body{padding-top:46px}
-@media (min-width:620px){ .tb-t{font-size:15px} }
-
-/* ===== 스텝 목록 ===== */
-.steps{list-style:none;margin:0;padding:0;counter-reset:st}
-.steps li{counter-increment:st;position:relative;padding-left:44px;margin-bottom:20px}
-.steps li:last-child{margin-bottom:0}
-.steps li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;
-  border-radius:14px;background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;
-  font-family:var(--head);font-size:14px;font-weight:900;display:flex;align-items:center;
-  justify-content:center;box-shadow:6px 6px 14px rgba(31,42,5,.25)}
-.steps li b{display:block;font-family:var(--head);font-size:16px;font-weight:800;
-  letter-spacing:-.03em;line-height:1.4;margin-bottom:4px}
-.steps li span{display:block;font-size:14px;color:var(--muted);line-height:1.75;font-weight:500;margin-top:5px}
-
-/* ===== 게이트 안내 ===== */
-.gate-note{display:none;background:linear-gradient(135deg,#F7FBE8,#DDF56A);color:#1F2A05;
-  border-radius:20px;padding:14px 18px;font-size:13.5px;font-weight:700;line-height:1.6;
-  margin:0 0 14px;box-shadow:var(--claySoft)}
-.dl-note{font-size:13px;color:#1F2A05;font-weight:700;margin:12px 0 0;line-height:1.6;text-align:center}
-
-/* ===== 다운로드 카드 ===== */
-.dlcard{background:#DDF56A;border-radius:36px;padding:26px 24px;
-  margin-top:26px;box-shadow:16px 16px 32px rgba(31,42,5,.3),-10px -10px 24px rgba(255,255,255,.9)}
-.dlcard-h{display:flex;gap:16px;align-items:center}
-.dlicon{font-size:34px;flex:none;filter:drop-shadow(3px 3px 6px rgba(120,140,50,.3))}
-.dlcard-h b{display:block;font-family:var(--head);font-size:17px;font-weight:900;
-  color:#1F2A05;letter-spacing:-.03em;line-height:1.4;word-break:break-all}
-.dlsub{display:block;font-size:13px;color:#1F2A05;font-weight:600;margin-top:5px}
-.dlcard .submit{background:#1F2A05;box-shadow:10px 10px 22px rgba(31,42,5,.25),
-  -6px -6px 14px rgba(255,255,255,.5)}
-
-/* ===== 반박제거 블록 ===== */
-.rebut{background:linear-gradient(150deg,#262A1C,#262A1C);border-radius:36px;padding:28px 24px;
-  box-shadow:18px 18px 36px rgba(80,70,110,.3),-8px -8px 20px rgba(255,255,255,.7);margin-top:24px}
-.rebut h3{font-family:var(--head);font-size:21px;font-weight:900;color:#DDF56A;
-  letter-spacing:-.03em;margin:0 0 8px;line-height:1.35}
-.rebut .no{font-family:var(--head);font-size:17px;font-weight:800;color:#fff;margin:0 0 18px}
-.rebut p{font-size:15px;line-height:1.72;color:#BBCC85;margin:0 0 14px;font-weight:500}
-.rebut p:last-child{margin-bottom:0}
-.rebut b{color:#fff;font-weight:700}
-.rebut .punch{background:rgba(221,245,106,.12);border-radius:20px;padding:18px 20px;
-  font-family:var(--head);font-size:18px;font-weight:800;color:#DDF56A;line-height:1.5;letter-spacing:-.025em}
-
-/* ===== 3층 배지 ===== */
-.l-l1{background:rgba(31,42,5,.13);color:#1F2A05}
-.l-l2{background:rgba(13,124,107,.13);color:#1F2A05}
-.l-l3{background:rgba(180,105,15,.13);color:#1F2A05}
-.l-was{background:rgba(0,0,0,.06);color:#5E6356}
-.l-now{background:rgba(16,185,129,.15);color:#1F2A05}
-.wk-3 i,.lay-b i{font-style:normal}
-
-.layers{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-.lay{display:flex;gap:14px;align-items:flex-start;background:#FFFFFF;
-  border-radius:24px;box-shadow:var(--claySoft);padding:18px}
-.lay-b{font-family:var(--head);font-size:16px;font-weight:900;flex:0 0 58px;letter-spacing:-.02em}
-.lay:nth-child(1) .lay-b{color:#1F2A05}
-.lay:nth-child(2) .lay-b{color:#1F2A05}
-.lay-t{font-size:15px;font-weight:600;line-height:1.6;color:var(--muted)}
-.lay-t b{color:var(--fg);font-weight:700}
-
-/* ===== 8칸 ===== */
-.gx{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
-.cell8{display:flex;align-items:baseline;gap:8px;background:#FFFFFF;
-  border-radius:20px;box-shadow:var(--claySoft);
-  padding:14px 15px;transition:.3s}
-@media (max-width:430px){ .gx{grid-template-columns:1fr} }
-.cell8:hover{transform:translateY(-3px)}
-.c8-no{font-family:var(--mono);font-size:10.5px;font-weight:600;color:#5E6356;flex:none}
-.c8-b{flex:1;min-width:0}
-.c8-nm{font-family:var(--head);font-size:15px;font-weight:800;letter-spacing:-.03em;
-  white-space:nowrap;margin-right:7px}
-.c8-kw{font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.4}
-.c8-t{font-family:var(--head);font-size:12.5px;font-weight:800;color:var(--accent);
-  background:rgba(31,42,5,.1);padding:4px 11px;border-radius:9999px;flex:none}
-.c8-3{display:flex;gap:5px;flex:none}
-.c8-3 i{width:11px;height:11px;border-radius:4px;display:block}
-.d1{background:#BBCC85}.d2{background:#8A9E2E}.d3{background:#8A9E2E}
-.c8-legend{display:flex;gap:14px;align-items:center;flex-wrap:wrap;
-  font-size:12px;color:var(--muted);font-weight:600;margin-top:14px;padding:0 6px}
-.c8-legend span{display:flex;align-items:center;gap:5px}
-.c8-legend i{width:9px;height:9px;border-radius:3px;display:block}
-.c8-tail{color:var(--muted);font-weight:500}
-.c8-tail b{color:var(--accent);font-weight:800}
-
-/* ===== 주차 타임라인 ===== *//* ===== 주차 타임라인 ===== */
-.wk{display:flex;gap:14px;padding:16px 0;position:relative}
-.wk-n{flex:0 0 48px;font-family:var(--head);font-size:12px;font-weight:900;color:var(--muted);
-  padding-top:3px;letter-spacing:-.02em}
-.wk-dot{flex:0 0 14px;position:relative}
-.wk-dot i{position:absolute;top:6px;left:1px;width:12px;height:12px;border-radius:9999px;
-  background:var(--recess);box-shadow:var(--clayPressed);display:block}
-.wk-dot::after{content:"";position:absolute;top:20px;left:6px;width:2px;bottom:-16px;background:#E2E7D0}
-.wk:last-child .wk-dot::after{display:none}
-.wk-b{flex:1;min-width:0}
-.wk-t{font-family:var(--head);font-size:15px;font-weight:800;letter-spacing:-.03em;
-  line-height:1.4;color:var(--muted)}
-.wk-3{display:block;margin-top:8px}
-.wk-3 span{display:flex;gap:8px;align-items:baseline;font-size:13px;line-height:1.5;
-  color:var(--muted);font-weight:500;margin-bottom:4px}
-.wk-3 span:last-child{margin-bottom:0}
-.wk-3 i{font-family:var(--head);font-size:10px;font-weight:900;padding:2px 7px;
-  border-radius:9999px;flex:0 0 34px;text-align:center}
-.cno{font-family:var(--mono);font-size:11px;color:#5E6356;margin-right:7px;font-weight:600}
-.wk-t em{font-style:normal;font-family:var(--head);font-size:10.5px;font-weight:800;
-  color:var(--accent);background:rgba(31,42,5,.1);padding:3px 9px;border-radius:9999px;margin-left:6px}
-.wk.on .wk-dot i{background:linear-gradient(135deg,#BBCC85,#1F2A05);
-  box-shadow:6px 6px 14px rgba(31,42,5,.3)}
-.wk.on .wk-n{color:var(--accent)}
-.wk.on .wk-t{color:var(--fg)}
-.wk.on .wk-f{color:var(--accent)}
-.wk.fin .wk-dot i{background:#DDF56A;
-  box-shadow:6px 6px 14px rgba(31,42,5,.35)}
-.wk.fin .wk-t{color:var(--fg)}
-.wk-box{background:#FFFFFF;border-radius:32px;
-  box-shadow:var(--clayCard);padding:22px 20px;margin-top:20px}
-
-/* ===== 혜택 재강조 ===== */
-.recap{background:linear-gradient(150deg,#262A1C,#262A1C);border-radius:32px;padding:24px 22px;
-  margin-top:22px;box-shadow:16px 16px 32px rgba(80,70,110,.28),-8px -8px 20px rgba(255,255,255,.7)}
-.recap-h{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.12em;
-  color:#5E6356;text-transform:uppercase;margin-bottom:16px}
-.recap-r{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.recap-r b{font-family:var(--head);font-size:16px;font-weight:800;color:#F1F6DF;
-  letter-spacing:-.03em;flex:0 0 118px}
-.recap-r span{font-size:13.5px;color:#5E6356;font-weight:500;line-height:1.5}
-.recap-r.hero b{color:#DDF56A}
-.recap-f{font-family:var(--head);font-size:16px;font-weight:800;color:#fff;
-  margin-top:16px;letter-spacing:-.025em}
-.recap-f b{color:#DDF56A}
-.trade{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
-.trade-h{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.1em;
-  color:#DDF56A;text-transform:uppercase;margin-bottom:10px}
-.trade p{font-size:15px;line-height:1.6;color:#F1F6DF;margin:0 0 6px;font-weight:500}
-.trade p b{color:#fff;font-weight:800}
-.trade-s{font-size:13px !important;color:#5E6356 !important}
-
-/* ===== 왜 번호를 받나 ===== */
-.why{background:#FFFFFF;border-radius:32px;
-  box-shadow:var(--claySoft);padding:24px 22px;margin-top:22px}
-.why h3{font-family:var(--head);font-size:21px;font-weight:900;letter-spacing:-.03em;margin:0 0 12px}
-.why p{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 12px;font-weight:500}
-.why p:last-child{margin-bottom:0}
-.why b{color:var(--fg);font-weight:700}
-.why .tag{display:inline-block;font-family:var(--head);font-size:11.5px;font-weight:800;
-  color:var(--accent);background:rgba(31,42,5,.1);padding:5px 12px;border-radius:9999px;margin-bottom:12px}
-
-/* ===== 마감 경고 ===== */
-.close{background:linear-gradient(135deg,#F7FBE8,#DDF56A);border-radius:32px;padding:26px 24px;
-  margin-top:24px;box-shadow:16px 16px 32px rgba(200,160,60,.24),-10px -10px 24px rgba(255,255,255,.9)}
-.close h3{font-family:var(--head);font-size:21px;font-weight:900;color:#1F2A05;
-  letter-spacing:-.03em;margin:0 0 14px;line-height:1.35}
-.close p{font-size:15px;line-height:1.72;color:#1F2A05;margin:0 0 12px;font-weight:600}
-.close p:last-child{margin-bottom:0}
-.close b{color:#1F2A05;font-weight:800}
-
-/* ===== 안 맞는 분 ===== */
-.notfor{background:var(--recess);box-shadow:var(--clayPressed);border-radius:28px;
-  padding:22px 20px;margin-top:14px}
-.notfor h4{font-family:var(--head);font-size:16px;font-weight:800;margin:0 0 12px;color:var(--muted)}
-.notfor li{list-style:none;display:flex;gap:10px;font-size:15px;line-height:1.6;
-  color:var(--muted);margin-bottom:10px;font-weight:500}
-.notfor li:last-child{margin-bottom:0}
-.notfor ul{margin:0;padding:0}
-.notfor li::before{content:"—";color:#BBCC85;flex:none}
-.notfor b{color:var(--fg);font-weight:700}
-
-/* ===== 배너 제작기 데모 ===== */
-.demo{border-radius:32px;overflow:hidden;background:#fff;box-shadow:var(--clayCard)}
-.demo-bar{background:linear-gradient(135deg,#F4F1FA,#F1F6DF);padding:12px 16px;display:flex;
-  align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}
-.demo-b{padding:20px;position:relative;min-height:298px}
-.demo-step{position:absolute;left:20px;right:20px;top:20px;opacity:0;
-  animation:cyc 12s infinite}
-.demo-step:nth-child(1){animation-delay:0s}
-.demo-step:nth-child(2){animation-delay:4s}
-.demo-step:nth-child(3){animation-delay:8s}
-@keyframes cyc{0%{opacity:0;transform:translateY(10px)}4%{opacity:1;transform:none}
-  30%{opacity:1;transform:none}34%{opacity:0;transform:translateY(-8px)}100%{opacity:0}}
-.dstep{font-family:var(--head);font-size:12px;font-weight:900;color:var(--accent);
-  background:rgba(31,42,5,.1);padding:5px 13px;border-radius:9999px;display:inline-block;margin-bottom:14px}
-.dfld{display:flex;justify-content:space-between;align-items:center;background:var(--recess);
-  box-shadow:var(--clayPressed);border-radius:16px;padding:12px 16px;margin-bottom:9px}
-.dfld span{font-size:13px;color:var(--muted);font-weight:600}
-.dfld b{font-family:var(--head);font-size:15px;font-weight:900;letter-spacing:-.03em}
-.dcalc{background:linear-gradient(135deg,#F1F6DF,#F1F6DF);border-radius:18px;padding:14px 16px;
-  margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
-.dcalc span{font-size:12.5px;color:#1F2A05;font-weight:700}
-.dcalc b{font-family:var(--head);font-size:20px;font-weight:900;color:var(--accent);letter-spacing:-.04em}
-.dform{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:#262A1C;
-  color:#E2E7D0;border-radius:14px;padding:11px 13px;margin-bottom:12px;line-height:1.6}
-.dform em{color:#BBCC85;font-style:normal}
-.dot-row{display:flex;gap:7px;justify-content:center;padding:14px 0 4px}
-.dot-row i{width:7px;height:7px;border-radius:9999px;background:#E2E7D0;display:block;
-  animation:dotc 12s infinite}
-.dot-row i:nth-child(1){animation-delay:0s}
-.dot-row i:nth-child(2){animation-delay:4s}
-.dot-row i:nth-child(3){animation-delay:8s}
-@keyframes dotc{0%,33%{background:var(--accent);transform:scale(1.25)}34%,100%{background:#E2E7D0;transform:none}}
-
-/* ===== 잠긴 결과물 타일 ===== */
-.locked{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.locked div{background:var(--recess);box-shadow:var(--clayPressed);border-radius:24px;
-  padding:18px 16px;text-align:center;position:relative}
-.locked .lk{font-size:17px;opacity:.35;display:block;margin-bottom:8px}
-.locked .st-n{font-family:var(--head);font-size:10.5px;font-weight:900;color:#5E6356;
-  display:block;margin-bottom:4px;letter-spacing:.06em}
-.locked .nm{display:block;font-family:var(--head);font-size:13.5px;font-weight:800;color:#5E6356;
-  letter-spacing:-.03em;line-height:1.4}
-.locked div.open{background:#DDF56A;
-  box-shadow:12px 12px 26px rgba(31,42,5,.3),-6px -6px 16px rgba(255,255,255,.9)}
-.locked div.open .lk{opacity:1}
-.locked div.open .st-n{color:#8A9E2E}
-.locked div.open .nm{color:#1F2A05}
-.hero-cap{font-size:15px;line-height:1.68;color:var(--muted);font-weight:500;margin-top:18px;padding:0 4px}
-.hero-cap b{color:var(--fg);font-weight:700}
-
-/* ===== proof strip ===== */
-.proof{display:flex;gap:16px;overflow-x:auto;padding:8px 18px 16px;margin:28px -18px 0;
-  scroll-snap-type:x mandatory}
-.proof::-webkit-scrollbar{display:none}
-.proof-i{flex:none;width:min(86vw,340px);scroll-snap-align:center}
-.proof-c{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
-  margin-top:10px;text-align:center}
-
-/* ===== live map ===== */
-.lm{background:#FFFFFF;border-radius:32px;
-  box-shadow:var(--clayCard);padding:20px}
-.lm-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.lm-h .t{font-family:var(--head);font-size:15px;font-weight:800}
-.lm-h .c{font-family:var(--head);font-size:12px;font-weight:800;color:var(--accent);
-  background:rgba(31,42,5,.1);padding:4px 12px;border-radius:9999px}
-.lm-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.lm-c{border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
-  padding:9px 5px 10px;min-height:70px;text-align:center;transition:all .45s cubic-bezier(.2,.8,.2,1)}
-.lm-n{font-family:var(--head);font-size:11px;font-weight:900;color:#5E6356}
-.lm-t{font-size:10px;font-weight:700;line-height:1.25;color:var(--muted);margin-top:3px;letter-spacing:-.03em}
-.lm-d{display:flex;gap:3px;justify-content:center;margin-top:6px;flex-wrap:wrap}
-.lm-d i{width:5px;height:5px;border-radius:9999px;background:var(--accent);display:block}
-.lm-c.on{background:linear-gradient(135deg,#F1F6DF,#F1F6DF);box-shadow:var(--claySoft)}
-.lm-c.on .lm-n,.lm-c.on .lm-t{color:var(--accent)}
-.lm-c.hot{background:linear-gradient(135deg,#BBCC85,#1F2A05);box-shadow:var(--clayButton);
-  transform:translateY(-3px)}
-.lm-c.hot .lm-n,.lm-c.hot .lm-t{color:#fff}
-.lm-c.hot .lm-d i{background:#fff}
-
-/* ===== task rows ===== */
-.grp{display:flex;align-items:center;gap:10px;margin:30px 0 14px}
-.grp .t{font-family:var(--head);font-size:17px;font-weight:800}
-.grp .n{font-family:var(--head);font-size:12px;font-weight:800;color:var(--accent);
-  background:rgba(31,42,5,.1);padding:3px 11px;border-radius:9999px}
-.row{background:#FFFFFF;border-radius:24px;
-  box-shadow:var(--claySoft);margin-bottom:12px;transition:all .35s cubic-bezier(.2,.8,.2,1);overflow:hidden}
-.row:hover{transform:translateY(-3px)}
-.row.open{box-shadow:var(--clayCardHover);transform:translateY(-3px);background:#FFFFFF}
-.row.done{background:linear-gradient(135deg,rgba(237,233,254,.85),rgba(255,255,255,.8))}
-.row-hd{display:flex;align-items:flex-start;gap:13px;width:100%;padding:17px 18px}
-.box{width:26px;height:26px;border-radius:12px;flex:none;margin-top:1px;background:var(--recess);
-  box-shadow:var(--clayPressed);display:flex;align-items:center;justify-content:center;
-  font-size:13px;color:transparent;transition:all .3s}
-.row.open .box,.row.done .box{background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;
-  box-shadow:8px 8px 16px rgba(31,42,5,.3),-4px -4px 10px rgba(255,255,255,.5)}
-.row-b{flex:1;min-width:0}
-.row-n{font-family:var(--head);font-size:16px;font-weight:800;line-height:1.35;letter-spacing:-.025em}
-.art{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
-.row.open .art,.row.done .art{color:var(--accent)}
-.ans{font-family:var(--head);font-size:11px;font-weight:800;color:#fff;flex:none;margin-top:2px;
-  background:linear-gradient(135deg,#BBCC85,#1F2A05);padding:5px 11px;border-radius:9999px;
-  box-shadow:6px 6px 14px rgba(31,42,5,.25)}
-.mg{display:none;grid-template-columns:1fr 1fr;gap:9px;padding:0 18px 18px}
-.row.open .mg{display:grid}
-.chip{background:var(--recess);box-shadow:var(--clayPressed);border-radius:20px;padding:13px 8px;
-  font-family:var(--head);font-size:13.5px;font-weight:800;text-align:center;color:var(--muted);
-  transition:all .2s;letter-spacing:-.02em}
-.chip:hover{transform:translateY(-2px);color:var(--fg)}
-.chip:active{transform:scale(.92)}
-.chip.sel{background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;box-shadow:var(--clayButton)}
-
-/* ===== mocks ===== */
-.mock{border-radius:24px;overflow:hidden;background:#fff;box-shadow:var(--claySoft);
-  font-family:var(--mono);font-size:11px;line-height:1.55;color:var(--fg)}
-.mock-bar{background:linear-gradient(135deg,#F4F1FA,#F1F6DF);padding:11px 14px;display:flex;
-  align-items:center;gap:9px;font-size:10.5px;color:var(--muted);font-weight:500}
-.dots{display:flex;gap:5px;flex:none}
-.dots i{width:8px;height:8px;border-radius:9999px;display:block}
-.dots i:nth-child(1){background:#EDD3CC}.dots i:nth-child(2){background:#DDF56A}.dots i:nth-child(3){background:#DDF56A}
-.mock-b{padding:14px}
-.mr{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F4F1FA}
-.mr:last-child{border-bottom:0}
-.mr.h{color:#5E6356;font-weight:600;font-size:10px}
-.mr span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.mr .n{text-align:right;flex:0 0 62px}
-.mr .ch{flex:0 0 62px}
-.msk{color:#5E6356}
-.pill{display:inline-block;background:rgba(16,185,129,.14);color:#1F2A05;padding:5px 12px;
-  border-radius:9999px;font-size:10.5px;font-weight:700;font-family:var(--head)}
-.pill.w{background:rgba(245,158,11,.16);color:#1F2A05}
-.st{display:flex;gap:9px;margin-bottom:12px}
-.st div{flex:1;background:var(--recess);border-radius:18px;padding:10px 11px}
-.st u{display:block;font-size:10px;color:var(--muted);text-decoration:none}
-.st b{display:block;font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.03em}
-.bars{display:flex;flex-direction:column;gap:8px}
-.bl{display:flex;align-items:center;gap:9px;font-size:11px}
-.bl span{flex:0 0 68px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.bt{flex:1;height:14px;background:var(--recess);border-radius:9999px;overflow:hidden;
-  box-shadow:inset 2px 2px 4px #E2E7D0}
-.bt i{display:block;height:100%;border-radius:9999px;background:linear-gradient(90deg,#BBCC85,#1F2A05)}
-.bl u{flex:0 0 48px;text-align:right;text-decoration:none;color:var(--muted);font-weight:600}
-.code{background:#262A1C;color:#E2E7D0;padding:13px;border-radius:18px;font-size:10px;
-  line-height:1.75;white-space:pre;overflow:hidden}
-.code em{color:#BBCC85;font-style:normal}
-.bn{border-radius:20px;overflow:hidden;display:flex;height:92px;margin-bottom:11px;box-shadow:var(--claySoft)}
-.bn-i{flex:0 0 86px;background:linear-gradient(135deg,#F4F1FA,#E2E7D0);display:flex;
-  align-items:center;justify-content:center;font-size:10px;color:#5E6356}
-.bn-t{flex:1;padding:11px 14px;display:flex;flex-direction:column;justify-content:center;background:#fff}
-.bn.pp .bn-t{background:linear-gradient(135deg,#F1F6DF,#F1F6DF)}
-.bn-bd{font-size:9.5px;font-weight:800;padding:3px 10px;border-radius:9999px;align-self:flex-start;
-  margin-bottom:5px;font-family:var(--head);color:#fff}
-.bn.rd .bn-bd{background:linear-gradient(135deg,#B4341E,#B4341E)}
-.bn.pp .bn-bd{background:linear-gradient(135deg,#BBCC85,#1F2A05)}
-.bn-nm{font-family:var(--head);font-size:12.5px;font-weight:800;margin-bottom:3px}
-.bn-pr{font-size:10.5px;color:var(--muted)}.bn-pr s{margin-right:6px}
-.bn-f{font-family:var(--head);font-size:19px;font-weight:900;letter-spacing:-.04em}
-.bn.rd .bn-f{color:var(--pink)}.bn.pp .bn-f{color:var(--accent)}
-.bn-o{font-size:11px;font-weight:900;color:var(--pink);font-family:var(--head)}
-
-/* ===== result ===== */
-.reco{border-radius:36px;overflow:hidden;background:#FFFFFF;
-  box-shadow:var(--clayCard)}
-.reco-t{background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;padding:26px 24px}
-.reco-k{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.8;margin-bottom:10px}
-.reco-n{font-family:var(--head);font-size:27px;font-weight:900;letter-spacing:-.04em;line-height:1.25}
-.blk{padding:22px 24px}
-.blk+.blk{border-top:1px solid rgba(160,150,180,.15)}
-.blk-h{font-family:var(--head);font-size:11px;font-weight:800;letter-spacing:.12em;
-  color:var(--accent);text-transform:uppercase;margin-bottom:10px}
-.q{font-size:16px;line-height:1.62;font-weight:500}
-.adv{font-family:var(--head);font-size:18px;font-weight:800;line-height:1.5;letter-spacing:-.025em}
-.adv b{color:var(--accent)}
-.cap{font-size:14px;color:var(--muted);line-height:1.6;margin-top:14px;font-weight:500}
-.dest{background:linear-gradient(135deg,#F7FBE8,#DDF56A);padding:22px 24px;font-family:var(--head);
-  font-size:17px;font-weight:800;letter-spacing:-.025em;color:#1F2A05;line-height:1.5}
-.jump{width:100%;padding:20px 24px;font-family:var(--head);font-size:14px;font-weight:800;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  border-top:1px solid rgba(160,150,180,.15);color:var(--accent);transition:.2s}
-.jump:hover{background:rgba(31,42,5,.05)}
-.note{font-size:13.5px;color:var(--muted);margin-top:18px;line-height:1.6;font-weight:500;padding:0 6px}
-
-/* ===== benefits ===== */
-.ben{display:flex;gap:14px;padding:20px;background:#FFFFFF;
-  border-radius:28px;box-shadow:var(--claySoft);margin-bottom:12px;transition:.35s}
-.ben:hover{transform:translateY(-4px);box-shadow:var(--clayCardHover)}
-.orb{width:46px;height:46px;border-radius:16px;flex:none;display:flex;align-items:center;
-  justify-content:center;font-family:var(--head);font-size:16px;font-weight:900;color:#fff;
-  box-shadow:8px 8px 18px rgba(31,42,5,.25),-4px -4px 10px rgba(255,255,255,.6)}
-.o1{background:linear-gradient(135deg,#BBCC85,#1F2A05)}
-.o2{background:linear-gradient(135deg,#BBCC85,#1F2A05)}
-.o3{background:linear-gradient(135deg,#B4341E,#B4341E)}
-.ben-t{display:block;font-family:var(--head);font-size:16px;font-weight:800;letter-spacing:-.025em;margin-bottom:5px}
-.ben-d{display:block;font-size:14px;color:var(--muted);line-height:1.6;font-weight:500}
-.ben-d code{font-family:var(--mono);font-size:12px;background:rgba(31,42,5,.09);
-  padding:2px 7px;border-radius:10px;color:var(--accent);font-weight:600}
-
-/* ===== story ===== */
-.story{background:#FFFFFF;border-radius:40px;
-  box-shadow:var(--clayCard);padding:30px 26px;margin-top:34px}
-.story h3{font-size:21px;font-weight:900;letter-spacing:-.03em;margin:0 0 18px}
-.story p{font-size:15px;line-height:1.78;color:var(--muted);margin:0 0 15px;font-weight:500}
-.story p:last-of-type{margin-bottom:0}
-.story b{color:var(--fg);font-weight:700}
-.sig{font-family:var(--head);font-size:13px;font-weight:800;color:var(--accent);margin-top:20px}
-
-/* ===== deadline ===== */
-.dl{display:inline-flex;align-items:center;gap:9px;font-family:var(--head);font-size:13px;
-  font-weight:800;color:#1F2A05;background:linear-gradient(135deg,#F7FBE8,#DDF56A);
-  padding:13px 20px;border-radius:9999px;box-shadow:var(--claySoft);margin:30px 0 18px}
-
-/* ===== form ===== */
-.form{border-radius:40px;overflow:hidden;background:#FFFFFF;
-  box-shadow:var(--clayCard)}
-.form-h{background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;padding:32px 26px}
-.form-h b{display:block;font-family:var(--head);font-size:21px;font-weight:900;letter-spacing:-.03em}
-.form-h span{font-size:13px;opacity:.85;font-weight:500}
-.form-b{padding:24px}
-.fld{margin-bottom:16px}
-.fld label{display:block;font-family:var(--head);font-size:12px;font-weight:800;
-  letter-spacing:.06em;color:var(--muted);margin-bottom:8px;padding-left:6px}
-.fld input{width:100%;border:0;border-radius:20px;background:var(--recess);box-shadow:var(--clayPressed);
-  padding:17px 20px;font-size:16px;font-family:var(--body);font-weight:500;color:var(--fg);
-  transition:all .25s}
-.fld input::placeholder{color:#5E6356}
-.fld input:focus{background:#fff;box-shadow:0 0 0 4px rgba(31,42,5,.2),var(--claySoft);outline:0}
-.fld input.bad{box-shadow:0 0 0 3px rgba(219,39,119,.35),var(--clayPressed)}
-.cs{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:24px;
-  background:var(--recess);box-shadow:var(--clayPressed);margin-bottom:10px;width:100%;transition:.3s}
-.cs.opt{background:#FFFFFF;box-shadow:var(--claySoft)}
-.cs .cb{width:24px;height:24px;border-radius:11px;flex:none;margin-top:1px;background:#fff;
-  box-shadow:var(--claySoft);display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:transparent;transition:.25s}
-.cs.on .cb{background:linear-gradient(135deg,#8A9E2E,#8A9E2E);color:#fff;
-  box-shadow:6px 6px 14px rgba(16,185,129,.3)}
-.cs-t{font-size:13px;line-height:1.6;color:var(--muted);font-weight:500}
-.cs-t b{color:var(--fg);font-weight:700;font-family:var(--head)}
-.priv{font-size:12.5px;color:var(--muted);line-height:1.68;margin-top:16px;padding:0 4px;font-weight:500}
-.priv b{color:var(--fg);font-weight:700}
-.submit{width:100%;background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;padding:0;height:64px;
-  border-radius:20px;font-family:var(--head);font-size:18px;font-weight:900;letter-spacing:-.02em;
-  text-align:center;margin-top:18px;box-shadow:var(--clayButton);transition:all .2s}
-.submit:hover{transform:translateY(-4px);box-shadow:var(--clayButtonHover)}
-.submit:active{transform:scale(.92);box-shadow:var(--clayPressed)}
-.submit:disabled{background:#E2E7D0;color:#5E6356;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
-.err{font-size:13px;color:var(--pink);margin-top:12px;display:none;font-weight:700;padding:0 6px}
-.err.on{display:block}
-.done{padding:44px 24px;text-align:center}
-.done .tick{width:76px;height:76px;border-radius:9999px;background:linear-gradient(135deg,#8A9E2E,#8A9E2E);
-  color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 20px;
-  box-shadow:14px 14px 28px rgba(16,185,129,.3),-8px -8px 18px rgba(255,255,255,.7);
-  animation:breathe 6s ease-in-out infinite}
-.done b{display:block;font-family:var(--head);font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:11px}
-.done p{font-size:14.5px;color:var(--muted);line-height:1.65;margin:0;font-weight:500}
-
-/* ===== map ===== */
-.stg{background:#FFFFFF;border-radius:28px;
-  box-shadow:var(--claySoft);padding:20px;margin-bottom:12px}
-.stg-h{display:flex;gap:12px;align-items:center;margin-bottom:14px}
-.stg-n{font-family:var(--head);font-size:13px;font-weight:900;color:#fff;flex:none;
-  width:34px;height:34px;border-radius:14px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#BBCC85,#1F2A05);box-shadow:6px 6px 14px rgba(31,42,5,.25)}
-.stg-t{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:-.025em;flex:1}
-.stg-r{font-family:var(--head);font-size:10px;font-weight:800;color:var(--muted);
-  background:var(--recess);box-shadow:var(--clayPressed);padding:5px 11px;border-radius:9999px}
-.cds{display:flex;flex-wrap:wrap;gap:8px}
-.mini{font-family:var(--head);font-size:13px;font-weight:700;padding:9px 14px;border-radius:9999px;
-  background:var(--recess);box-shadow:var(--clayPressed);color:var(--muted);transition:.25s}
-.mini.full{color:var(--fg);background:#fff;box-shadow:var(--claySoft)}
-.mini.full:hover{transform:translateY(-3px)}
-.mini.full::after{content:" +";color:var(--accent);font-weight:900}
-.mini.hl{background:#DDF56A;color:#1F2A05;box-shadow:var(--claySoft)}
-.dt{display:none;margin-top:16px;background:var(--recess);box-shadow:var(--clayPressed);
-  border-radius:24px;padding:20px}
-.dt.on{display:block}
-.dr{margin-bottom:14px}.dr:last-child{margin-bottom:0}
-.dk{font-family:var(--head);font-size:10.5px;font-weight:800;letter-spacing:.1em;
-  color:var(--accent);margin-bottom:5px}
-.dv{font-size:14px;line-height:1.65;color:var(--muted);font-weight:500}
-.dv b{color:var(--fg);font-weight:700}
-.dv.fl{color:#1F2A05}
-.back{width:100%;text-align:center;font-family:var(--head);font-size:13px;font-weight:800;
-  color:var(--muted);padding:24px 0}
-
-/* ===== bar ===== */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:14px 18px calc(16px + env(safe-area-inset-bottom));
-  display:none;background:linear-gradient(to top,rgba(244,241,250,.98) 55%,rgba(244,241,250,0))}
-.bar.on{display:block}
-.bar-in{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px}
-.cnt{font-family:var(--head);font-size:13px;font-weight:800;color:var(--muted);flex:none;
-  background:#FFFFFF;box-shadow:var(--claySoft);padding:12px 16px;border-radius:9999px}
-.cnt b{color:var(--accent)}
-.cta{flex:1;height:60px;background:linear-gradient(135deg,#BBCC85,#1F2A05);color:#fff;border-radius:20px;
-  font-family:var(--head);font-size:17px;font-weight:900;letter-spacing:-.02em;text-align:center;
-  box-shadow:var(--clayButton);transition:all .2s}
-.cta:hover{transform:translateY(-4px);box-shadow:var(--clayButtonHover)}
-.cta:active{transform:scale(.92);box-shadow:var(--clayPressed)}
-.cta:disabled{background:#E2E7D0;color:#5E6356;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
-
-@media (min-width:620px){
-  .shell{max-width:720px}
-  h1{font-size:52px} h2{font-size:34px}
-  .mg{grid-template-columns:repeat(4,1fr)}
-  .proof-i{width:380px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  font-size:16px; line-height:1.7; -webkit-font-smoothing:antialiased;
+  word-break:keep-all; overflow-wrap:break-word;
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-.cmp{margin:20px 0 6px}
-.cmp-h{font-family:var(--head);font-size:20px;font-weight:900;letter-spacing:-.04em;margin:0 0 14px;color:#262A1C}
-.cmp-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.cmp-c{border-radius:16px;padding:16px 14px}
-.cmp-c.old{background:#E2E7D0;border:1px solid #E2E7D0}
-.cmp-c.new{background:#F1F6DF;border:1px solid #BBCC85}
-.cmp-t{font-family:var(--head);font-size:12px;font-weight:900;letter-spacing:.02em;margin:0 0 10px}
-.cmp-c.old .cmp-t{color:#5E6356}
-.cmp-c.new .cmp-t{color:#1F2A05}
-.cmp-c ul{margin:0;padding:0;list-style:none}
-.cmp-c li{font-size:13.5px;line-height:1.55;font-weight:600;color:#262A1C;padding:7px 0;border-top:1px solid rgba(0,0,0,.06)}
-.cmp-c li:first-child{border-top:0}
-.cmp-c.new li{color:#262A1C}
-.cmp-c.new li b{color:#1F2A05}
-.cmp-note{font-size:12.5px;line-height:1.6;color:#5E6356;margin:10px 2px 0}
-@media(max-width:380px){
-  .cmp-c{padding:14px 11px}
-  .cmp-c li{font-size:13px;padding:6px 0}
-  .cmp-g{gap:8px}
-  .cmp-h{font-size:19px}
+img{max-width:100%}
+button{font:inherit; cursor:pointer}
+input,textarea{font:inherit}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+section{padding:84px 0; border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+.tint{background:var(--paper-2)}
+.screen{display:none}
+.screen.on{display:block}
+
+/* eyebrow */
+.eyebrow{display:flex; align-items:center; gap:11px; margin-bottom:22px}
+.eyebrow b{
+  background:var(--ink); color:#fff; font-size:12.5px; font-weight:800;
+  padding:5px 10px; border-radius:7px; line-height:1;
 }
-.share{margin:36px 0 6px;padding:24px 18px;border-radius:16px;background:#F1F6DF;border:1px solid #DCD3EC;text-align:center}
-.share h4{font-family:var(--head);font-size:16px;font-weight:900;color:#1F2A05;margin:0 0 6px;letter-spacing:-.03em}
-.share p{font-size:13px;line-height:1.6;color:#5E6356;margin:0 0 14px}
-.share-b{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.share-b button{font-family:var(--head);font-size:13.5px;font-weight:800;letter-spacing:-.02em;
-  border:0;border-radius:9999px;padding:11px 18px;cursor:pointer;transition:transform .15s ease}
-.share-b button:active{transform:scale(.97)}
-.sh-1{background:#1F2A05;color:#fff}
-.sh-2{background:#fff;color:#1F2A05;border:1px solid #DCD3EC!important}
-.sh-ok{font-size:12.5px;font-weight:700;color:#1F2A05;margin:10px 0 0;min-height:16px}
+.eyebrow span{font-size:13.5px; font-weight:700; letter-spacing:.03em}
 
-/* ===== 페이지 내 신청 폼 ===== */
-.sb-form{display:grid;gap:11px;margin-top:14px}
-.sb-row{display:grid;gap:6px}
-.sb-row label{font-family:var(--head);font-size:12.5px;font-weight:800;color:#262A1C;letter-spacing:-.02em}
-.sb-row label i{font-style:normal;color:#BBCC85;margin-left:3px}
-.sb-row input,.sb-row select{width:100%;font-family:inherit;font-size:16px;font-weight:600;color:#262A1C;
-  padding:11px 2px;border:0;border-bottom:1.5px solid #E2E7D0;border-radius:0;background:transparent;outline:none;
-  transition:border-color .5s cubic-bezier(.16,1,.3,1)}
-.sb-row input:focus,.sb-row select:focus{border-bottom-color:#1F2A05;border-bottom-width:2px}
-.sb-row .hint{font-size:11.5px;color:#5E6356;line-height:1.5}
-.sb-err{font-size:12px;font-weight:700;color:#B4341E;display:none}
-.sb-row.bad input,.sb-row.bad select{border-bottom-color:#B4341E;border-bottom-width:2px}
-.sb-row.bad .sb-err{display:block}
-.sb-ck{display:flex;gap:9px;align-items:flex-start;cursor:pointer;padding:2px 0}
-.sb-ck input{width:17px;height:17px;flex:none;margin-top:2px;accent-color:#1F2A05}
-.sb-ck span{font-size:12.5px;line-height:1.55;color:#5E6356;font-weight:600}
-.sb-ck b{color:#262A1C}
-.sb-msg{font-size:13px;font-weight:700;line-height:1.6;padding:11px 13px;border-radius:11px;display:none}
-.sb-msg.err{display:block;background:#FBEFEC;color:#B4341E;border:1px solid #EDD3CC}
-.sb-msg.ok{display:block;background:#F7FBE8;color:#1F2A05;border:1px solid #DDF56A}
-.mailnote{font-size:14px;line-height:1.7;color:#262A1C;background:#F1F6DF;border:1px solid #DCD3EC;
-  border-radius:12px;padding:14px 16px;margin:16px 0 0}
-.mailnote b{color:#1F2A05}
-.sb-form button[disabled]{opacity:.55;cursor:not-allowed}
-.site-foot{width:100vw;margin:56px 0 0;margin-left:50%;transform:translateX(-50%);
-  background:#0A0A0A;color:#5E6356;padding:48px 18px 40px;text-align:center;
-  font-size:13px;line-height:1.9}
-.site-foot-in{max-width:640px;margin:0 auto}
-.site-foot a{color:#fff;text-decoration:none;font-weight:700;margin:0 9px;white-space:nowrap;
-  transition:opacity .5s cubic-bezier(.16,1,.3,1)}
-.site-foot a:hover{opacity:.6}
-.site-foot .sep{color:#5E6356}
-.site-foot p{margin:20px 0 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);
-  color:#5E6356;font-size:12.5px}
+h2{
+  margin:0 0 20px; font-size:clamp(30px,4.6vw,46px); font-weight:800;
+  line-height:1.26; letter-spacing:-.028em;
+}
+h3{margin:0 0 10px; font-size:19px; font-weight:800; letter-spacing:-.015em}
+.mark{background:var(--lime); color:var(--lime-ink); padding:0 .18em; border-radius:6px}
+.lede{margin:0 0 42px; max-width:60ch; font-size:17px; line-height:1.8; color:var(--ink-2)}
+.lede strong{color:var(--ink); font-weight:700}
 
-/* 숫자 증거 */
-.pf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0 0}
-.top .pf{margin:22px 0 0}
-.top .pf-c{background:#FFFFFF;padding:14px 10px}
-@media(max-width:420px){ .pf{gap:7px} .pf-c{padding:12px 7px} .pf-n{font-size:22px} .pf-d{display:none} }
-.pf-c{background:#fff;border:1px solid #E2E7D0;border-radius:14px;padding:16px 12px;text-align:center}
-.pf-n{font-family:var(--head);font-size:26px;font-weight:900;letter-spacing:-.04em;color:#1F2A05;line-height:1.2}
-.pf-l{font-size:12px;font-weight:800;color:#262A1C;margin-top:6px}
-.pf-d{font-size:11.5px;line-height:1.55;color:#5E6356;margin-top:5px}
-@media(max-width:380px){.pf{gap:7px}.pf-c{padding:13px 8px}.pf-n{font-size:22px}}
-/* 만든 사람 */
-.who{margin:30px 0 6px;background:#fff;border:1px solid #E2E7D0;border-radius:16px;padding:20px 18px}
-.who h4{font-family:var(--head);font-size:16px;font-weight:900;letter-spacing:-.03em;margin:0 0 4px;color:#262A1C}
-.who .role{font-size:12.5px;font-weight:700;color:#1F2A05;margin:0 0 12px}
-.who p{font-size:14px;line-height:1.95;color:#262A1C;margin:0 0 14px}
-.who ul{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid #E2E7D0;padding-top:12px}
-.who li{font-size:12.5px;color:#5E6356;padding:4px 0;font-weight:600}
-.who li b{color:#262A1C}
-/* 후기 */
-.voice{margin:28px 0 6px}
-.voice-note{font-size:12.5px;line-height:1.7;color:#5E6356;margin:0 0 12px}
-.voice-c{background:#fff;border:1px solid #E2E7D0;border-radius:14px;padding:16px 16px;margin-bottom:9px}
-.voice-c p{font-size:13.5px;line-height:1.75;color:#262A1C;margin:0 0 8px}
-.voice-c .who2{font-size:12px;color:#5E6356;font-weight:700}
-.voice-e{background:#F4F1FA;border:1px dashed #E2E7D0;border-radius:14px;padding:15px 16px;margin-bottom:9px;
-  font-size:12.5px;color:#5E6356;font-weight:700}
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:76px 0 72px; border-top:0}
+.tagline{
+  display:inline-block; background:var(--lime-dim); color:var(--ink);
+  font-size:13px; font-weight:700; padding:7px 13px; border-radius:999px; margin-bottom:24px;
+}
+.hero h1{
+  margin:0 0 22px; font-size:clamp(34px,6.4vw,62px); font-weight:800;
+  line-height:1.18; letter-spacing:-.035em;
+}
+.hero p.sub{margin:0 0 34px; max-width:58ch; font-size:17.5px; line-height:1.8; color:var(--ink-2)}
+.hero p.sub strong{color:var(--ink); font-weight:700}
 
-/* 히어로 CTA */
-.hero-cta{display:block;width:100%;max-width:340px;margin:32px 0 0;background:#1F2A05;color:#fff;
-  border:0;border-radius:14px;padding:17px 22px;font-family:var(--head);font-size:16px;font-weight:900;
-  letter-spacing:-.03em;cursor:pointer;box-shadow:0 8px 22px -8px rgba(31,42,5,.55)}
-.hero-cta:active{transform:scale(.985)}
-.hero-sub{font-size:12.5px;color:#5E6356;margin:14px 0 0;font-weight:600}
-/* 비교 카드 */
-.cmp-c{position:relative}
-.cmp-c.old{background:#F4F1FA;border:1px solid #E2E7D0}
-.cmp-c.new{background:#fff;border:1.5px solid #BBCC85;box-shadow:0 10px 28px -14px rgba(31,42,5,.35)}
-.cmp-c li{display:flex;gap:8px;align-items:flex-start;border-top:1px solid rgba(0,0,0,.055)}
-.cmp-c li::before{flex:none;width:18px;height:18px;border-radius:50%;margin-top:2px;
-  display:grid;place-items:center;font-size:11px;font-weight:900;line-height:1}
-.cmp-c.old li::before{content:"✕";background:#E2E7D0;color:#5E6356}
-.cmp-c.new li::before{content:"✓";background:#F1F6DF;color:#1F2A05}
-.cmp-c.old li{color:#5E6356}
-.cmp-c.new li{color:#262A1C}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin:0 0 38px; border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden}
+.stats div{padding:22px 20px; border-left:1px solid var(--line)}
+.stats div:first-child{border-left:0}
+.stats .n{font-size:30px; font-weight:800; letter-spacing:-.03em; line-height:1.1}
+.stats .k{font-size:12.5px; font-weight:700; color:var(--ink-3); margin:4px 0 8px}
+.stats .d{font-size:13.5px; line-height:1.6; color:var(--ink-2)}
+@media (max-width:700px){ .stats{grid-template-columns:1fr} .stats div{border-left:0; border-top:1px solid var(--line)} .stats div:first-child{border-top:0} }
 
-/* ── 섹션 리듬 ───────────────────────── */
-.sect{margin-top:60px}
-.pain-h{margin-top:52px}
-.pain-h h2{line-height:1.4}
-.pain{margin-top:22px}
-.cmp{margin:64px 0 6px}
-.who{margin:52px 0 6px}
-.story{margin:56px 0}
-.demo{margin-top:26px !important}
+.cta{
+  display:inline-block; background:var(--ink); color:#fff; text-decoration:none; border:0;
+  font-size:17px; font-weight:800; padding:17px 30px; border-radius:999px; letter-spacing:-.01em;
+}
+.cta.lime{background:var(--lime); color:var(--lime-ink)}
+.cta:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--lime); outline-offset:3px}
+.cta-note{margin:12px 0 0; font-size:13.5px; color:var(--ink-3)}
 
-/* 구간 구분선 — 얇게, 넓게 */
-.rule{height:1px;background:linear-gradient(90deg,transparent,#E2E7D0 22%,#E2E7D0 78%,transparent);
-  margin:64px 0;border:0}
+.seats{
+  display:flex; align-items:center; gap:9px; margin-bottom:20px;
+  font-size:13.5px; font-weight:700; color:var(--ink-2);
+}
+.seats i{width:8px; height:8px; border-radius:50%; background:#5FA30C; display:inline-block; flex:0 0 auto}
 
-/* 구간 라벨 */
-.tag{display:block;font-family:var(--head);font-size:11.5px;font-weight:900;
-  letter-spacing:.14em;color:#BBCC85;margin:0 0 12px}
+/* ============================================================
+   01 CHECKLIST
+   ============================================================ */
+.checks{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:26px}
+@media (max-width:760px){.checks{grid-template-columns:1fr}}
+.chk{
+  display:flex; gap:13px; align-items:flex-start; text-align:left; width:100%;
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:16px 18px; color:var(--ink); transition:border-color .15s, background .15s;
+}
+.chk .box{
+  flex:0 0 20px; height:20px; margin-top:2px; border:2px solid var(--line-2);
+  border-radius:6px; display:grid; place-items:center; font-size:12px; color:transparent; font-weight:900;
+}
+.chk[aria-pressed="true"]{border-color:var(--lime); background:var(--lime-dim)}
+.chk[aria-pressed="true"] .box{background:var(--lime); border-color:var(--lime); color:var(--lime-ink)}
+.chk span{font-size:15px; line-height:1.55; font-weight:500}
+.tally{
+  border:1px solid var(--line); border-left:4px solid var(--lime);
+  border-radius:12px; padding:18px 20px; font-size:15.5px; line-height:1.7; color:var(--ink-2);
+}
+.tally strong{color:var(--ink); font-weight:800}
 
-/* 목소리 = 말풍선 */
-.pain p{position:relative;margin:0 0 12px;border-radius:18px;padding:17px 20px;line-height:1.65;
-  font-size:14.5px;line-height:1.7;font-weight:600;background:#fff;color:#262A1C;
-  border:1px solid #E2E7D0;box-shadow:0 6px 18px -14px rgba(46,40,56,.5);transition:.25s}
-.pain p:nth-child(2n){background:#1F2A05;color:#fff;border-color:#1F2A05;
-  box-shadow:0 12px 26px -14px rgba(109,40,217,.65)}
-.pain p:nth-child(2n) b{color:#fff}
-.pain p:hover{transform:translateY(-2px)}
-.pain b{font-weight:800}
-.pain-end{margin:18px 0 0;font-family:var(--head);font-size:15px;font-weight:900;
-  letter-spacing:-.03em;color:#262A1C;text-align:center}
-.pain-end span{color:#1F2A05}
+/* ============================================================
+   02 MAP
+   ============================================================ */
+.map{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+@media (max-width:820px){.map{grid-template-columns:1fr}}
+.cell{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px 20px;
+}
+.cell.now{border-color:var(--lime-ink); box-shadow:0 0 0 3px var(--lime-dim)}
+.cell .top{display:flex; align-items:flex-start; gap:12px}
+.cell .idx{font-size:12.5px; font-weight:700; color:var(--ink-3); padding-top:3px; font-variant-numeric:tabular-nums}
+.cell .name{flex:1; min-width:0}
+.cell .name b{font-size:16.5px; font-weight:800; letter-spacing:-.015em}
+.cell .name em{display:block; font-style:normal; font-size:13px; color:var(--ink-3); margin-top:2px}
+.week{
+  flex:0 0 auto; background:var(--paper-2); color:var(--ink-3); white-space:nowrap;
+  border:1px solid var(--line);
+  font-size:11.5px; font-weight:800; padding:6px 10px; border-radius:999px; line-height:1;
+}
+.week.on{background:var(--lime); color:var(--lime-ink); border-color:var(--lime)}
+.cell .tool{
+  margin:13px 0 0; padding:11px 13px; border-radius:10px; background:var(--paper-2);
+  font-size:13.5px; line-height:1.55;
+}
+.cell .tool b{font-weight:800}
+.cell .leak{margin:10px 0 0; padding-left:11px; border-left:2px solid var(--line-2); font-size:13.5px; color:var(--ink-3); line-height:1.6}
+.map-note{margin:30px 0 0; padding:22px 24px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); font-size:15.5px; line-height:1.75; color:var(--ink-2)}
+.map-note strong{color:var(--ink); font-weight:800}
 
-/* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%)}
+/* ============================================================
+   03 PREVIEW / CALCULATOR
+   ============================================================ */
+.demo{border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden; background:var(--card)}
+.demo-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:15px 20px; background:var(--dark); color:#fff;
+}
+.demo-head b{font-size:14.5px; font-weight:800}
+.demo-head span{font-size:12.5px; color:#B8C29A}
+.demo-body{display:grid; grid-template-columns:1fr 1.05fr}
+@media (max-width:860px){.demo-body{grid-template-columns:1fr}}
+.demo-in{padding:24px 24px 26px; border-right:1px solid var(--line)}
+@media (max-width:860px){.demo-in{border-right:0; border-bottom:1px solid var(--line)}}
+.step{font-size:12px; font-weight:800; color:var(--ink-3); margin:0 0 14px}
+.field{margin-bottom:14px}
+.field label{display:block; font-size:13.5px; font-weight:700; margin-bottom:6px}
+.field input{
+  width:100%; padding:12px 14px; border:1px solid var(--line-2); border-radius:11px;
+  background:var(--paper); color:var(--ink); font-size:16px; font-weight:700; font-variant-numeric:tabular-nums;
+}
+.duo{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.formula{
+  margin-top:18px; padding:14px 15px; background:var(--paper-2); border-radius:11px;
+  font-size:12.5px; line-height:1.85; color:var(--ink-2);
+}
+.formula code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px}
+.demo-out{padding:24px; display:flex; flex-direction:column; gap:16px}
+.result{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.result div{background:var(--paper-2); border-radius:12px; padding:14px 16px}
+.result .k{font-size:12px; font-weight:700; color:var(--ink-3)}
+.result .v{font-size:26px; font-weight:800; letter-spacing:-.03em; font-variant-numeric:tabular-nums; margin-top:2px}
+.banner{
+  border:1px solid var(--line-2); border-radius:14px; padding:18px; background:var(--paper);
+  display:flex; gap:16px; align-items:center;
+}
+.banner .ph{
+  flex:0 0 84px; height:84px; border-radius:11px; background:var(--paper-2);
+  display:grid; place-items:center; font-size:11.5px; color:var(--ink-3); text-align:center; line-height:1.3;
+}
+.banner .info{min-width:0; flex:1}
+.banner .badge{display:inline-block; background:var(--lime); color:var(--lime-ink); font-size:11px; font-weight:800; padding:4px 9px; border-radius:999px; margin-bottom:7px}
+.banner .pname{font-size:15px; font-weight:800; letter-spacing:-.015em}
+.banner .prices{margin-top:6px; font-size:13px; color:var(--ink-3)}
+.banner .prices s{margin-right:7px}
+.banner .final{margin-top:5px; display:flex; align-items:baseline; gap:9px}
+.banner .final b{font-size:22px; font-weight:800; letter-spacing:-.03em; font-variant-numeric:tabular-nums}
+.banner .final i{font-style:normal; background:var(--lime); color:var(--lime-ink); font-size:13px; font-weight:800; padding:3px 8px; border-radius:7px}
+.demo-foot{padding:0 24px 24px; margin:0; font-size:14.5px; line-height:1.75; color:var(--ink-2)}
+.demo-foot strong{color:var(--ink); font-weight:700}
+.plusnote{margin:18px 0 0; padding:16px 18px; border:1px dashed var(--line-2); border-radius:14px; font-size:14.5px; line-height:1.7; color:var(--ink-2)}
+.plusnote strong{color:var(--ink); font-weight:800}
 
-.band-in{max-width:520px;margin:0 auto}
-.band.soft{background:#F4F1FA}
-.band.plain{background:#fff}
-.band.deep{background:#F1F6DF}
-.band.tail{padding-bottom:0}
+/* ============================================================
+   04 AUTHOR
+   ============================================================ */
+.author{display:grid; grid-template-columns:1.35fr 1fr; gap:34px; align-items:start}
+@media (max-width:820px){.author{grid-template-columns:1fr; gap:24px}}
+.author p{margin:0 0 16px; font-size:16.5px; line-height:1.85; color:var(--ink-2)}
+.author p strong{color:var(--ink); font-weight:700}
+.creds{border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.creds div{padding:16px 18px; border-top:1px solid var(--line)}
+.creds div:first-child{border-top:0}
+.creds b{display:block; font-size:14.5px; font-weight:800; margin-bottom:3px}
+.creds span{font-size:13.5px; color:var(--ink-2); line-height:1.6}
+.sign{margin-top:14px; font-size:13.5px; color:var(--ink-3)}
 
-/* ── 섹션 번호 라벨 ─────────────────── */
-.secno{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-.secno i{font-style:normal;font-family:var(--head);font-size:13px;font-weight:900;
-  letter-spacing:.06em;color:#fff;background:#1F2A05;border-radius:6px;padding:4px 9px}
-.secno span{font-family:var(--head);font-size:12.5px;font-weight:800;letter-spacing:.1em;
-  color:var(--muted);text-transform:uppercase}
-.band.deep .secno i{background:#1F2A05}
+/* ============================================================
+   05 OBJECTION
+   ============================================================ */
+.obj{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+@media (max-width:820px){.obj{grid-template-columns:1fr}}
+.obj article{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px 26px}
+.obj article p{margin:0; font-size:15.5px; line-height:1.8; color:var(--ink-2)}
+.obj article p strong{color:var(--ink); font-weight:700}
+.obj article p + p{margin-top:12px}
 
-/* ── 섹션 제목 키우기 ───────────────── */
-.band h2{font-size:30px;line-height:1.28}
-@media(min-width:620px){ .band h2{font-size:38px} }
-@media(min-width:1024px){ .band h2{font-size:44px} }
+/* ============================================================
+   06 DELIVERY
+   ============================================================ */
+.give{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:26px}
+@media (max-width:760px){.give{grid-template-columns:1fr}}
+.give div{border:1px solid var(--line); border-radius:var(--radius); padding:20px}
+.give b{display:block; font-size:16px; font-weight:800; margin-bottom:5px}
+.give span{font-size:14px; color:var(--ink-2); line-height:1.6}
+.gift{border:1px solid var(--line); border-left:4px solid var(--lime); border-radius:var(--radius); padding:22px 24px; margin-bottom:22px; background:var(--card)}
+.gift b{display:block; font-size:16.5px; font-weight:800; margin-bottom:6px}
+.gift p{margin:0; font-size:15px; line-height:1.75; color:var(--ink-2)}
+.gift p + p{margin-top:8px}
+.gift p strong{color:var(--ink); font-weight:700}
+.trade{
+  background:var(--dark); color:#F2F5E6; border-radius:var(--radius-lg); padding:30px 32px;
+}
+.trade h3{color:#fff; margin-bottom:12px}
+.trade p{margin:0; font-size:16px; line-height:1.8; color:#C9D2B0}
+.trade p strong{color:var(--lime); font-weight:700}
 
-/* ── 중간 CTA ──────────────────────── */
-.midcta{margin:34px 0 0;text-align:center}
-.midcta button{display:block;width:100%;max-width:420px;margin:0 auto;background:#1F2A05;color:#fff;
-  border:0;border-radius:16px;padding:19px 22px;font-family:var(--head);font-size:17px;font-weight:900;
-  letter-spacing:-.02em;cursor:pointer;box-shadow:0 10px 24px rgba(31,42,5,.28);
-  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1)}
-.midcta button:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(31,42,5,.34)}
-.midcta p{margin:10px 0 0;font-size:12.5px;color:var(--muted);font-weight:600}
-.band.deep .midcta button{background:#DDF56A;color:#1F2A05;box-shadow:0 10px 24px rgba(0,0,0,.25)}
-.band.deep .midcta p{color:#8A9E2E}
+/* ============================================================
+   07 FORM
+   ============================================================ */
+.applygrid{display:grid; grid-template-columns:.85fr 1.15fr; gap:32px; align-items:start}
+@media (max-width:880px){.applygrid{grid-template-columns:1fr}}
+.steps{counter-reset:s; list-style:none; margin:0; padding:0}
+.steps li{position:relative; padding:0 0 22px 44px; counter-increment:s}
+.steps li::before{
+  content:counter(s); position:absolute; left:0; top:0; width:28px; height:28px;
+  background:var(--lime); color:var(--lime-ink); border-radius:50%;
+  display:grid; place-items:center; font-size:13px; font-weight:800;
+}
+.steps li::after{content:""; position:absolute; left:13.5px; top:32px; bottom:6px; width:1px; background:var(--line)}
+.steps li:last-child{padding-bottom:0}
+.steps li:last-child::after{display:none}
+.steps b{display:block; font-size:16px; font-weight:800; margin-bottom:2px}
+.steps span{font-size:14px; color:var(--ink-2); line-height:1.6}
 
-/* ── FAQ ───────────────────────────── */
-.faq{margin-top:26px;border-top:1px solid #E2E7D0}
-.faq details{border-bottom:1px solid #E2E7D0}
-.faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;position:relative;
-  font-family:var(--head);font-size:16px;font-weight:800;color:#262A1C;letter-spacing:-.02em}
+.formcard{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); padding:28px}
+.formcard h3{margin-bottom:4px}
+.formcard .hint-top{font-size:13.5px; color:var(--ink-3); margin:0 0 22px}
+.f{margin-bottom:18px}
+.f label{display:block; font-size:14px; font-weight:700; margin-bottom:6px}
+.f label i{font-style:normal; color:#B4341E; margin-left:3px}
+.f input,.f textarea{
+  width:100%; padding:13px 15px; border:1px solid var(--line-2); border-radius:12px;
+  background:var(--paper); color:var(--ink); font-size:15.5px;
+}
+.f textarea{resize:vertical; min-height:74px}
+.f .help{margin:6px 0 0; font-size:12.5px; color:var(--ink-3); line-height:1.55}
+.f .err{display:none; margin:6px 0 0; font-size:12.5px; color:#B4341E; font-weight:700}
+.f.bad input{border-color:#B4341E; background:#FDF3F1}
+.f.bad .err{display:block}
+.agree{display:flex; gap:11px; align-items:flex-start; padding:14px 16px; background:var(--paper-2); border-radius:12px; margin-bottom:11px}
+.agree input{margin:3px 0 0; flex:0 0 auto; width:17px; height:17px; accent-color:#7A9B12}
+.agree span{font-size:13.5px; line-height:1.6}
+.agree span b{font-weight:800}
+.agree span em{display:block; font-style:normal; color:var(--ink-3); font-size:12.5px; margin-top:3px}
+.submit{
+  width:100%; background:var(--lime); color:var(--lime-ink); border:0; border-radius:999px;
+  padding:17px; font-size:17px; font-weight:800; margin-top:8px;
+}
+.submit[disabled]{opacity:.45; cursor:not-allowed}
+.msg{margin:14px 0 0; font-size:13.5px; line-height:1.6; text-align:center}
+.msg.ok{color:#3F6B0A; font-weight:700}
+.msg.err{color:#B4341E; font-weight:700}
+.final-note{margin:14px 0 0; font-size:12.5px; color:var(--ink-3); line-height:1.6; text-align:center}
+
+/* ============================================================
+   08 FAQ
+   ============================================================ */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+  font-size:16.5px; font-weight:700; letter-spacing:-.015em;
+}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:4px;top:15px;font-size:20px;
-  font-weight:700;color:#BBCC85;transition:transform .4s cubic-bezier(.16,1,.3,1)}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq p{margin:0 0 18px;font-size:14.5px;line-height:1.8;color:#262A1C}
-.band-in>*:first-child{margin-top:0!important}
-html,body{overflow-x:hidden}
-@media(min-width:700px){ .band-in{max-width:720px} }
-@media(min-width:1024px){ .shell{max-width:860px} .band-in{max-width:860px} }
-.rule{display:none}
-
-/* ── FAQ ───────────────────────────── */
-.faq{margin-top:20px}
-.faq details{background:#fff;border:1px solid #E2E7D0;border-radius:14px;margin-bottom:9px;
-  overflow:hidden;transition:border-color .2s}
-.faq details[open]{border-color:#BBCC85}
-.faq summary{list-style:none;cursor:pointer;padding:16px 18px;font-family:var(--head);
-  font-size:14.5px;font-weight:800;letter-spacing:-.02em;color:#262A1C;
-  display:flex;justify-content:space-between;align-items:center;gap:12px}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";flex:none;font-size:19px;font-weight:800;color:#BBCC85;line-height:1}
+.faq summary::after{
+  content:"+"; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  font-size:22px; font-weight:400; color:var(--ink-3);
+}
 .faq details[open] summary::after{content:"−"}
-.faq .a{padding:0 18px 17px;font-size:13.5px;line-height:1.8;color:#5E6356}
-.faq .a b{color:#262A1C}
+.faq .a{padding:0 0 24px; margin:0; font-size:15.5px; line-height:1.85; color:var(--ink-2); max-width:70ch}
+.faq .a strong{color:var(--ink); font-weight:700}
 
-/* ===== 한 화면에 한 구간 ================================= */
-@media(min-width:700px){
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--paper-2); border-top:1px solid var(--line); padding:54px 0 70px}
+.share{text-align:center; max-width:52ch; margin:0 auto 34px}
+.share h4{margin:0 0 10px; font-size:19px; font-weight:800; letter-spacing:-.015em}
+.share p{margin:0; font-size:15px; color:var(--ink-2); line-height:1.75}
+.sharebtns{display:flex; gap:9px; justify-content:center; margin-top:18px; flex-wrap:wrap}
+.sharebtns button{background:var(--card); border:1px solid var(--line-2); border-radius:999px; padding:10px 18px; font-size:13.5px; font-weight:700; color:var(--ink)}
+.sh-ok{margin-top:12px; font-size:13px; color:var(--ink-3); min-height:1em}
+.legal{text-align:center; font-size:12.5px; color:var(--ink-3); line-height:1.8}
+.legal a{color:var(--ink-2)}
+.legal .links{margin-bottom:10px}
 
-  .band>.band-in{ width:100%; }
-  .band.tail{ min-height:0; display:block; }   /* 신청 구간은 길어서 제외 */
-}
-@media(max-width:699px){
-
-}
-
-/* ===== 글자 체계 ========================================= */
-body{ font-size:17px; line-height:1.78; letter-spacing:-.011em; }
-
-h1{ font-size:clamp(32px,6.2vw,52px); line-height:1.16; font-weight:800; letter-spacing:-.035em }
-.band h2, h2{ font-size:clamp(26px,4.4vw,40px); line-height:1.22; font-weight:800;
-  letter-spacing:-.032em; margin:0 0 18px }
-h3{ font-size:clamp(18px,2.4vw,22px); line-height:1.44; font-weight:700; letter-spacing:-.02em }
-
-.lede{ font-size:clamp(16px,1.9vw,19px); line-height:1.8; letter-spacing:-.012em }
-.secno i{ font-size:12px; letter-spacing:.08em }
-.secno span{ font-size:12px; letter-spacing:.12em }
-
-/* 굵기 대비 — 강조가 강조로 읽히게 */
-b,strong{ font-weight:700 }
-.lede b{ font-weight:700 }
-
-/* 한글 줄바꿈 */
-h1,h2,h3,.lede,p{ word-break:keep-all; }
-@media(min-width:1024px){ h1,h2{ text-wrap:balance } }
-
-/* ===== 구간 구분 강화 ==================================== */
-@media(min-width:700px){
-  /* .top 안에 첫 밴드들이 들어 있어 .top 에는 높이를 주지 않는다 */
-
-}
-
-/* 구간 배경 대비 — 연보라와 흰색 차이가 거의 안 보였다 */
-.band.soft{ background:#F1F6DF }
-.band.plain{ background:#FFFFFF }
-.band.deep{ background:#1F2A05 }
-.band.deep h2,.band.deep h3,.band.deep p,.band.deep .lede,.band.deep b{ color:#F3F7E4 }
-.band.deep .secno i{ background:#DDF56A; color:#1F2A05 }
-.band.deep .secno span{ color:#A9BF4E }
-.band.deep .midcta button{ background:#DDF56A; color:#1F2A05 }
-.band.deep .midcta p{ color:#A9BF4E }
-
-/* 경계선 — 색만으로 부족할 때 */
-.band+.band{ border-top:1px solid rgba(31,42,5,.06) }
-
-/* ===== 바닥 흰색 + 구간 색 대비 ========================== */
-body{ background:#FAFCF2 }
-.band.plain{ background:#FFFFFF }
-.band.soft{ background:#F1F6DF }      /* 브랜드 연보라 */
-.band.deep{ background:#1F2A05 }      /* 브랜드 잉크 */
-.band+.band{ border-top:0 }           /* 색으로 구분되니 선은 뺀다 */
-
-/* ===== 배경 경계 선명하게 ================================ */
-/* 흐린 색 덩어리가 fixed 라 스크롤 내내 모든 구간에 번졌다.
-   히어로 영역에만 두고, 아래 구간은 단색으로 딱 끊는다. */
-.blobs{ position:absolute; inset:0 0 auto 0; height:100vh }
-.blob{ opacity:.55 }
-/* .top 배경 제거 — .shell(860px) 안이라 그 폭만큼만 칠해져 세로 경계선이 생긴다 */
-
-/* 합친 자기소개 카드 */
-.story{ background:#fff; border:1px solid #E2E7D0; border-radius:24px; padding:28px 26px }
-.story .role{ font-family:var(--head); font-size:12px; font-weight:800; letter-spacing:.12em;
-  color:#1F2A05; margin:0 0 10px }
-.story h3{ margin:0 0 14px }
-.story-pts{ list-style:none; margin:18px 0 0; padding:18px 0 0; border-top:1px solid #E2E7D0 }
-.story-pts li{ font-size:14.5px; line-height:1.7; color:#5E6356; padding:5px 0 }
-.story-pts li b{ color:#262A1C }
-.story .sig{ margin:16px 0 0; font-size:13px; color:#5E6356 }
-
-/* ===== 라임·잉크 두 색 체계 ============================== */
-/* 라임 = 배경·하이라이트 전용 · 잉크 = 글자·진한 배경 · 흰색 = 바탕
-   흰 바탕에 라임 글씨는 안 읽히므로 글자색으로 쓰지 않는다 */
-
-/* 주 버튼 — 라임 바탕 + 잉크 글씨 (프로필 이미지와 같은 조합) */
-.hero-cta,.midcta button,.submit,.cta{
-  background:#DDF56A!important; color:#1F2A05!important;
-  box-shadow:0 8px 22px rgba(31,42,5,.18)!important }
-.hero-cta:hover,.midcta button:hover,.submit:hover{
-  background:#D2ED55!important; box-shadow:0 12px 28px rgba(31,42,5,.24)!important }
-
-/* 잉크 구간 위에서는 반대로 */
-.band.deep .midcta button{ background:#DDF56A!important; color:#1F2A05!important }
-
-/* 섹션 번호칩 — 잉크 바탕 + 라임 글씨 */
-.secno i{ background:#1F2A05; color:#DDF56A }
-.band.deep .secno i{ background:#DDF56A; color:#1F2A05 }
-
-/* 숫자·강조 글자는 잉크로 (라임은 안 읽힌다) */
-.pf-n,.offer-p,.lm-n,.tagno,.story .role{ color:#1F2A05 }
-.eyebrow{ color:#4A5A14 }
-
-/* 구간 바탕 */
-.band.soft{ background:#F1F6DF }
-.band.plain{ background:#FFFFFF }
-.band.deep{ background:#1F2A05 }
-/* .top 배경 제거 — shell 안이라 폭이 잘렸다 */
-
-/* 히어로 블러도 라임 계열로 */
-.b1{ background:rgba(221,245,106,.30) }
-.b2{ background:rgba(31,42,5,.07) }
-.b3{ background:rgba(221,245,106,.22) }
-.b4{ background:rgba(31,42,5,.05) }
-
-/* ===== 그림자 정리 — 뿌연 인상의 원인 ==================== */
-:root{
-  --clayCard:0 1px 2px rgba(31,42,5,.05), 0 6px 18px rgba(31,42,5,.07);
-  --clayCardHover:0 2px 4px rgba(31,42,5,.06), 0 12px 28px rgba(31,42,5,.11);
-  --clayButton:0 6px 16px rgba(31,42,5,.18);
-  --clayButtonHover:0 10px 24px rgba(31,42,5,.24);
-  --clayPressed:inset 0 0 0 1px #E2E7D0;
-  --claySoft:0 1px 2px rgba(31,42,5,.04), 0 5px 14px rgba(31,42,5,.06);
-}
-/* 잉크 구간 안의 카드는 밝게 띄운다 */
-.band.deep .wk-box,.band.deep .recap,.band.deep .card{
-  background:#283610!important; border:1px solid #3A4A1C!important; box-shadow:none!important }
-.band.deep .wk-box *,.band.deep .recap *{ color:#EDF3DA }
-.band.deep .wk-box b,.band.deep .recap b{ color:#DDF56A }
-
-/* ===== 받는 것 카드 구분 · 신청 구간 강조 ================ */
-/* 8주 목록과 「받는 것」이 같은 톤이라 구분이 안 됐다.
-   받는 것은 라임 카드로 띄워 성격이 다르다는 걸 보여준다 */
-.band.deep .recap{
-  background:#DDF56A!important; border:0!important; border-radius:24px }
-.band.deep .recap *{ color:#1F2A05!important }
-.band.deep .recap .recap-h{ font-weight:800; opacity:.7 }
-.band.deep .recap .trade{ border-top:1px solid rgba(31,42,5,.22) }
-.band.deep .recap .trade-s{ opacity:.7 }
-
-/* 신청 구간 — 여백 줄이고 제목을 앞세운다 */
-.band.tail{ padding-top:64px }
-@media(min-width:700px){ .band.tail{ padding-top:88px } }
-.band.tail .sect{ margin-bottom:28px }
-.form{ margin-top:0 }
-.form-h{ display:none }        /* 위에 07 제목이 생겨 중복이다 */
-
-/* ===== 여백 한 체계로 ==================================== */
-/* 규칙이 다섯 개 겹쳐 구간마다 달랐다. 이제 이 블록 하나만 쓴다.
-   모든 구간의 위아래 여백이 같다. 높이는 내용이 정한다. */
-.band{
-  padding-top:96px; padding-bottom:96px;
-  padding-left:20px; padding-right:20px;
-  min-height:0; display:block;
-}
-@media(min-width:700px){
-  .band{ padding-top:140px; padding-bottom:140px }
-}
-/* 히어로도 같은 리듬 */
-.top{ padding-top:64px; padding-bottom:96px }
-@media(min-width:700px){ .top{ padding-top:88px; padding-bottom:140px } }
-
-/* 구간 안쪽 — 제목과 본문 사이만 관리하고 위아래 여백은 안 준다 */
-.band .sect,.band .pain-h,.band .who,.band .story{ margin-top:0 }
-.band .secno{ margin-bottom:20px }
-.band h2{ margin-bottom:20px }
-.band .lede{ margin-bottom:0 }
-.midcta{ margin-top:48px }
-
-/* 신청 구간도 같은 값 */
-.band.tail{ padding-top:96px }
-@media(min-width:700px){ .band.tail{ padding-top:140px } }
-
-/* ===== 히어로 아래 여백 ================================== */
-/* 첫 구간이 .top 안에 있어서 .top 의 아래 여백이 히어로 밑이 아니라
-   맨 마지막 구간 뒤에 붙었다. 히어로 마지막 줄에 직접 여백을 준다.
-   (.top .band:first-of-type 은 첫 div 가 .pf 라서 잡히지 않는다) */
-.hero-sub{ margin-bottom:96px }
-@media(min-width:700px){ .hero-sub{ margin-bottom:140px } }
-.top{ padding-bottom:0 }
-
-/* ===== 한 밴드 안에 구간이 둘일 때 ======================= */
-/* 02 와 03 이 같은 밴드 안에 있어 사이 여백이 0 이었다.
-   밴드 안의 두 번째 이후 .sect 에는 구간 여백만큼 띄운다 */
-.band .band-in > .sect ~ .sect,
-.band .band-in > * + .sect{ margin-top:96px }
-@media(min-width:700px){
-  .band .band-in > .sect ~ .sect,
-  .band .band-in > * + .sect{ margin-top:140px }
-}
-.band .band-in > .secno:first-child + .sect{ margin-top:0 }
-
-/* ===== 안내 3단계와 입력칸 분리 ========================== */
-/* 한 카드 안에 있으니 1·2·3 도 사용자가 채워야 할 항목처럼 보였다.
-   안내는 카드 없이 흐르게, 입력칸만 카드 안에 둔다 */
-.steps-out{ margin:0 0 36px; padding:0 }
-.steps-out li{ margin-bottom:22px }
-.steps-out li:last-child{ margin-bottom:0 }
-.steps-out li::before{ background:#1F2A05; color:#DDF56A }
-
-/* 입력칸 카드 — 여기부터 내가 쓰는 곳이라는 신호 */
-.form{ background:#fff; border:1px solid #E2E7D0; border-radius:24px;
-  box-shadow:0 1px 2px rgba(31,42,5,.04), 0 6px 18px rgba(31,42,5,.06) }
-.form-h{ display:block!important; background:#F1F6DF; color:#1F2A05;
-  padding:18px 24px; border-bottom:1px solid #E2E7D0 }
-.form-h b{ display:block; font-family:var(--head); font-size:17px; font-weight:800;
-  letter-spacing:-.02em; color:#1F2A05 }
-.form-h span{ font-size:12.5px; color:#5E6356 }
-.form-b{ padding:26px 24px 28px }
-
-/* ===== 필수 칸만 강조 ==================================== */
-/* 네 칸이 똑같이 생겨서 다 써야 하는 줄 안다.
-   필수 두 칸만 라임으로 묶고, 선택 칸은 눌러 둔다 */
-#r-name,#r-email{
-  background:#F7FBEA; border-left:3px solid #DDF56A;
-  border-radius:0 12px 12px 0; padding:14px 16px; margin-bottom:14px }
-#r-name label,#r-email label{ color:#1F2A05 }
-#r-name label i,#r-email label i{ color:#7A8F22 }
-
-#r-task,#r-company{ opacity:.82 }
-#r-task label::after,#r-company label::after{
-  content:"선택"; margin-left:7px; font-size:10.5px; font-weight:800;
-  color:#5E6356; background:#EFEFE8; border-radius:999px; padding:2px 7px;
-  vertical-align:1px }
-
-/* 폼 머리말에 한 줄 더 */
-.form-h span{ display:block; margin-top:3px }
-
-
-/* ===== FAQ 안쪽 여백 ===================================== */
-/* 카드 스타일은 답변을 .a 로 감싼다고 보고 만들어져 있는데
-   지금 마크업은 <p> 라 좌우 여백이 빠져 글자가 카드에 붙었다 */
-.faq details > p{ padding:0 18px 17px; margin:0;
-  font-size:14px; line-height:1.85; color:#5E6356 }
-.faq details > p b{ color:#262A1C }
-.faq summary{ padding:16px 18px }
-
-/* ===== 페이지 끝 정리 ==================================== */
-/* 구분선이 넷이었다 — FAQ 끝 · 바닥색 · 공유 띠 · 바닥색 · 푸터.
-   공유 블록을 밴드 안으로 넣고 자체 배경을 없애 경계를 둘로 줄인다 */
-.share{ background:transparent; border:0; border-radius:0;
-  margin:56px 0 0; padding:28px 0 0; border-top:1px solid #E2E7D0 }
-.site-foot{ margin-top:0 }
-
-/* ===== 히어로 숨통 ======================================= */
-/* 요소 간격이 20/18/22/32/14 로 촘촘했다. 첫 화면이니 넉넉하게 */
-.top{ padding-top:104px }
-@media(min-width:700px){ .top{ padding-top:136px } }
-
-.top .eyebrow{ margin-bottom:28px }
-.top h1{ margin-bottom:28px }
-.top .lede{ margin-bottom:0 }
-.top .pf{ margin-top:44px }
-.top .hero-cta{ margin-top:48px }
-.top .hero-sub{ margin-top:18px }
-
-/* 카드 안쪽도 조금 더 */
-.pf-c{ padding:26px 18px }
-
-/* ===== 로드맵 접기 · 지도 안내 =========================== */
-/* 1주차만 펼치고 나머지는 제목 한 줄. 세로 길이를 1/3 로 줄인다 */
-.wk.slim{ padding-top:9px; padding-bottom:9px }
-.wk.slim .wk-t{ font-size:14.5px; opacity:.82 }
-.wk.slim .wk-n{ opacity:.6 }
-
-.mapgift{ margin-top:22px; padding:20px 22px; border-radius:18px;
-  background:rgba(221,245,106,.10); border:1px solid rgba(221,245,106,.28) }
-.mapgift-h{ font-family:var(--head); font-size:14.5px; font-weight:800;
-  letter-spacing:-.02em; color:#DDF56A; margin-bottom:8px }
-.mapgift p{ margin:0 0 6px; font-size:14px; line-height:1.75; color:#EDF3DA }
-.mapgift p b{ color:#DDF56A }
-.mapgift-s{ opacity:.85 }
-
-/* ===== 8칸에 주차 표시 =================================== */
-.cell8{ position:relative }
-.c8-wk{ display:inline-block; margin-left:auto; flex:none;
-  font-family:var(--head); font-size:11px; font-weight:800; letter-spacing:-.01em;
-  color:#1F2A05; background:#DDF56A; border-radius:999px; padding:3px 9px; white-space:nowrap }
-.c8-wk.none{ background:#EFEFE8; color:#8A8F80 }
-
-/* ===== 8칸 지도 — 누수 한 줄 ============================= */
-.cell8{ display:grid; grid-template-columns:auto 1fr auto; column-gap:14px; row-gap:8px;
-  align-items:start; padding:20px 22px; border-radius:16px;
-  background:#fff; border:1px solid #E2E7D0 }
-.c8-no{ font-size:13px; font-weight:700; color:#8A8F80; padding-top:2px;
-  font-variant-numeric:tabular-nums }
-.c8-b{ min-width:0 }
-.c8-nm{ font-size:16px; font-weight:800; letter-spacing:-.01em; color:#262A1C }
-.c8-kw{ display:block; margin-top:3px; font-size:13px; font-weight:500;
-  color:#8A8F80; line-height:1.5 }
-.c8-wk{ justify-self:end; white-space:nowrap; background:#DDF56A; color:#1F2A05;
-  font-size:12px; font-weight:700; line-height:1; padding:7px 11px; border-radius:999px }
-.c8-leak{ grid-column:2 / -1; margin:6px 0 0; padding-left:12px;
-  border-left:2px solid #DDF56A; font-size:13.5px; line-height:1.6; color:#5E6356 }
-
-/* 헤드라인 형광펜 */
-.hl{ display:inline-block; background:#DDF56A; color:#2B3A00;
-  padding:0 .18em; border-radius:6px }
-
-/* 지도 마무리 */
-.mapclose{ margin:28px 0 0; padding:22px 24px; border-radius:16px;
-  background:#F1F6DF; font-size:15px; line-height:1.72; color:#5E6356 }
-.mapclose b{ color:#262A1C }
-/* ===== 2주차 도구 2개 ===== */
-.plus2{ display:inline-block; margin-left:6px; font-size:12.5px; font-weight:700;
-  color:#1F2A05; background:#DDF56A; border-radius:999px; padding:2px 9px }
+/* ============================================================
+   DONE SCREEN
+   ============================================================ */
+.dlcard{border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px; background:var(--card); margin-bottom:34px}
+.dlcard-h{display:flex; gap:14px; align-items:flex-start}
+.dlicon{font-size:26px; line-height:1}
+.dlcard-h b{font-size:17px; font-weight:800; display:block}
+.dlsub{font-size:13.5px; color:var(--ink-3)}
+.dl-note{margin:12px 0 0; font-size:13px; color:var(--ink-3); line-height:1.6; text-align:center}
+.mailnote{border:1px solid var(--line); border-left:4px solid var(--lime); border-radius:var(--radius); padding:18px 20px; font-size:15px; line-height:1.8; color:var(--ink-2); margin:0 0 30px}
+.mailnote strong{color:var(--ink); font-weight:800}
+.nextnote{margin:28px 0 0; padding:18px 20px; background:var(--paper-2); border-radius:var(--radius); font-size:15px; line-height:1.8; color:var(--ink-2)}
+.nextnote strong{color:var(--ink); font-weight:800}
+.back{margin-top:26px; background:none; border:1px solid var(--line-2); border-radius:999px; padding:13px 24px; font-size:14.5px; font-weight:700; color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1237,851 +383,554 @@ body{ background:#FAFCF2 }
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- ══════════ 화면 1 · 랜딩 ══════════ -->
+<div class="screen on" id="s1">
 
-<div class="topbar" id="topbar"><div class="topbar-in">
-  <span class="tb-t" id="tbText"></span><span class="tb-d" id="tbDay"></span>
-</div></div>
-
-<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
-
-<div class="shell">
-
-<!-- 화면1 -->
-<section class="screen on" id="s1">
-  <div class="top">
-    <p class="eyebrow">이커머스 반복 업무 자동화</p>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="wrap">
+    <span class="tagline">이커머스 반복 업무 자동화 · 0원</span>
     <h1>이 일, 지난달에도 했는데<br>왜 또 처음부터 하고 있을까</h1>
-    <p class="lede">이커머스 업무 중 <b>매번 똑같이 반복하는 것들</b>만 골라 도구로 만들었습니다. 제가 지금 쓰고 있는 파일 그대로, <b>8주에 걸쳐 8개</b>를 보내드립니다.<br>값은 안 받습니다. 대신 <b>써보시고 어디가 걸렸는지</b> 한두 줄만 주세요.</p>
-    <div class="pf">
-      <div class="pf-c"><div class="pf-n">매달</div><div class="pf-l">반복</div>
-        <div class="pf-d">상품 하나가 등록부터 정산까지 같은 길을 갑니다</div></div>
-      <div class="pf-c"><div class="pf-n">8개</div><div class="pf-l">도구</div>
-        <div class="pf-d">쓰려고 만든 것들. 8주에 걸쳐 하나씩 보내드립니다</div></div>
-      <div class="pf-c"><div class="pf-n">0원</div><div class="pf-l">설치·구독</div>
-        <div class="pf-d">HTML 파일 하나. 링크만 열면 그 자리에서 씁니다</div></div>
-    </div>
-    <button class="hero-cta" onclick="gotoForm()">지금 신청하고 2주차 도구 받기 →</button>
-    <p class="hero-sub">닉네임과 이메일만 · 1분이면 끝납니다</p>
+    <p class="sub">
+      이커머스 업무 중 <strong>매번 똑같이 반복하는 것들</strong>만 골라 도구로 만들었습니다.
+      제가 지금 쓰고 있는 파일 그대로, <strong>8주에 걸쳐 8개</strong>를 보내드립니다.
+    </p>
 
-    <div class="band soft"><div class="band-in">
-    <div class="pain-h">
-      <span class="tag">SOUND FAMILIAR?</span>
-      <div class="secno"><i>01</i><span>이런 적 있으시죠</span></div>
-      <h2>이런 상태,<br>익숙하지 않으신가요?</h2>
-    </div>
-    <div class="pain" id="painEmpathy"></div>
-    <p class="pain-end">하나라도 익숙하시다면, <span>이 도구들이 그 자리를 대신합니다.</span></p>
-    <div class="core" style="margin-top:30px">
-      <div class="k">그래서</div>
-      <p>일이 많은 게 문제가 아닙니다.<br>
-      매번 새로 하고 있어서, <b>어디가 막혔는지도 안 보이는 게</b> 문제입니다.</p>
-    </div>
-    </div></div>
+    <div class="seats"><i></i> 지금도 신청 받는 중입니다 · 신청하신 분들께 매주 하나씩 나가고 있어요</div>
 
-
-
-    <hr class="rule">
-    <div class="story">
-      <p class="role">WHO MADE THIS</p>
-      <h3>왜 만들었냐면</h3>
-      <p>이커머스 담당자라면 아실 겁니다. <b>해야 할 일이 정해져 있지 않고, 쳐내도 계속 나옵니다.</b></p>
-      <p>상품 등록부터 상세 · 프로모션 · 가격 · 광고 · 주문 · CS · 데이터까지, <b>한 사람이 다 맡는 자리</b>에서 일해왔습니다.
-        그런데 신규 상품이 하나 나올 때마다 <b>상품 등록부터 정산까지 매번 똑같은 걸</b> 하고 있더군요.</p>
-      <p>그래서 파이썬과 클로드로 하나씩 자동화했습니다. 그러고 나니
-        <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
-      <ul class="story-pts">
-        <li><b>전 공정</b> — 8칸을 혼자 돌려본 경험에서 도구 목록이 나왔습니다</li>
-        <li><b>파이썬 · 클로드</b> — 외주 견적을 받다가 결국 직접 만들었습니다</li>
-        <li><b>지금도 사용 중</b> — 만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</li>
-      </ul>
-      <p class="sig">— 이커머스 마케터 · 5년차</p>
-    </div>
-    <div class="band plain"><div class="band-in">
-    <div class="sect">
-      <div class="secno"><i>02</i><span>업무 전체 지도</span></div>
-      <h2>8칸은 다 아는데<br><span class="hl">칸과 칸 사이</span>에서 샙니다</h2>
-      <p class="lede" style="margin-top:12px">등록하고, 상세 만들고, 행사 넣고, 가격 잡고, 광고 돌리고, 출고하고, 문의 받고, 성과 봅니다. <b>문제는 칸 자체가 아니라, 칸을 넘길 때마다 같은 숫자를 다시 옮겨 적는 구간입니다.</b></p>
-    </div>
-    <div class="gx" id="grid"></div>
-    <p class="mapclose"><b>상품이 바뀌어도 순서는 같습니다.</b> 그래서 이 지도는 한 번 그려두면 계속 씁니다. 8주 동안 한 칸씩, <b>새는 구간부터</b> 막습니다.</p>
-
-    <div class="sect">
-      <div class="secno"><i>03</i><span>2주차 미리보기</span></div>
-      
-      <h2>배너 하나 만드는 데<br>뭐가 필요했는지 <span class="tagno">02 상세·배너</span></h2>
-      <p class="lede" style="margin-top:12px">정상가 보고, 쿠폰 계산하고, 적립 빼고, 할인율 구하고, 그다음에 이미지 만들기. 매주 다섯 개씩.</p>
-    </div>
-    <div class="demo" style="margin-top:20px">
-      <div class="demo-bar"><span class="dots"><i></i><i></i><i></i></span>제품 배너 생성기 · 860×505</div>
-      <div class="demo-b">
-        <div class="demo-step">
-          <span class="dstep">STEP 1 · 숫자만 넣습니다</span>
-          <div class="dfld"><span>정상가</span><b>299,000</b></div>
-          <div class="dfld"><span>즉시할인가</span><b>189,000</b></div>
-          <div class="dfld"><span>쿠폰 · 적립률</span><b>7% · 13%</b></div>
-        </div>
-        <div class="demo-step">
-          <span class="dstep">STEP 2 · 계산은 규칙이 합니다</span>
-          <div class="dform">최대혜택가 = (행사가 − 쿠폰) × (1 − <em>적립률 합계</em>)
-할인율% = (정상가 − 최대혜택가) ÷ <em>정상가</em></div>
-          <div class="dcalc"><span>최대혜택가</span><b>164,430</b></div>
-          <div class="dcalc"><span>할인율</span><b>45%</b></div>
-        </div>
-        <div class="demo-step">
-          <span class="dstep">STEP 3 · 규격대로 이미지가 나옵니다</span>
-          <div class="bn rd"><div class="bn-i">제품 이미지</div><div class="bn-t">
-            <span class="bn-bd">알림받기 + 쿠폰</span>
-            <div class="bn-nm">무선 스틱청소기 2세대</div>
-            <div class="bn-pr"><s>299,000</s>즉시할인 189,000</div>
-            <div><span class="bn-f">164,430</span> <span class="bn-o">45%</span></div></div></div>
-          <div class="bn pp"><div class="bn-i">제품 이미지</div><div class="bn-t">
-            <span class="bn-bd">슈퍼적립 10%</span>
-            <div class="bn-nm">4.5L 에어프라이어</div>
-            <div class="bn-pr"><s>139,000</s><s>99,000</s></div>
-            <div><span class="bn-f">85,260</span> <span class="bn-o">38%</span></div></div></div>
-        </div>
+    <div class="stats">
+      <div>
+        <div class="n">8칸</div>
+        <div class="k">전 공정</div>
+        <div class="d">상품 등록부터 데이터 분석까지 혼자 다 돌려봤습니다</div>
       </div>
-      <div class="dot-row"><i></i><i></i><i></i></div>
-    </div>
-    <p class="hero-cap">이제 <b>정상가와 행사가만 넣습니다.</b> 나머지는 파일이 계산합니다.<br>
-      규격이 고정돼서 다른 담당자도 그대로 씁니다.</p>
-
-    <div class="midcta">
-      <button onclick="gotoForm()">이 도구, 지금 받기 →</button>
-      <p>닉네임과 이메일만 · 1분이면 끝납니다</p>
-    </div>
-
-    </div></div>
-
-    <div class="band soft"><div class="band-in">
-    <div class="sect">
-      <div class="secno"><i>04</i><span>자주 묻는 것</span></div>
-      <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
-    </div>
-    <div class="rebut">
-      <h3>됩니다. 저도 그렇게 했고요.</h3>
-      <p class="no">근데 시트 구조가 바뀔 때마다 전부 다시 짰습니다.</p>
-      <p>엑셀 수식으로 돌리다가 <b>채널이 양식을 바꾸면</b> 수식이 통째로 깨집니다. 그때마다 다시 짜는 게 더 오래 걸렸어요.</p>
-      <p>그래서 규칙을 파일 안에 박았습니다. <b>바뀌는 건 숫자뿐이고 규칙은 안 건드립니다.</b> 그리고 파일 하나라 옆자리에 그냥 보내면 됩니다.</p>
-      <div class="punch">설치도, 로그인도, 구독도 없습니다.<br>링크를 열면 그 자리에서 바로 씁니다.</div>
-    </div>
-
-    </div></div>
-
-    <div class="band deep"><div class="band-in">
-    <div class="sect">
-      <div class="secno"><i>05</i><span>8주 로드맵</span></div>
-      <h2>8주 뒤에,<br>도구 8개가 남습니다</h2>
-      <p class="lede" style="margin-top:12px">한 주에 하나씩. <b>지금 어떻게 하고 있는지</b>와 <b>이후에 어떻게 바뀌는지</b>를 같이 보냅니다.</p>
-    </div>
-    <div class="wk-box" id="weeks"></div>
-    <div class="mapgift">
-      <div class="mapgift-h">전체 업무 지도는 따로 드립니다</div>
-      <p>8칸 어디에 어떤 도구가 붙는지, 어떤 순서로 손대면 되는지 그린 <b>한 장짜리 지도</b>입니다.</p>
-      <p class="mapgift-s">1주차와 2주차를 써보시고 <b>어땠는지 한두 줄</b>만 주시면 메일로 보내드려요.</p>
-    </div>
-    <p class="note">지금 안 쓰는 것도 옵니다. <b>그 일이 생겼을 때 이미 갖고 있는 게 낫습니다.</b></p>
-
-    <div class="recap">
-      <div class="recap-h">8주 동안 받는 것</div>
-      <div class="recap-r"><b>도구 8개</b><span>단일 HTML · 설치 없이 브라우저에서 실행</span></div>
-      <div class="recap-r"><b>쓰는 법</b><span>지금 하는 방식 → 이후 방식, 한 장씩</span></div>
-      <div class="recap-r hero"><b>팀에 공유 가능</b><span>파일 하나라 그냥 보내면 됩니다</span></div>
-      <div class="recap-f">전부 0원. <b>그리고 8주면 끝납니다.</b></div>
-      <div class="trade">
-        <div class="trade-h">지금은 같이 만드는 중입니다</div>
-        <p>써보시고 <b>어땠는지 피드백 한두 줄</b>만 주세요. 그걸로 다음 도구를 고칩니다.</p>
+      <div>
+        <div class="n">8개</div>
+        <div class="k">도구</div>
+        <div class="d">쓰려고 만든 것들. 8주에 걸쳐 하나씩 보내드립니다</div>
+      </div>
+      <div>
+        <div class="n">0원</div>
+        <div class="k">설치 · 구독</div>
+        <div class="d">HTML 파일 하나. 링크만 열면 그 자리에서 씁니다</div>
       </div>
     </div>
 
-    <div class="midcta">
-      <button onclick="gotoForm()">8주치 신청하고 2주차 도구 먼저 받기 →</button>
-      <p>0원 · 설치 없음 · 언제든 중단</p>
+    <button class="cta lime" onclick="gotoForm()">신청하고 2주차 도구 먼저 받기 →</button>
+    <p class="cta-note">닉네임과 이메일만 · 1분이면 끝납니다</p>
+  </div>
+</section>
+
+<!-- ══════════ 01 공감 ══════════ -->
+<section class="tint">
+  <div class="wrap">
+    <div class="eyebrow"><b>01</b><span>이런 적 있으시죠</span></div>
+    <h2>이 중에 몇 개,<br>이번 주에도 하셨나요</h2>
+    <p class="lede">눌러서 체크해 보세요. 하나도 안 해당되면 이 페이지는 닫으셔도 됩니다.</p>
+
+    <div class="checks" id="checks">
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>행사가 바뀔 때마다 할인율을 계산기로 다시 두드린다</span></button>
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>채널마다 주문서 양식이 달라서 매번 손으로 옮겨 붙인다</span></button>
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>확정된 행사가 하나를 시트 두세 곳에 따로 입력한다</span></button>
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>배너 규격은 매번 같은데 매번 예전 파일을 뒤진다</span></button>
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>어떤 링크로 들어온 매출인지 나중에 맞추질 못한다</span></button>
+      <button type="button" class="chk" aria-pressed="false"><span class="box">✓</span><span>주간보고 만드느라 정작 해석할 시간이 없다</span></button>
     </div>
 
-    </div></div>
-
-
-
-    <div class="band plain tail" id="tailBand"><div class="band-in">
-    <div class="sect">
-      <div class="secno"><i>06</i><span>신청 방법</span></div>
-      <h2>지금 신청하면<br>2주차 도구를 먼저 드립니다</h2>
-      <p class="lede">닉네임과 이메일만 받습니다. 1분이면 끝나고, 같은 내용을 메일로도 보내드려요.</p>
+    <div class="tally" id="tally">
+      일이 많은 게 문제가 아닙니다.
+      <strong>매번 새로 하고 있어서, 어디가 막혔는지도 안 보이는 게</strong> 문제입니다.
     </div>
-    <ol class="steps steps-out">
-    <li><b>정보만 남기면 바로 받습니다</b><span>닉네임과 이메일만. 2주차 도구가 그 자리에서 열립니다</span></li>
-    <li><b>매주 하나씩 메일로 보내드려요</b><span>도움이 될 파일과 쓰는 법. 8주면 끝납니다</span></li>
-    <li><b>받아보시고 피드백만 부탁드려요</b><span>한두 줄이면 충분합니다</span></li>
-    </ol>
-    <div class="form" id="formBox">
-      <div class="form-h"><b>신청하고 받기</b><span>라임 표시된 두 칸만 채우시면 됩니다 · 1분</span></div>
-      <div class="form-b">
-        <form class="sb-form" id="sbForm" novalidate>
-          <div class="sb-row" id="r-name">
-            <label for="f-name">닉네임<i>*</i></label>
+  </div>
+</section>
+
+<!-- ══════════ 02 업무 전체 지도 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><b>02</b><span>업무 전체 지도 · 8주 로드맵</span></div>
+    <h2>8칸은 다 아는데<br><span class="mark">칸과 칸 사이</span>에서 샙니다</h2>
+    <p class="lede">
+      등록하고, 상세 만들고, 행사 넣고, 가격 잡고, 광고 돌리고, 출고하고, 문의 받고, 성과 봅니다.
+      <strong>문제는 칸 자체가 아니라, 칸을 넘길 때마다 같은 숫자를 다시 옮겨 적는 구간입니다.</strong>
+      칸 번호가 곧 주차입니다. 01칸은 1주차, 08칸은 8주차에 갑니다.
+    </p>
+
+    <div class="map" id="grid"></div>
+
+    <p class="map-note">
+      <strong>상품이 바뀌어도 순서는 같습니다.</strong>
+      그래서 지금 안 쓰는 도구도 함께 갑니다. 그 일이 생겼을 때 이미 갖고 있는 편이 낫습니다.
+      한 칸이 밀리면 뒤 칸이 같이 밀리기 때문에, <strong>새는 구간부터 손을 댔습니다.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 03 2주차 미리보기 ══════════ -->
+<section class="tint">
+  <div class="wrap">
+    <div class="eyebrow"><b>03</b><span>2주차 도구 미리보기</span></div>
+    <h2>배너 하나 만드는 데<br>뭐가 필요했는지</h2>
+    <p class="lede">
+      정상가 보고, 쿠폰 계산하고, 적립 빼고, 할인율 구하고, 그다음에 이미지 만들기. 매주 다섯 개씩.
+      <strong>아래 숫자를 직접 바꿔보세요.</strong> 신청하시면 바로 받는 2주차 도구가 이렇게 동작합니다.
+    </p>
+
+    <div class="demo">
+      <div class="demo-head">
+        <b>제품 배너 생성기</b>
+        <span>860 × 505 · 단일 HTML</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-in">
+          <p class="step">STEP 1 · 숫자만 넣습니다</p>
+          <div class="field">
+            <label for="i-name">제품명</label>
+            <input id="i-name" type="text" value="무선 스틱청소기 2세대">
+          </div>
+          <div class="duo">
+            <div class="field">
+              <label for="i-list">정상가</label>
+              <input id="i-list" type="number" value="299000" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="i-sale">즉시할인가</label>
+              <input id="i-sale" type="number" value="189000" inputmode="numeric">
+            </div>
+          </div>
+          <div class="duo">
+            <div class="field">
+              <label for="i-cpn">쿠폰 %</label>
+              <input id="i-cpn" type="number" value="7" inputmode="numeric">
+            </div>
+            <div class="field">
+              <label for="i-pt">적립 %</label>
+              <input id="i-pt" type="number" value="6" inputmode="numeric">
+            </div>
+          </div>
+          <div class="formula">
+            <p class="step" style="margin-bottom:8px">STEP 2 · 계산은 규칙이 합니다</p>
+            <code>최대혜택가 = 즉시할인가 × (1 − 쿠폰% − 적립%)</code><br>
+            <code>할인율 = (정상가 − 최대혜택가) ÷ 정상가</code>
+          </div>
+        </div>
+
+        <div class="demo-out">
+          <p class="step">STEP 3 · 규격대로 이미지가 나옵니다</p>
+          <div class="result">
+            <div><div class="k">최대혜택가</div><div class="v" id="o-final">164,430</div></div>
+            <div><div class="k">할인율</div><div class="v" id="o-rate">45%</div></div>
+          </div>
+          <div class="banner">
+            <div class="ph">제품<br>이미지</div>
+            <div class="info">
+              <span class="badge">알림받기 + 쿠폰</span>
+              <div class="pname" id="b-name">무선 스틱청소기 2세대</div>
+              <div class="prices"><s id="b-list">299,000</s>즉시할인 <span id="b-sale">189,000</span></div>
+              <div class="final"><b id="b-final">164,430</b><i id="b-rate">45%</i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="demo-foot">
+        이제 <strong>정상가와 행사가만 넣습니다.</strong> 나머지는 파일이 계산합니다.
+        규격이 고정돼서 다른 담당자도 그대로 씁니다.
+      </p>
+    </div>
+
+    <p class="plusnote">
+      2주차에는 도구가 <strong>두 개</strong> 갑니다. 배너 생성기와 함께
+      <strong>상세페이지 HTML 자동 생성</strong>도 넣었어요. 이미지 주소 목록만 붙여넣으면 상세 코드가 완성됩니다.
+    </p>
+
+    <p style="margin-top:28px">
+      <button class="cta" onclick="gotoForm()">이 도구, 지금 받기 →</button>
+    </p>
+    <p class="cta-note">닉네임과 이메일만 · 1분이면 끝납니다</p>
+  </div>
+</section>
+
+<!-- ══════════ 04 만든 사람 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><b>04</b><span>만든 사람</span></div>
+    <h2>왜 만들었냐면</h2>
+    <div class="author">
+      <div>
+        <p>이커머스 담당자라면 아실 겁니다. <strong>해야 할 일이 정해져 있지 않고, 쳐내도 계속 나옵니다.</strong></p>
+        <p>상품 등록부터 상세 · 프로모션 · 가격 · 광고 · 주문 · CS · 데이터까지, <strong>한 사람이 다 맡는 자리</strong>에서 일해왔습니다. 그런데 신규 상품이 하나 나올 때마다 <strong>상품 등록부터 정산까지 매번 똑같은 걸</strong> 하고 있더군요.</p>
+        <p>그래서 파이썬과 클로드로 하나씩 자동화했습니다. 그러고 나니 <strong>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</strong></p>
+        <p class="sign">— 이커머스 마케터 · 5년차</p>
+      </div>
+      <div class="creds">
+        <div><b>전 공정</b><span>8칸을 혼자 돌려본 경험에서 도구 목록이 나왔습니다</span></div>
+        <div><b>파이썬 · 클로드</b><span>외주 견적을 받다가 결국 직접 만들었습니다</span></div>
+        <div><b>지금도 사용 중</b><span>만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 05 반론 ══════════ -->
+<section class="tint">
+  <div class="wrap">
+    <div class="eyebrow"><b>05</b><span>엑셀이면 되지 않나</span></div>
+    <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
+    <div class="obj">
+      <article>
+        <h3>됩니다. 저도 그렇게 했고요.</h3>
+        <p>엑셀 수식으로 돌리다가 <strong>채널이 양식을 바꾸면</strong> 수식이 통째로 깨집니다. 그때마다 다시 짜는 게 더 오래 걸렸어요.</p>
+      </article>
+      <article>
+        <h3>그래서 규칙을 파일 안에 박았습니다.</h3>
+        <p><strong>바뀌는 건 숫자뿐이고 규칙은 안 건드립니다.</strong> 파일 하나라 옆자리에 그냥 보내면 됩니다.</p>
+        <p>설치도, 로그인도, 구독도 없습니다. 링크를 열면 그 자리에서 바로 씁니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 06 받는 것 ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><b>06</b><span>8주 동안 받는 것</span></div>
+    <h2>8주 뒤에,<br>도구 8개가 남습니다</h2>
+    <p class="lede">한 주에 하나씩. <strong>지금 어떻게 하고 있는지</strong>와 <strong>이후에 어떻게 바뀌는지</strong>를 같이 보냅니다.</p>
+
+    <div class="give">
+      <div><b>도구 8개</b><span>단일 HTML · 설치 없이 브라우저에서 실행</span></div>
+      <div><b>쓰는 법</b><span>지금 하는 방식 → 이후 방식, 한 장씩</span></div>
+      <div><b>팀에 공유 가능</b><span>파일 하나라 그냥 보내면 됩니다</span></div>
+    </div>
+
+    <div class="gift">
+      <b>전체 업무 지도는 따로 드립니다</b>
+      <p>8칸 어디에 어떤 도구가 붙는지, 어떤 순서로 손대면 되는지 그린 <strong>한 장짜리 지도</strong>입니다.</p>
+      <p>2주차 도구 두 개를 써보시고 <strong>어땠는지 한두 줄</strong>만 주시면 메일로 보내드려요.</p>
+    </div>
+
+    <div class="trade">
+      <h3>값은 안 받습니다. 대신</h3>
+      <p>
+        써보신 뒤 <strong>짧은 피드백</strong>만 주세요. 써보셨는지, 어디가 걸렸는지 — 한두 줄이면 충분합니다.
+        그걸로 다음 도구를 고칩니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 07 신청 ══════════ -->
+<section class="tint" id="apply">
+  <div class="wrap">
+    <div class="eyebrow"><b>07</b><span>신청 방법</span></div>
+    <h2>지금 신청하면<br>2주차 도구가 바로 열립니다</h2>
+    <p class="lede">닉네임과 이메일만 받습니다. 1분이면 끝나고, 같은 내용을 메일로도 보내드려요.</p>
+
+    <div class="applygrid">
+      <ol class="steps">
+        <li><b>정보만 남기면 바로 받습니다</b><span>닉네임과 이메일만. 2주차 도구가 그 자리에서 열립니다</span></li>
+        <li><b>매주 하나씩 메일로 보내드려요</b><span>도움이 될 파일과 쓰는 법. 8주면 끝납니다</span></li>
+        <li><b>받아보시고 피드백만 부탁드려요</b><span>한두 줄이면 충분합니다</span></li>
+      </ol>
+
+      <div class="formcard">
+        <h3>신청하고 받기</h3>
+        <p class="hint-top">별표 표시된 두 칸만 채우시면 됩니다 · 1분</p>
+
+        <form id="sbForm" novalidate>
+          <div class="f" id="r-name">
+            <label for="f-name">닉네임 <i>*</i></label>
             <input id="f-name" type="text" autocomplete="nickname" placeholder="어떻게 불러드리면 될까요">
-            <p class="sb-err">닉네임을 적어주세요.</p>
+            <p class="help">실명은 받지 않습니다.</p>
+            <p class="err">닉네임을 적어주세요.</p>
           </div>
-          <div class="sb-row" id="r-email">
-            <label for="f-email">이메일<i>*</i></label>
+          <div class="f" id="r-email">
+            <label for="f-email">이메일 <i>*</i></label>
             <input id="f-email" type="email" autocomplete="email" placeholder="name@company.com">
-            <p class="hint">도구와 자료를 이 주소로 보내드릴게요.</p>
-            <p class="sb-err">이메일 주소를 다시 확인해 주세요.</p>
+            <p class="help">도구와 자료를 이 주소로 보내드릴게요.</p>
+            <p class="err">이메일 주소를 다시 확인해 주세요.</p>
           </div>
-          <div class="sb-row" id="r-task">
+          <div class="f">
             <label for="f-task">지금 제일 손이 많이 가는 업무</label>
-            <input id="f-task" type="text" placeholder="예: 배너 가격 계산, 주문서 ERP 변환">
-            <p class="hint">안 적으셔도 괜찮아요. 적어주시면 그 업무를 기준으로 정리해서 보내드릴게요.</p>
+            <textarea id="f-task" placeholder="예) 매달 채널별 가격 일괄수정 파일 만드는 것"></textarea>
+            <p class="help">안 적으셔도 괜찮아요. 적어주시면 그 업무를 기준으로 순서를 조정합니다.</p>
           </div>
-          <div class="sb-row" id="r-company">
+          <div class="f">
             <label for="f-company">회사 · 직무</label>
             <input id="f-company" type="text" placeholder="안 적으셔도 괜찮아요">
           </div>
-          <label class="sb-ck" id="r-privacy">
+
+          <label class="agree">
             <input type="checkbox" id="f-privacy">
-            <span><b>[필수] 개인정보 수집 · 이용에 동의합니다.</b><br>
-              닉네임 · 이메일 / 자료 발송 목적 / 발송 완료 후 1개월 보관 · 실명은 받지 않습니다</span>
+            <span><b>[필수] 개인정보 수집 · 이용에 동의합니다.</b><em>닉네임 · 이메일 / 자료 발송 목적 / 발송 완료 후 1개월 보관</em></span>
           </label>
-          <p class="sb-err" id="e-privacy" style="display:none">동의가 필요합니다.</p>
-          <label class="sb-ck">
+          <p id="e-privacy" style="display:none;margin:0 0 11px;font-size:12.5px;color:#B4341E;font-weight:700">동의가 필요합니다.</p>
+          <label class="agree">
             <input type="checkbox" id="f-news">
-            <span>[선택] 다음 도구가 열릴 때 소식 받기<br>동의하지 않으셔도 위 자료는 그대로 받으실 수 있어요.</span>
+            <span><b>[선택] 다음 도구가 열릴 때 소식 받기</b><em>동의하지 않으셔도 위 자료는 그대로 받으실 수 있어요.</em></span>
           </label>
-          <p class="sb-msg" id="sbMsg"></p>
+
           <button class="submit" type="submit" id="sbSubmit">신청하고 파일 받기</button>
+          <p class="msg" id="sbMsg"></p>
+          <p class="final-note">입력하신 정보는 <b>자료 및 발송 안내</b> 외에는 쓰이지 않습니다.</p>
         </form>
-        <p class="priv">입력하신 정보는 <b>자료 및 발송 안내</b> 외에는 쓰이지 않습니다.</p>
       </div>
     </div>
-
-    <div class="band plain"><div class="band-in">
-    <div class="sect">
-      <div class="secno"><i>07</i><span>자주 묻는 질문</span></div>
-      <h2>궁금하실 것들</h2>
-    </div>
-    <div class="faq">
-      <details><summary>정말 0원인가요? 나중에 결제하라고 하지 않나요?</summary>
-        <p>0원입니다. 카드 정보도 안 받습니다. 값은 돈이 아니라 <b>받아보신 도구에 대한 짧은 피드백</b>으로 받습니다. 한두 줄이면 충분하고, 안 주셔도 다음 도구는 그대로 갑니다.</p></details>
-
-      <details><summary>코딩을 전혀 모르는데 쓸 수 있나요?</summary>
-        <p>쓸 수 있습니다. HTML 파일 하나라 <b>더블클릭하면 브라우저에서 열립니다.</b> 설치도 로그인도 없고, 숫자만 넣으면 됩니다. 인터넷 연결 없이도 동작합니다.</p></details>
-
-      <details><summary>제 업무랑 안 맞으면요?</summary>
-        <p>신청할 때 <b>지금 제일 손이 많이 가는 업무</b>를 적는 칸이 있습니다. 거기 적어주시면 그걸 기준으로 순서를 조정합니다. 그래도 안 맞으면 회신 한 줄로 중단하실 수 있습니다.</p></details>
-
-      <details><summary>회사 보안 때문에 외부 파일을 못 쓰는데요</summary>
-        <p>서버로 데이터를 보내지 않습니다. <b>파일 안에서만 계산하고 끝납니다.</b> 그래서 인터넷을 끊어도 동작합니다. 다만 사내 규정은 회사마다 달라서, 파일을 먼저 받아 보안 담당자에게 보여주시는 게 확실합니다.</p></details>
-
-      <details><summary>팀원에게 공유해도 되나요?</summary>
-        <p>됩니다. 파일 하나라 그냥 보내시면 됩니다. 다만 <b>메일은 신청하신 분께만</b> 갑니다. 팀원도 받고 싶으시면 따로 신청하시면 됩니다.</p></details>
-
-      <details><summary>개인정보는 어떻게 관리되나요?</summary>
-        <p><b>닉네임과 이메일만</b> 받습니다. 실명·연락처는 받지 않습니다. 자료 발송 목적으로만 쓰고 <b>발송 완료 후 1개월</b> 뒤 파기합니다. 자세한 내용은 페이지 맨 아래 개인정보 처리방침에 있습니다.</p></details>
-    </div>
-
   </div>
 </section>
-<div class="proof" id="proof" style="display:none"></div>
-<section class="screen" id="s1b" style="display:none"></section>
 
-<div class="screen on" id="s1c">
+<!-- ══════════ 08 FAQ ══════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><b>08</b><span>자주 묻는 질문</span></div>
+    <h2>신청 전에<br>궁금하실 것들</h2>
 
+    <div class="faq">
+      <details>
+        <summary>정말 0원인가요? 나중에 결제하라고 하지 않나요?</summary>
+        <p class="a">0원입니다. 카드 정보도 안 받습니다. 값은 돈이 아니라 <strong>받아보신 도구에 대한 짧은 피드백</strong>으로 받습니다. 한두 줄이면 충분하고, 안 주셔도 다음 도구는 그대로 갑니다.</p>
+      </details>
+      <details>
+        <summary>코딩을 전혀 모르는데 쓸 수 있나요?</summary>
+        <p class="a">쓸 수 있습니다. HTML 파일 하나라 <strong>더블클릭하면 브라우저에서 열립니다.</strong> 설치도 로그인도 없고, 숫자만 넣으면 됩니다. 인터넷 연결 없이도 동작합니다.</p>
+      </details>
+      <details>
+        <summary>왜 1주차가 아니라 2주차 도구부터 주나요?</summary>
+        <p class="a">칸 번호와 주차를 맞춰뒀는데, <strong>지금 가장 완성도가 높은 게 02칸 상세 · 배너</strong>라서 그걸 먼저 드립니다. 신청하시면 2주차 도구 두 개가 바로 열리고, 그다음 주에 1주차 도구를 보내드립니다.</p>
+      </details>
+      <details>
+        <summary>제 업무랑 안 맞으면요?</summary>
+        <p class="a">신청할 때 <strong>지금 제일 손이 많이 가는 업무</strong>를 적는 칸이 있습니다. 거기 적어주시면 그걸 기준으로 순서를 조정합니다. 그래도 안 맞으면 회신 한 줄로 중단하실 수 있습니다.</p>
+      </details>
+      <details>
+        <summary>회사 보안 때문에 외부 파일을 못 쓰는데요</summary>
+        <p class="a">서버로 데이터를 보내지 않습니다. <strong>파일 안에서만 계산하고 끝납니다.</strong> 그래서 인터넷을 끊어도 동작합니다. 다만 사내 규정은 회사마다 달라서, 파일을 먼저 받아 보안 담당자에게 보여주시는 게 확실합니다.</p>
+      </details>
+      <details>
+        <summary>팀원에게 공유해도 되나요?</summary>
+        <p class="a">됩니다. 파일 하나라 그냥 보내시면 됩니다. 다만 <strong>메일은 신청하신 분께만</strong> 갑니다. 팀원도 받고 싶으시면 따로 신청하시면 됩니다.</p>
+      </details>
+      <details>
+        <summary>개인정보는 어떻게 관리되나요?</summary>
+        <p class="a"><strong>닉네임과 이메일만</strong> 받습니다. 실명 · 연락처는 받지 않습니다. 자료 발송 목적으로만 쓰고 <strong>발송 완료 후 1개월</strong> 뒤 파기합니다. 자세한 내용은 페이지 맨 아래 개인정보 처리방침에 있습니다.</p>
+      </details>
+    </div>
+  </div>
+</section>
 
-
-
-
-
-
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="wrap">
     <div class="share">
       <h4>같은 일 하는 분이 떠오르시나요</h4>
       <p>매번 새로 하고 있는 건 혼자만의 일이 아닙니다.<br>옆자리에도, 다른 회사에도 같은 사람이 있어요.</p>
-      <div class="share-b">
-        <button class="sh-1" onclick="sharePage()">공유하기</button>
-        <button class="sh-2" id="shSms" onclick="shareSms()" style="display:none">문자로 보내기</button>
-        <button class="sh-2" onclick="copyLink()">링크 복사</button>
+      <div class="sharebtns">
+        <button type="button" onclick="sharePage()">공유하기</button>
+        <button type="button" id="shSms" onclick="shareSms()" style="display:none">문자로 보내기</button>
+        <button type="button" onclick="copyLink()">링크 복사</button>
       </div>
       <p class="sh-ok" id="shMsg"></p>
     </div>
-    </div></div>
-
-    <div class="site-foot"><div class="site-foot-in">
-      <a href="/legal.html?doc=privacy">개인정보 처리방침</a><span class="sep">·</span><a href="/legal.html?doc=consent">마케팅 수신동의</a><span class="sep">·</span><a href="/legal.html?doc=terms">서비스 이용약관</a>
-      <p>입력하신 정보는 자료 발송 외에는 쓰지 않습니다. 언제든 수신을 중단하실 수 있습니다.<br>&copy; 2026 케켈</p>
-    </div></div>
-
-    </div></div>
-
-</div>
-
-<!-- 화면4 -->
-<section class="screen" id="s5">
-  <div class="top">
-    <p class="eyebrow">신청 완료</p>
-    <h1>첫 번째 도구,<br>받으셨습니다.</h1>
-    <p class="lede">아래 버튼을 누르면 새 창에서 바로 열립니다.</p>
-    <p class="mailnote"><b>메일도 보내드렸어요.</b> 입력하신 주소로 도구 링크와 쓰는 법을 함께 보냈습니다.<br>
-      몇 분 안에 안 보이면 <b>스팸함</b>도 한 번 확인해 주세요.<br>
-      8주 동안 같은 주소로 갑니다. <b>수신함으로 옮겨두시면</b> 다음 도구를 놓치지 않아요.</p>
-
-    <div class="dlcard">
-      <div class="dlcard-h">
-        <span class="dlicon">📦</span>
-        <span><b>제품 배너 생성기</b>
-        <span class="dlsub">단일 HTML · 설치 없이 브라우저에서 실행</span></span>
+    <div class="legal">
+      <div class="links">
+        <a href="/legal.html?doc=privacy">개인정보 처리방침</a> ·
+        <a href="/legal.html?doc=consent">마케팅 수신동의</a> ·
+        <a href="/legal.html?doc=terms">서비스 이용약관</a>
       </div>
-      <button class="submit" id="dlBtn" style="margin-top:18px">도구 열기 →</button>
-      <p class="dl-note" id="dlNote"></p>
+      입력하신 정보는 자료 발송 외에는 쓰지 않습니다. 언제든 수신을 중단하실 수 있습니다.<br>
+      © 2026 케켈
     </div>
+  </div>
+</footer>
 
-    <div class="sect">
+</div><!-- /#s1 -->
+
+<!-- ══════════ 화면 2 · 신청 완료 ══════════ -->
+<div class="screen" id="s5">
+  <section class="hero">
+    <div class="wrap">
+      <span class="tagline">신청 완료</span>
+      <h1>2주차 도구,<br>받으셨습니다.</h1>
+      <p class="sub">아래 버튼을 누르면 새 창에서 바로 열립니다.</p>
+
+      <p class="mailnote">
+        <strong>메일도 보내드렸어요.</strong> 입력하신 주소로 도구 링크와 쓰는 법을 함께 보냈습니다.<br>
+        몇 분 안에 안 보이면 <strong>스팸함</strong>도 한 번 확인해 주세요.<br>
+        8주 동안 같은 주소로 갑니다. <strong>수신함으로 옮겨두시면</strong> 다음 도구를 놓치지 않아요.
+      </p>
+
+      <div class="dlcard">
+        <div class="dlcard-h">
+          <span class="dlicon">📦</span>
+          <span><b>제품 배너 생성기</b>
+          <span class="dlsub">단일 HTML · 설치 없이 브라우저에서 실행</span></span>
+        </div>
+        <button class="submit" id="dlBtn">도구 열기 →</button>
+        <p class="dl-note" id="dlNote"></p>
+      </div>
+
       <h2>이렇게 쓰시면 됩니다</h2>
+      <ol class="steps">
+        <li><b>새 창에서 바로 열립니다</b><span>설치도 압축 풀기도 없습니다. 폰에서도 그대로 씁니다</span></li>
+        <li><b>정상가 · 행사가 · 쿠폰률만 입력</b><span>최대혜택가와 할인율은 자동 계산됩니다</span></li>
+        <li><b>화면을 그대로 캡처해서 사용</b><span>규격이 고정돼 있어 매번 같은 크기로 나옵니다</span></li>
+      </ol>
+
+      <p class="nextnote">
+        📬 <strong>다음 주에는 1주차 도구</strong>가 갑니다. 상품등록용 이미지 주소 정리예요.<br>
+        써보신 뒤 <strong>짧은 피드백</strong>만 주시면 됩니다. 그게 이 자료의 값입니다.
+      </p>
+
+      <button class="back" onclick="go(1)">← 처음 화면으로</button>
     </div>
-    <ol class="steps">
-      <li><b>새 창에서 바로 열립니다</b><span>설치도 압축 풀기도 없습니다. 폰에서도 그대로 씁니다</span></li>
-      <li><b>정상가 · 행사가 · 쿠폰률만 입력</b><span>최대혜택가와 할인율은 자동 계산됩니다</span></li>
-      <li><b>화면을 그대로 캡처해서 사용</b><span>규격이 고정돼 있어 매번 같은 크기로 나옵니다</span></li>
-    </ol>
-
-    <div class="warn" style="margin-top:26px">📬 <b>두 번째 도구는 다음 주</b>에 갑니다. 주문서 → ERP 양식 변환이에요.<br>
-      <b>도구를 써보신 뒤 짧은 피드백</b>만 주시면 됩니다. 그게 이 자료의 값입니다.</div>
-
-    <button class="back" onclick="go(4)">업무 지도 보기 →</button>
-  </div>
-</section>
-
-<section class="screen" id="s4">
-  <div class="top">
-    <p class="eyebrow">전체 업무</p>
-    <h2>이 8칸이<br>매번 반복됩니다</h2>
-    <p class="lede" style="margin-bottom:26px">칸마다 어떤 일이 들어 있는지 펼쳐뒀습니다. 이름 옆 <b>+</b> 카드는 열립니다.</p>
-    <div id="map"></div>
-    <p class="note">한 칸이 밀리면 뒤 칸이 같이 밀립니다. 그래서 앞칸부터 손을 댔습니다.</p>
-    
-  </div>
-</section>
+  </section>
 </div>
-
 
 <script>
 /* ============================================================
-   혜택 단일 소스 — 여기만 고치면 5개 섹션이 같이 바뀝니다
-   value  → ④ 얻어갈 수 있는 것 (가치)
-   output → ⑤ 손에 쥐는 것 (산출물)
-   tier   → ⑩ 참여 혜택 (조건)
-   hero   → 하이라이트는 딱 하나만 true
-   ============================================================ */
-const TIERS=[
-  {id:'lead', label:'신청 즉시'},
-  {id:'optin',label:'그다음 매주'}
-];
-
-const BENEFITS=[
- {id:'format',
-  value:'매번 새로 짜지 않아도 되는 상태',
-  why:'제가 실제로 쓰는 파일을 그대로 드립니다. 규격이 고정돼 있어서 소재끼리 비교가 되기 시작합니다.',
-  output:'2주차 · 배너 이미지 자동 생성',
-  outputSub:'신청 즉시 다운로드',
-  tier:'lead', hero:true},
- {id:'weekly',
-  value:'매주 한 칸씩 앞뒤가 이어지는 상태',
-  why:'급한 칸만 골라 받으면 그 칸만 빨라집니다. 앞뒤가 같이 정리돼야 어디를 건드릴지가 정해집니다. 그래서 순서대로 다 보냅니다.',
-  output:'2~5주차 · 매주 한 칸',
-  outputSub:'발송일에 알림톡 한 줄',
-  tier:'optin'},
- {id:'map',
-  value:'매주 하던 일이 하나씩 사라지는 상태',
-  why:'파일 다섯 개를 다 모으면, 그게 왜 한 장으로 이어지는지가 마지막에 옵니다. 여기까지가 이 시리즈의 끝입니다.',
-  output:'6주차 · 이어붙인 지도 한 장',
-  outputSub:'6주면 끝. 그 뒤로는 아무것도 안 보냅니다',
-  tier:'optin'}
-];
-
-/* 같은 고민을 두 어미로 — 앞에서는 공감, 뒤에서는 자기선별 */
-const PAINS=[
- {empathy:'저번 달에 만든 파일을 찾는 데 <b>30분</b>이 갑니다.',
-  select:'예전 파일 찾는 데 시간 쓰는 분'},
- {empathy:'찾아도 <b>양식이 바뀌어서</b> 결국 다시 만듭니다.',
-  select:'양식이 바뀌어 매번 다시 만드는 분'},
- {empathy:'<b>“이거 저번에 어떻게 했더라”</b> 가 매달 나옵니다.',
-  select:'같은 일을 매달 다시 떠올리는 분'},
- {empathy:'신규 상품 하나 나올 때마다 <b>같은 순서를 처음부터</b> 밟습니다.',
-  select:'상품마다 같은 순서를 반복하는 분'},
- {empathy:'자동화해야 하는 건 아는데 <b>뭐부터 손댈지를 모르겠습니다.</b>',
-  select:'뭐부터 자동화할지 못 정한 분'}
-];
-
-const PROCESS=[
- {t:'PART 1. 하고 있는 일을 늘어놓습니다',
-  li:['매일·매주 하는 업무 중에서 고르기',
-      '고를 때마다 <b>업무 지도에 내 칸이 채워지는 것</b>을 봅니다',
-      '업무 이름 밑에 실제 파일명이 붙어 있어 고르기 쉽습니다'],
-  qt:'“일이 많은 게 아니라, 매번 새로 하고 있는 겁니다.”'},
- {t:'PART 2. 지금 어떻게 하고 있는지 답합니다',
-  li:['손으로 함 / 양식은 있음 / 툴로 함 / 안 해봄 — 넷 중 하나',
-      '업무가 아니라 <b>방식</b>으로 물어야 답이 갈립니다',
-      '고른 자리에서 바로 답하니 화면을 왔다 갔다 하지 않습니다']},
- {t:'PART 3. 딱 하나를 받고, 그 칸을 봅니다',
-  li:['답하신 사실을 그대로 인용해서 <b>왜 이걸 골랐는지</b>부터 말합니다',
-      '제가 그 업무를 어떻게 바꿨는지 실제 화면으로 보여드립니다',
-      '그게 8칸 중 몇 번째 칸인지, 앞뒤로 뭐랑 물려 있는지까지'],
-  qt:'“매출은 한 칸에서 만들어지지 않습니다.”'}
-];
-
-/* ---- 컴포넌트 5종 ---- */
-function renderGains(){
-  document.getElementById('gains').innerHTML=BENEFITS.map((b,i)=>
-    `<div class="gain ${b.hero?'hero':''}">
-      <span class="gain-n">0${i+1}</span>
-      <span><span class="gain-t">${b.value}</span><span class="gain-d">${b.why}</span></span>
-    </div>`).join('');
-}
-function renderOutputs(){
-  /* 손에 쥐는 것 = 지금 바로 받는 것 2개만. 나머지는 조건 계단에서 보여줍니다 */
-  document.getElementById('outputs').innerHTML='<ul>'+BENEFITS.filter(b=>b.handout).map(b=>{
-    const t=TIERS.find(x=>x.id===b.tier);
-    return `<li class="${b.hero?'hero':''}"><span class="tk">✓</span>
-      <span><span class="olabel">${b.output}</span>
-      ${b.outputSub?`<span class="osub">${b.outputSub}</span>`:''}</span></li>`;}).join('')+'</ul>';
-}
-function renderProcess(){
-  document.getElementById('process').innerHTML=PROCESS.map(p=>
-    `<div class="part"><div class="part-t">${p.t}</div>
-      <ul>${p.li.map(x=>`<li>${x}</li>`).join('')}</ul>
-      ${p.qt?`<div class="qt">${p.qt}</div>`:''}</div>`).join('');
-}
-function renderPains(mode,el){
-  const box=document.getElementById(el); if(!box) return;
-  box.innerHTML=mode==='empathy'
-    ? PAINS.map(p=>`<p>“${p.empathy}”</p>`).join('')
-    : PAINS.map((p,i)=>`<div><span class="n">0${i+1}</span><span class="t">${p.select}</span></div>`).join('');
-}
-function renderTiers(){
-  const el=document.getElementById('tiers'); if(!el) return;
-  el.innerHTML=TIERS.map(t=>{
-    const list=BENEFITS.filter(b=>b.tier===t.id);
-    if(!list.length)return'';
-    return `<div class="tier-l">${t.label}</div>`+list.map(b=>
-      `<div class="tier ${b.hero?'hero':''}"><div class="trow"><i>✓</i><span>${b.output}</span></div>
-       ${b.outputSub?`<div class="sub">${b.outputSub}</div>`:''}</div>`).join('');
-  }).join('')+
-  ``;
-}
-
-window.dataLayer=window.dataLayer||[];
-function track(n,p){p=p||{};window.dataLayer.push(Object.assign({event:n},p));
-  if(typeof gtag==='function')gtag('event',n,p);console.log('[GA4]',n,p);}
-
-/* ============================================================
-   설정 — 이 두 줄만 바꾸면 됩니다
-   FORM_URL   : 구글폼 '사전 작성된 링크'에서 복사한 주소
-   DRIVE_ID   : 드라이브 파일 '링크 복사' 주소 안의 /d/<여기>/view
+   설정
    ============================================================ */
 const META={
-  FORM_URL:'https://docs.google.com/forms/d/e/1FAIpQLScXBlVDCjH9Ok6u3M5AjzRDdbPNNSeemTUgfGub_ez_E8iqAQ/viewform',
-  /* 구글폼 '사전 작성된 링크'로 얻은 entry 번호를 넣으면 유입 경로가 자동 입력됩니다.
-     비워두면 그냥 빈 폼으로 열립니다. */
-  ENTRY_SOURCE:'',
-  DRIVE_ID:'1k_pn3lgLF3DA15dV1RcgBZeL5OsDroPP',
-  /* 같은 서버에 올린 도구 파일. 값이 있으면 드라이브 대신 이걸 씁니다 */
-  FILE_URL:'/tools/banner-maker.html',
-  FILE_NAME:'배너생성기.html',
-  /* 구글폼 '확인 메시지'에만 넣는 열쇠. 이 값이 맞아야 다운로드가 열립니다.
-     확인 메시지 링크 예: https://내주소/?dl=1&k=bmk-2609 */
-  DL_KEY:'bmk-2609',
-  /* 선착순 운영 — 신청이 들어올 때마다 SEATS_LEFT만 줄이고 재배포하세요.
-     구글폼 응답 수를 자동으로 읽어올 수는 없어서, 이 숫자가 곧 화면 표시입니다. */
   SUPABASE_URL:'https://rpchylubijrpzfywbxhp.supabase.co',
   SUPABASE_KEY:'sb_publishable_eRyzvnB4O666FN_gTqP9EA_M_8H7s9Z',
   MAIL_URL:'https://script.google.com/macros/s/AKfycbwlM2IJ__ox5O3gu28b8N1zrf2p48yNxFiHVSvIrqJv0qikFME8Furj-x58LFU7Dk8/exec',
-  SEATS_TOTAL:10,
-  SEATS_LEFT:999,
-  SEATS_LIMIT:false   // true 로 바꾸면 다시 선착순 마감이 작동한다
+  FILE_URL:'/tools/banner-maker.html',
+  FILE_NAME:'배너생성기.html',
+  DL_KEY:'bmk-2609'
 };
-/* 상단 마감 바 */
-function renderTopbar(){
-  const bar=document.getElementById('topbar');
-  const t=document.getElementById('tbText'), d=document.getElementById('tbDay');
-  if(!bar) return;
-  const left=META.SEATS_LEFT, total=META.SEATS_TOTAL;
-  if(left>0){
-    t.textContent='0원 · 같이 만드는 중';
-    d.textContent='신청 받는 중';
-  }else{
-    bar.classList.add('closed');
-    t.textContent='1차 신청이 마감되었습니다';
-    d.textContent='2차 대기';
-  }
-}
 
-const driveURL=()=>`https://drive.google.com/uc?export=download&id=${META.DRIVE_ID}`;
+const state={screen:1, unlocked:false};
 
-const MOCK={
-erp:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>주문 → ERP 판매입력 변환기</div><div class="mock-b">
- <div class="st"><div><u>추출</u><b>36건</b></div><div><u>상품 매칭</u><b>36/36</b></div><div><u>미매칭</u><b>0</b></div></div>
- <div class="mr h"><span class="ch">판매채널</span><span class="ch">상품코드</span><span>상품명</span><span class="n">공급가액</span></div>
- <div class="mr"><span class="ch">스마트스토어</span><span class="ch">VC-1200W</span><span>무선 스틱청소기 2세대</span><span class="n">171,818</span></div>
- <div class="mr"><span class="ch">스마트스토어</span><span class="ch">AF-450BK</span><span>4.5L 에어프라이어</span><span class="n">89,090</span></div>
- <div class="mr"><span class="ch">쿠팡</span><span class="ch">SI-860GR</span><span>핸디 스팀다리미</span><span class="n">49,545</span></div>
- <div class="mr"><span class="ch">쿠팡</span><span class="ch">YM-6523</span><span>디지털 요거트제조기</span><span class="n">33,636</span></div>
- <div style="margin-top:10px"><span class="pill">이카운트 27열 규격 ✓</span> <span class="pill w">상품코드 자동 치환</span></div></div></div>`,
-banner:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>배너 이미지 자동 생성 · 860×505 / 310</div><div class="mock-b">
- <div class="bn rd"><div class="bn-i">제품 이미지</div><div class="bn-t"><span class="bn-bd">알림받기 + 쿠폰</span>
-  <div class="bn-nm">무선 스틱청소기 2세대</div><div class="bn-pr"><s>299,000</s>즉시할인 189,000</div>
-  <div><span class="bn-f">164,430</span> <span class="bn-o">45%</span></div></div></div>
- <div class="bn pp"><div class="bn-i">제품 이미지</div><div class="bn-t"><span class="bn-bd">슈퍼적립 10%</span>
-  <div class="bn-nm">4.5L 에어프라이어</div><div class="bn-pr"><s>139,000</s><s>99,000</s></div>
-  <div><span class="bn-f">85,260</span> <span class="bn-o">38%</span></div></div></div>
- <div><span class="pill">쿠폰·적립률만 넣으면 최대혜택가 자동계산</span></div></div></div>`,
-link:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>광고 유입 추적 링크 생성</div><div class="mock-b">
- <div class="mr h"><span>상품분류</span><span>URL</span><span class="n">코드</span></div>
- <div class="mr"><span>01 무선청소기</span><span class="msk">/products/8****21</span><span class="n">nt_meta</span></div>
- <div class="mr"><span>02 요거트제조기</span><span class="msk">/products/8****45</span><span class="n">nt_meta</span></div>
- <div class="mr"><span>05 선풍기</span><span class="msk">/products/8****09</span><span class="n">utm_kko</span></div>
- <div class="code" style="margin-top:9px">?<em>nt_source</em>=meta.ad&<em>nt_medium</em>=social
-&<em>nt_detail</em>=homefesta&<em>nt_keyword</em>=vacuum</div>
- <div style="margin-top:8px"><span class="pill">표 붙여넣으면 URL 열만 교체</span></div></div></div>`,
-adspend:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>매체 4종 → 상품별 광고비 집계</div><div class="mock-b">
- <div class="st"><div><u>집계 매체</u><b>4</b></div><div><u>집계율</u><b>96%</b></div><div><u>미집계</u><b>4%</b></div></div>
- <div class="bars">
-  <div class="bl"><span>무선청소기</span><div class="bt"><i style="width:88%"></i></div><u>4.4M</u></div>
-  <div class="bl"><span>에어프라이어</span><div class="bt"><i style="width:61%"></i></div><u>3.1M</u></div>
-  <div class="bl"><span>스팀다리미</span><div class="bt"><i style="width:38%"></i></div><u>1.9M</u></div>
-  <div class="bl"><span>요거트제조기</span><div class="bt"><i style="width:22%"></i></div><u>1.1M</u></div></div>
- <div style="margin-top:9px"><span class="pill w">CPC는 컬럼값 미사용 · 직접 계산</span></div></div></div>`,
-product:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>품목별 성과 · 시즌 보정</div><div class="mock-b">
- <div class="mr h"><span>품목</span><span class="n">광고비</span><span class="n">매출</span><span class="n">ROAS</span></div>
- <div class="mr"><span>무선청소기</span><span class="n">4.4M</span><span class="n">21.2M</span><span class="n">482%</span></div>
- <div class="mr"><span>에어프라이어</span><span class="n">3.1M</span><span class="n">9.6M</span><span class="n">310%</span></div>
- <div class="mr"><span>스팀다리미</span><span class="n">1.9M</span><span class="n">3.4M</span><span class="n">179%</span></div>
- <div class="mr"><span>선풍기</span><span class="n">0.4M</span><span class="n">0.5M</span><span class="n">125%</span></div>
- <div style="margin-top:8px"><span class="pill w">선풍기 하락 = 시즌 종료 · 광고 문제 아님</span></div></div></div>`,
-weekly:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>주차별 대시보드 · 35주차</div><div class="mock-b">
- <div class="st"><div><u>결제금액</u><b>38.4M</b></div><div><u>전주대비</u><b>+12%</b></div><div><u>ROAS</u><b>394%</b></div></div>
- <div class="bars">
-  <div class="bl"><span>32주</span><div class="bt"><i style="width:54%"></i></div><u>29M</u></div>
-  <div class="bl"><span>33주</span><div class="bt"><i style="width:62%"></i></div><u>33M</u></div>
-  <div class="bl"><span>34주</span><div class="bt"><i style="width:64%"></i></div><u>34M</u></div>
-  <div class="bl"><span>35주</span><div class="bt"><i style="width:73%"></i></div><u>38M</u></div></div>
- <div style="margin-top:9px"><span class="pill">주차별_액션 메모 연동</span></div></div></div>`,
-detail:`<div class="mock"><div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>상세페이지 HTML 자동 생성</div><div class="mock-b">
- <div class="code">&lt;center&gt;
-&lt;img width="860" src="<em>…/notice/official.jpg</em>"&gt;
-&lt;img width="860" src="<em>…/online/VC1200W_01.jpg</em>"&gt;
-&lt;img width="<em>640</em>"  src="<em>…/online/VC1200W_06_1.gif</em>"&gt;
-&lt;img width="860" src="<em>…/online/AS.jpg</em>"&gt;
-&lt;/center&gt;</div>
- <div style="margin-top:8px"><span class="pill">중복 파일 최신본만 · 폭 규칙 자동</span></div></div></div>`};
+window.dataLayer=window.dataLayer||[];
+function track(n,p){p=p||{};window.dataLayer.push(Object.assign({event:n},p));
+  if(typeof gtag==='function')gtag('event',n,p);}
+function safe(fn,name){try{fn();}catch(e){console.warn('init skip:',name,e.message);}}
+function el(id){return document.getElementById(id);}
 
 /* ============================================================
-   8단계 — 하나의 상품이 돈이 되기까지의 흐름으로 잘랐습니다
-   각 칸은 "무엇을 다루는가"가 서로 겹치지 않습니다
+   02 · 업무 전체 지도
+   칸 번호 = 주차. 01칸은 1주차, 08칸은 8주차.
+   [번호, 칸이름, 키워드, 주차, 도구, 도구 설명, 여기서 새는 지점, 지금 열리는 칸]
    ============================================================ */
-const STAGES=[
- {id:'s01',no:'01',name:'상품 등록',role:'입력'},
- {id:'s02',no:'02',name:'상세·배너',role:'입력'},
- {id:'s03',no:'03',name:'프로모션 기획',role:'기획'},
- {id:'s04',no:'04',name:'가격·수익 구조',role:'설계'},
- {id:'s05',no:'05',name:'광고 운영',role:'실행'},
- {id:'s06',no:'06',name:'주문·재고 처리',role:'처리'},
- {id:'s07',no:'07',name:'고객 관리',role:'관계'},
- {id:'s08',no:'08',name:'데이터 분석',role:'해석'}
+const CELLS=[
+ ['01','상품 등록','이미지 · 상세 URL · 일괄등록','1주차',
+  '상품등록용 이미지 주소 정리','폴더 목록을 넣으면 등록 양식에 맞게 정리됩니다',
+  '송신 오류가 나면 어디가 틀렸는지부터 찾습니다'],
+ ['02','상세 · 배너','배너 규격 · 가격 계산 · 카피','2주차 · 도구 2개',
+  '제품 배너 생성기 + 상세페이지 HTML','정상가·행사가만 넣으면 혜택가와 할인율이 나옵니다',
+  '규격은 매번 같은데, 매번 다시 찾습니다', true],
+ ['03','프로모션','행사 제안 · MD 커뮤니케이션','3주차',
+  '행사 제안 양식 · MD 메일 문구','행사 정보만 넣으면 제안 양식과 메일 문구가 나옵니다',
+  '확정가 하나가 시트 세 곳에 따로 들어갑니다'],
+ ['04','가격 · 수익','원가 · 마진 · 할인 설계','4주차',
+  '행사가 → 채널별 판가 일괄 생성','수수료를 반영한 채널별 판매가와 마진을 한 번에',
+  '채널이 늘수록 “이 가격 팔아도 되나”가 감으로 갑니다'],
+ ['05','광고 운영','유입 추적 · 소재 운영','5주차',
+  '광고 유입 추적 링크 생성','매체별 규칙을 고정해 추적 링크를 만듭니다',
+  '어떤 링크로 들어왔는지 나중에 못 맞춥니다'],
+ ['06','주문 · 재고','주문서 변환 · 출고 · 정산','6주차',
+  '주문서 → ERP 양식 변환','채널 주문서를 업로드 양식으로 바꿉니다',
+  '양식이 달라서 매번 손으로 옮겨 붙입니다'],
+ ['07','고객 관리','문의 응대 · 리셀러 신고 · CRM','7주차',
+  'CS · CRM 답변 문구 생성','유형만 고르면 답변 틀과 문구가 나옵니다',
+  '같은 답을 매번 새로 씁니다'],
+ ['08','데이터 분석','성과 취합 · 상품별 광고 분석 · 주간보고','8주차',
+  '주간 보고서 자동 작성','고정 항목은 자동. 쓰는 건 “왜 이렇게 됐나” 한 칸',
+  '보고 만드느라 정작 해석할 시간이 없습니다']
 ];
-
-/* 이전 9칸 + 기타 → 8칸 재배치
-   구 06 데이터분석 → 08 / 구 07 ERP등록 → 06 주문·재고
-   구 08 CRM + 기타(CS·리뷰) → 07 고객 관리 / 구 09 수익점검 → 04 가격·수익 */
-const REMAP={s01:'s01',s02:'s02',s03:'s03',s04:'s04',s05:'s05',
-             s06:'s08',s07:'s06',s08:'s07',s09:'s04',etc:'s07'};
-
-const METHODS=[
- {id:'manual',label:'손으로 함',rank:1,advice:'먼저 <b>양식을 고정</b>하세요. 자동화는 그다음입니다.'},
- {id:'template',label:'양식은 있음',rank:2,advice:'이제 <b>규칙으로 바꿀 수 있습니다.</b>'},
- {id:'tool',label:'툴로 함',rank:3,advice:'<b>확인 항목을 줄이는 것</b>이 먼저입니다.'},
- {id:'never',label:'안 해봄',rank:99,advice:'이건 <b>다른 사람 일일 수 있습니다.</b> 누구 일인지 먼저 확인하세요.'}];
-
-const TASKS=[
-{id:'t-07-1',stage:'s07',name:'주문 다운로드 → ERP 양식 변환',freq:'daily',detail:'full',
- art:'CJ풀필먼트관리_260829.xlsx · 쿠팡 주문내역',
- watch:'안 맞는 건수, 중복 주문번호, 반품·교환 건이 빠지는 지점',
- reason:'이 일은 오래 걸려서 문제가 아니라, 틀렸을 때 정산까지 따라간다는 게 문제다. 손으로 하면 매번 다른 기준으로 붙고, 그 차이는 월말에야 드러난다',
- change:'변환 규칙을 파일로 고정 → 매핑 실패만 사람이 확인',up:['s01'],down:['s09'],
- failed:'엑셀 수식으로만 돌리다가 시트 구조 바뀔 때마다 전부 다시 짠 적 있음',
- asset:{has:true,mock:'erp',cap:['쿠팡·스마트스토어 주문서를 넣으면 ERP 업로드 양식으로 바로 나옵니다.','제가 보는 건 “안 맞는 게 몇 건”뿐입니다.'],
-  dest:'이걸 줄이면, 매일 붙잡던 자리가 주 1회 점검으로 바뀝니다.'}},
-{id:'t-07-2',stage:'s07',name:'출고·송장 처리',freq:'daily',detail:'name',art:'배송현황 시트',up:['s07'],down:['etc'],asset:{has:false}},
-{id:'t-07-3',stage:'s07',name:'재고 동기화',freq:'daily',detail:'name',art:'채널별 재고 수기 대조',up:['s01'],down:['s05'],asset:{has:false}},
-{id:'t-07-4',stage:'s07',name:'반품·교환 처리',freq:'daily',detail:'name',art:'반품 / 교환 시트',up:['etc'],down:['s09'],asset:{has:false}},
-{id:'t-x-1',stage:'etc',name:'고객 문의 응대',freq:'daily',detail:'full',art:'문의 게시판 · 톡톡',
- watch:'문의 유형 분포, 같은 질문이 반복되는 상품',
- reason:'문의가 한 상품에 몰리면 그건 응대 문제가 아니라 상세페이지가 답을 안 하고 있는 것이다. 개별 답변을 잘 쓰는 것보다 반복 질문을 앞단으로 돌려보내는 게 총량을 줄인다',
- change:'상세페이지 보완 요청, 응대 골격 고정',up:['s02'],down:['s02'],
- failed:'답변 문구를 매번 새로 쓰다가 담당자마다 보상 기준이 달라진 적 있음',asset:{has:false}},
-{id:'t-x-2',stage:'etc',name:'리뷰 확인·관리',freq:'daily',detail:'full',art:'리뷰 관리 · 포토리뷰',
- watch:'평점 하락 상품, 반복되는 불만 키워드, 포토리뷰 비중',
- reason:'리뷰는 CS 자료가 아니라 가장 빠른 성과 신호다. 광고 지표보다 먼저 움직이고, 여기서 나온 단어가 그대로 소재 카피와 상세 보완 재료가 된다',
- change:'소재 소구점 교체, 상세 보완, 상품 개선 요청',up:['s07'],down:['s02','s05'],asset:{has:false}},
-{id:'t-02-1',stage:'s02',name:'배너 이미지 자동 생성',freq:'weekly',detail:'full',art:'배너 규격 860×505 / 860×310',
- watch:'배너 하나 만드는 시간, 사이즈별로 다시 만드는 횟수, 가격 오기재',
- reason:'배너 만들기는 창작이 아니라 배치다. 매번 새로 짜면 소재끼리 비교가 안 되고, 비교가 안 되면 뭐가 이겼는지도 못 읽는다. 게다가 가격은 손으로 넣는 순간 틀린다',
- change:'규격·가격 계산식을 템플릿에 박기 → 쿠폰·적립률만 입력',up:['s03','s04'],down:['s05','s06'],
- asset:{has:true,mock:'banner',cap:['정상가·행사가만 넣으면 쿠폰과 적립률을 반영한 최대혜택가·할인율이 자동 계산됩니다.','규격이 고정돼서 다른 담당자도 그대로 씁니다.'],
-  dest:'이걸 줄이면, 만드는 시간이 아니라 “뭘 만들지 고르는 시간”이 생깁니다.'}},
-{id:'t-02-2',stage:'s02',name:'상세페이지 제작·수정',freq:'weekly',detail:'full',art:'이미지 폴더 목록 → HTML 코드',
- watch:'이미지 폭 규칙, 중복 파일 최신본, 상하단 고정 블록 누락',
- reason:'상세페이지는 광고보다 오래 남는 자산이다. 코드를 손으로 짜면 폭이 어긋나고 순서가 밀리는데, 그 오류는 유입이 늘어난 다음에야 발견된다',
- change:'이미지 목록 붙여넣기 → 순서만 체크하고 코드 복사',up:['etc'],down:['s05','etc'],
- asset:{has:true,mock:'detail',cap:['이미지 목록을 붙여넣으면 HTML 코드가 완성됩니다.','중복 파일은 최신본만, 크기 규칙은 자동 적용됩니다.'],
-  dest:'이걸 줄이면, 상세 수정이 “일정 잡는 일”에서 “그 자리에서 하는 일”이 됩니다.'}},
-{id:'t-04-1',stage:'s04',name:'채널 간 가격 정합성 점검',freq:'weekly',detail:'name',art:'채널별 판매가 대조',up:['s01'],down:['s09'],asset:{has:false}},
-{id:'t-05-1',stage:'s05',name:'광고 유입 추적 링크 생성',freq:'weekly',detail:'full',art:'매체 3종 · 유입 추적 코드',
- watch:'유입이 어느 상품으로 떨어지는지, 코드가 실제로 붙어 있는지',
- reason:'키워드를 아무리 잘 골라도 링크에 코드가 안 붙어 있으면 그 성과는 없는 셈이 된다. 운영보다 먼저 “측정이 되는 상태”를 만드는 게 순서다',
- change:'채널별 링크 규칙 고정 → 표 붙여넣으면 링크 열만 교체',up:['s01'],down:['s06'],
- asset:{has:true,mock:'link',cap:['매체별 추적 코드를 한 번에 붙여주는 생성기입니다.','제품별 마케팅 문구까지 같은 표에서 나옵니다.'],
-  dest:'이걸 줄이면, 나중에 “이 유입 어디서 왔지”를 찾는 시간이 사라집니다.'}},
-{id:'t-05-2',stage:'s05',name:'배너·피드 소재 운영',freq:'weekly',detail:'name',art:'소재ID · 게재 빈도',up:['s02'],down:['s06'],asset:{has:false}},
-{id:'t-06-1',stage:'s06',name:'매체별 성과 취합',freq:'weekly',detail:'name',art:'KAKAO / GFA / NAVER / META 시트',up:['s05'],down:['s06'],asset:{has:false}},
-{id:'t-06-2',stage:'s06',name:'상품별 광고 분석',freq:'weekly',detail:'full',art:'매체 4종 리포트 → 상품별 집계',
- watch:'지표 기준이 매체마다 같은지, 광고비가 어느 상품으로 잡히는지',
- reason:'매체가 주는 숫자를 그대로 받아쓰면 비교가 성립하지 않는다. 같은 이름의 지표도 분모가 다르다. 정의를 내가 다시 세워야 채널을 나란히 놓을 수 있다',
- change:'지표 정의를 문서로 고정 → 상품·카테고리 단위로 광고비 집계',up:['s05'],down:['s09'],
- failed:'매체 화면 숫자를 그대로 옮겨 비교했다가, 분모가 달라 결론이 뒤집힌 적 있음',
- asset:{has:true,mock:'adspend',cap:['4개 매체 광고비를 상품·카테고리로 나누는 규칙을 만들었습니다.','매체 리포트가 아니라 “제품별로 얼마 썼나”가 나옵니다.'],
-  dest:'이걸 줄이면, 숫자를 맞추는 시간이 숫자를 해석하는 시간으로 갑니다.'}},
-{id:'t-06-3',stage:'s06',name:'유입 경로 분석',freq:'weekly',detail:'name',art:'방문경로NEW 시트',up:['s05'],down:['s09'],asset:{has:false}},
-{id:'t-06-4',stage:'s06',name:'상품별 성과 확인',freq:'weekly',detail:'full',art:'상품성과NEW 시트 · 시즌 커브',
- watch:'품목별 광고비 대비 매출, 시즌성으로 설명되는 변동인지 아닌지',
- reason:'제품 성과는 광고만으로 설명되지 않는다. 계절과 유통 구조를 같이 놓고 봐야 “광고가 못한 것”과 “원래 그런 것”이 갈린다',
- change:'품목 축으로 성과를 재배열 → 시즌 커브를 전제로 깔고 해석',up:['s06'],down:['s04','s05'],
- asset:{has:true,mock:'product',cap:['매체 단위가 아니라 품목 단위로 성과를 다시 배열했습니다.','예산을 옮길지 말지가 여기서 결정됩니다.'],
-  dest:'이걸 줄이면, 다음 달 예산을 감이 아니라 근거로 짜게 됩니다.'}},
-{id:'t-06-5',stage:'s06',name:'주간 보고 작성',freq:'weekly',detail:'full',art:'주차별성과 시트 · 주차별_액션 메모',
- watch:'매번 들어가는 항목과 매번 새로 쓰는 항목의 비율',
- reason:'보고서를 매주 새로 쓰는 건 보고 대상이 뭘 궁금해하는지가 안 정해졌다는 뜻이다. 항목을 고정하면 작성이 아니라 해석에 시간이 간다',
- change:'고정 항목·자동 채움 / 변동 항목·직접 작성으로 분리',up:['s06'],down:['s09'],
- asset:{has:true,mock:'weekly',cap:['주간 보고 골격을 고정하고 데이터는 자동으로 채우게 했습니다.','제가 쓰는 건 “왜 이렇게 됐나” 한 칸입니다.'],
-  dest:'이걸 줄이면, 금요일 오후가 정리 시간이 아니라 판단 시간이 됩니다.'}},
-{id:'t-03-1',stage:'s03',name:'채널 기획전·행사 제안',freq:'weekly',detail:'name',art:'제안서 · MD 회신',up:['s04'],down:['s02'],asset:{has:false}},
-{id:'t-04-2',stage:'s04',name:'할인·쿠폰 세팅',freq:'weekly',detail:'name',art:'쿠폰 · 적립 설정',up:['s03'],down:['s09'],asset:{has:false}},
-{id:'t-01-1',stage:'s01',name:'상품명·검색키워드 설정',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-01-2',stage:'s01',name:'옵션·재고 구조 설계',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-01-3',stage:'s01',name:'채널별 상품 등록·연동',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-02-3',stage:'s02',name:'메인·기획전 배너 제작',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-03-2',stage:'s03',name:'MD 커뮤니케이션',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-04-3',stage:'s04',name:'채널별 수수료·마진 계산',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-05-3',stage:'s05',name:'월간 광고 예산 배분',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-08-1',stage:'s08',name:'CRM 메시지 문구 작성',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-08-2',stage:'s08',name:'발송 대상 추출·세그먼트',freq:'weekly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-09-1',stage:'s09',name:'채널별 정산 확인',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}},
-{id:'t-09-2',stage:'s09',name:'월 손익·수익성 점검',freq:'monthly',detail:'name',mapOnly:1,asset:{has:false}}];
-
-/* 단계 재배치 적용 — 데이터는 그대로 두고 매핑만 갈아끼웁니다 */
-TASKS.forEach(t=>{
-  t.stage=REMAP[t.stage]||t.stage;
-  t.up  =(t.up  ||[]).map(x=>REMAP[x]||x).filter((v,i,a)=>a.indexOf(v)===i);
-  t.down=(t.down||[]).map(x=>REMAP[x]||x).filter((v,i,a)=>a.indexOf(v)===i);
-  t.up  =t.up.filter(x=>x!==t.stage);
-  t.down=t.down.filter(x=>x!==t.stage);
-});
-
-const stg=id=>STAGES.find(s=>s.id===id);
-const tsk=id=>TASKS.find(t=>t.id===id);
-const state={screen:1,picks:{},open:null,reco:null,firstDone:false,unlocked:false};
-const picked=()=>Object.keys(state.picks);
-
-/* 첫 화면에는 한 칸만 열고, 나머지는 있다는 것만 보여줍니다 */
-/* ============================================================
-   주차 발송 계획 — 여기만 고치면 타임라인·잠금 타일이 같이 바뀝니다
-   ⚠️ 실제로 만들 수 있는 것만 넣으세요. 못 지킬 주차는 빼는 게 낫습니다.
-   ============================================================ */
-const WEEKS=[
- {w:1,no:'01',name:'상품 등록',tool:'상품등록용 이미지 주소 정리',
-  was:'일괄등록용 이미지 주소를 상품마다 하나씩 확인',
-  now:'폴더 목록 넣으면 등록 양식에 맞게 정리'},
- {w:2,no:'02',name:'상세·배너',tool:'배너 이미지 자동 생성', open:true, plus:'상세페이지 HTML 자동 생성',
-  was:'가격 계산해서 배너를 하나씩 만들고, 상세 HTML 을 손으로 타이핑',
-  now:'가격만 넣으면 배너가 나오고, 이미지 목록 붙여넣으면 상세 코드까지 완성'},
- {w:3,no:'03',name:'프로모션',tool:'행사 제안 양식 · MD 메일 문구',
-  was:'제안서와 메일을 매번 처음부터 다시 씀',
-  now:'행사 정보만 넣으면 제안 양식과 메일 문구가 나옴'},
- {w:4,no:'04',name:'가격·수익',tool:'행사가 → 채널별 판가 일괄 생성',
-  was:'확정가 하나를 채널마다 다시 계산해 시트 세 곳에 입력',
-  now:'행사가 한 번 넣으면 채널별 판가와 일괄수정 파일까지 나옴'},
- {w:5,no:'05',name:'광고 운영',tool:'광고 유입 추적 링크 생성',
-  was:'광고 링크에 붙일 추적 코드를 매번 손으로 조합',
-  now:'상품 표 붙여넣으면 링크가 한 번에 만들어짐'},
- {w:6,no:'06',name:'주문·재고',tool:'주문서 → ERP 양식 변환',
-  was:'쿠팡·스마트스토어 주문서를 손으로 ERP 양식에 맞춤',
-  now:'주문서 넣으면 바로 변환. 안 맞는 건만 확인'},
- {w:7,no:'07',name:'고객 관리',tool:'CS·CRM 답변 문구 생성',
-  was:'리셀러 신고, 반복 문의, 발송 문구를 매번 새로 씀',
-  now:'유형만 고르면 답변 틀과 문구가 나옴'},
- {w:8,no:'08',name:'데이터 분석',tool:'주간 보고서 자동 작성', fin:true,
-  was:'매주 같은 항목을 처음부터 다시 채움',
-  now:'고정 항목은 자동. 쓰는 건 “왜 이렇게 됐나” 한 칸'}
-];
-
-function renderWeeks(){
-  const el=document.getElementById('weeks'); if(!el) return;
-  /* 8칸 지도(02)에 주차가 이미 있으므로 여기서는 미리 드리는 한 주만 */
-  const x=WEEKS.find(v=>v.open)||WEEKS[1];   // 즉시 드리는 2주차 배너
-  el.innerHTML=`<div class="wk on">
-      <span class="wk-n">${x.w}주차</span>
-      <span class="wk-dot"><i></i></span>
-      <span class="wk-b">
-        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool}${x.plus?' <span class="plus2">+ '+x.plus+'</span>':''} <em>신청 즉시</em></span>
-        <span class="wk-3">
-          <span><i class="l-was">지금</i>${x.was}</span>
-          <span><i class="l-now">이후</i>${x.now}</span>
-        </span>
-      </span>
-    </div>`;
-}
 
 function renderGrid(){
-  const el=document.getElementById('grid'); if(!el) return;
-  /* 칸 · 부제 · 몇 주차 도구가 오나 · 여기서 보통 이렇게 샌다 */
-  const CELLS=[
-   ['01','상품 등록','이미지·상세 URL, 일괄등록','1주차','송신 오류가 나면 어디가 틀렸는지부터 찾습니다.'],
-   ['02','상세·배너','배너 규격, 가격 계산, 카피','2주차 · 도구 2개','규격은 매번 같은데, 매번 다시 찾습니다.'],
-   ['03','프로모션','행사 제안, MD 커뮤니케이션','3주차','확정가 하나가 시트 세 곳에 따로 들어갑니다.'],
-   ['04','가격·수익','원가, 마진, 할인 설계','4주차','채널이 늘수록 “이 가격 팔아도 되나”가 감으로 갑니다.'],
-   ['05','광고 운영','유입 추적, 소재 운영','5주차','어떤 링크로 들어왔는지 나중에 못 맞춥니다.'],
-   ['06','주문·재고','주문서 변환, 출고, 정산','6주차','양식이 달라서 매번 손으로 옮겨 붙입니다.'],
-   ['07','고객 관리','문의 응대, 리셀러 신고, CRM','7주차','같은 답을 매번 새로 씁니다.'],
-   ['08','데이터 분석','성과 취합, 상품별 광고 분석, 주간보고','8주차','보고 만드느라 정작 해석할 시간이 없습니다.']
-  ];
-  el.innerHTML=CELLS.map(([no,nm,kw,wk,leak])=>
-    `<div class="cell8">
-      <span class="c8-no">${no}</span>
-      <span class="c8-b"><span class="c8-nm">${nm}</span><span class="c8-kw">${kw}</span></span>
-      <span class="c8-wk">${wk}</span>
-      <p class="c8-leak">${leak}</p>
-    </div>`).join('');
+  var box=el('grid'); if(!box) return;
+  box.innerHTML=CELLS.map(function(c){
+    var no=c[0],nm=c[1],kw=c[2],wk=c[3],tool=c[4],how=c[5],leak=c[6],now=c[7];
+    return '<div class="cell'+(now?' now':'')+'">'
+      + '<div class="top"><span class="idx">'+no+'</span>'
+      + '<span class="name"><b>'+nm+'</b><em>'+kw+'</em></span>'
+      + '<span class="week'+(now?' on':'')+'">'+wk+'</span></div>'
+      + '<p class="tool"><b>'+tool+'</b> — '+how+'</p>'
+      + '<p class="leak">'+leak+'</p></div>';
+  }).join('');
 }
 
-const LOCKED=WEEKS.map(x=>({no:x.no, nm:x.file, wk:x.w, open:!!x.open, fin:!!x.fin}));
-function renderProof(){
-  const el=document.getElementById('locked'); if(!el) return;
-  el.innerHTML=LOCKED.map(x=>
-    `<div class="${x.open?'open':''}"><span class="lk">${x.open?'🔓':'🔒'}</span>
-      <span class="st-n">${x.open?'지금':x.wk+'주차'}</span><span class="nm">${x.nm}</span></div>`).join('');
+/* ============================================================
+   01 · 체크리스트
+   ============================================================ */
+function initChecks(){
+  var chks=Array.prototype.slice.call(document.querySelectorAll('#checks .chk'));
+  var tally=el('tally'); if(!tally) return;
+  var base=tally.innerHTML;
+  var fired=false;
+  chks.forEach(function(b){
+    b.addEventListener('click',function(){
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true');
+      var n=chks.filter(function(x){return x.getAttribute('aria-pressed')==='true';}).length;
+      if(!fired && n){ fired=true; track('check_done',{count:n}); }
+      if(n===0){ tally.innerHTML=base; return; }
+      tally.innerHTML='<strong>'+n+'개 체크하셨네요.</strong> 일이 많은 게 문제가 아닙니다. 매번 새로 하고 있어서, '
+        +'<strong>어디가 막혔는지도 안 보이는 게</strong> 문제입니다. 체크하신 칸부터 도구가 있습니다.';
+    });
+  });
 }
 
-function renderLiveMap(){
-  const cnt={};picked().forEach(id=>{const s=tsk(id).stage;cnt[s]=(cnt[s]||0)+1;});
-  const hot=state.open?tsk(state.open).stage:null;
-  document.getElementById('lmGrid').innerHTML=STAGES.map(s=>{
-    const n=cnt[s.id]||0,cls=s.id===hot?'lm-c hot':(n?'lm-c on':'lm-c');
-    return `<div class="${cls}"><div class="lm-n">${s.no}</div><div class="lm-t">${s.name}</div>
-      <div class="lm-d">${'<i></i>'.repeat(n)}</div></div>`;}).join('');
-  const f=Object.keys(cnt).length;
-  const el=document.getElementById('lmCount'); if(!el) return;
-  el.innerHTML=f?`<b>${f}</b> / ${STAGES.length} 칸`:`8칸`;
+/* ============================================================
+   03 · 배너 계산기 미리보기
+   ============================================================ */
+function initCalc(){
+  if(!el('i-list')) return;
+  function won(n){ return Math.round(n).toLocaleString('ko-KR'); }
+  function calc(){
+    var name=el('i-name').value||'제품명';
+    var list=Number(el('i-list').value)||0;
+    var sale=Number(el('i-sale').value)||0;
+    var cpn=Number(el('i-cpn').value)||0;
+    var pt=Number(el('i-pt').value)||0;
+    var fin=sale*Math.max(0, 1-(cpn+pt)/100);
+    var disc=list>0?Math.round((list-fin)/list*100):0;
+    el('o-final').textContent=won(fin);
+    el('o-rate').textContent=disc+'%';
+    el('b-name').textContent=name;
+    el('b-list').textContent=won(list);
+    el('b-sale').textContent=won(sale);
+    el('b-final').textContent=won(fin);
+    el('b-rate').textContent=disc+'%';
+  }
+  ['i-name','i-list','i-sale','i-cpn','i-pt'].forEach(function(id){
+    var i=el(id); if(i) i.addEventListener('input',calc);
+  });
+  calc();
 }
 
-function renderList(){
-  const g=[{k:'daily',l:'매일 하는 일'},{k:'weekly',l:'매주 하는 일'}];
-  document.getElementById('list').innerHTML=g.map(x=>{
-    const l=TASKS.filter(t=>t.freq===x.k&&!t.mapOnly);
-    return `<div class="grp"><span class="t">${x.l}</span><span class="n">${l.length}</span></div>`+
-      l.map(t=>{
-        const sel=state.picks[t.id],open=state.open===t.id;
-        const m=sel?METHODS.find(y=>y.id===sel):null;
-        return `<div class="row ${open?'open':''} ${sel&&!open?'done':''}">
-          <button class="row-hd" onclick="openRow('${t.id}')"><span class="box">✓</span>
-            <span class="row-b"><span class="row-n">${t.name}</span><span class="art">${t.art||''}</span></span>
-            ${m&&!open?`<span class="ans">${m.label}</span>`:''}</button>
-          <div class="mg">${METHODS.map(y=>
-            `<button class="chip ${sel===y.id?'sel':''}" onclick="pick('${t.id}','${y.id}')">${y.label}</button>`).join('')}</div>
-        </div>`;}).join('');}).join('');
+/* ============================================================
+   화면 전환
+   ============================================================ */
+function go(n){
+  state.screen=n;
+  var all=document.querySelectorAll('.screen');
+  Array.prototype.forEach.call(all,function(s){ s.classList.remove('on'); });
+  var t=el('s'+n); if(t) t.classList.add('on');
+  window.scrollTo(0,0);
 }
 
-function openRow(id){
-  if(state.open===id)state.open=null;
-  else if(state.picks[id])state.open=id;
-  else{if(picked().length>=META.limit)return;state.open=id;}
-  renderList();renderLiveMap();updateBar();
-}
-function pick(id,m){
-  if(!state.picks[id]&&picked().length>=META.limit)return;
-  if(state.picks[id]===m){delete state.picks[id];state.open=null;}
-  else{state.picks[id]=m;state.open=null;}
-  if(!state.firstDone&&picked().length){state.firstDone=true;track('check_done',{count:1});}
-  renderList();renderLiveMap();updateBar();
+function gotoForm(){
+  try{ track('cta_to_form',{}); }catch(e){}
+  var f=el('sbForm'); if(!f) return;
+  var y=f.getBoundingClientRect().top+window.scrollY-70;
+  window.scrollTo({top:y,behavior:'smooth'});
+  setTimeout(function(){
+    var n=el('f-name');
+    if(n && window.innerWidth>760) n.focus({preventScroll:true});
+  },700);
 }
 
-function recommend(){
-  const c=picked().filter(id=>tsk(id).asset.has&&state.picks[id]!=='never');
-  if(!c.length)return null;
-  const sc=id=>{const t=tsk(id),m=METHODS.find(x=>x.id===state.picks[id]);
-    return (t.freq==='daily'?0:10)+(m?m.rank:9);};
-  c.sort((a,b)=>{const d=sc(a)-sc(b);return d||((tsk(b).down||[]).length-(tsk(a).down||[]).length);});
-  return c[0];
-}
-
-function renderReco(){
-  const id=recommend();state.reco=id;
-  const box=document.getElementById('reco'),note=document.getElementById('neverNote');
-  if(!id){
-    const at=picked().every(x=>state.picks[x]==='tool');
-    box.innerHTML=`<div class="reco-t"><div class="reco-k">추천</div>
-      <div class="reco-n">${at?'확인 항목 줄이기':'아직 짚을 자리가 없습니다'}</div></div>
-      <div class="blk"><div class="blk-h">Why</div><p class="q">${at
-        ?'고르신 일을 이미 툴로 하고 계시네요. 그럼 줄일 건 작업이 아니라 <b>매번 하는 확인</b>입니다.'
-        :'고르신 업무 중에 제가 실제로 만들어본 게 없습니다. 없는 건 안 드립니다.'}</p></div>
-      <button class="jump" onclick="go(4)"><span>업무 지도 전체 보기</span><span>→</span></button>`;
-    note.textContent='';return;}
-  const t=tsk(id),s=stg(t.stage),m=METHODS.find(x=>x.id===state.picks[id]),f=t.freq==='daily'?'매일':'매주';
-  const why=m.id==='manual'?`${f} 하고, <b>손으로</b> 하고 계세요. 판단이 들어갈 자리가 없는 일입니다.`
-    :m.id==='template'?`${f} 하고, <b>양식은 있다</b>고 하셨어요. 반복이 이미 눈에 보인다는 뜻입니다.`
-    :`${f} 하고, <b>툴로</b> 하고 계세요. 그런데 매번 확인은 하고 계시죠.`;
-  box.innerHTML=`<div class="reco-t"><div class="reco-k">${f} 하시는 것 중 하나만 고르면</div>
-      <div class="reco-n">${t.name}</div></div>
-    <div class="blk"><div class="blk-h">왜 이걸 골랐나</div><p class="q">${why}</p></div>
-    <div class="blk"><div class="blk-h">어떻게 바꾸나</div><p class="adv">${m.advice}</p></div>
-    <div class="blk"><div class="blk-h">저는 이렇게 했습니다</div>${MOCK[t.asset.mock]}
-      <p class="cap">${t.asset.cap.join('<br>')}</p></div>
-    <div class="dest">${t.asset.dest}</div>
-    <button class="jump" onclick="go(4)"><span>8칸 중 ${s.no}번째 칸입니다</span><span>지도 보기 →</span></button>`;
-  const nv=picked().filter(x=>state.picks[x]==='never');
-  note.innerHTML=nv.length?`<b>“안 해봄”</b>으로 답하신 ${nv.length}개는 추천에서 뺐습니다. 그건 다른 사람 일일 수 있어요.`:'';
-  track('asset_view',{task_id:t.id,stage:t.stage});
-}
-
-function renderMap(){
-  const rid=state.reco;
-  document.getElementById('map').innerHTML=STAGES.map(s=>{
-    const l=TASKS.filter(t=>t.stage===s.id);if(!l.length)return'';
-    return `<div class="stg"><div class="stg-h"><span class="stg-n">${s.no}</span>
-      <span class="stg-t">${s.name}</span><span class="stg-r">${s.role}</span></div>
-      <div class="cds">${l.map(t=>`<button class="mini ${t.detail==='full'?'full':''} ${t.id===rid?'hl':''}"
-        ${t.detail==='full'?`onclick="openCard('${t.id}')"`:'disabled'}>${t.name}</button>`).join('')}</div>
-      ${l.filter(t=>t.detail==='full').map(t=>`<div class="dt" id="d-${t.id}">
-        <div class="dr"><div class="dk">WATCH · 뭘 보나</div><div class="dv">${t.watch}</div></div>
-        <div class="dr"><div class="dk">REASON · 왜 중요한가</div><div class="dv">${t.reason}</div></div>
-        <div class="dr"><div class="dk">CHANGE · 뭘 바꾸나</div><div class="dv">${t.change}</div></div>
-        ${t.failed?`<div class="dr"><div class="dk">FAILED · 안 됐던 것</div><div class="dv fl">${t.failed}</div></div>`:''}
-        <div class="dr"><div class="dk">연결</div><div class="dv">${(t.up||[]).map(x=>stg(x).name).join(', ')||'—'} → <b>${s.name}</b> → ${(t.down||[]).map(x=>stg(x).name).join(', ')||'—'}</div></div>
-      </div>`).join('')}</div>`;}).join('');
-}
-function openCard(id){
-  const el=document.getElementById('d-'+id),was=el.classList.contains('on');
-  document.querySelectorAll('.dt').forEach(d=>d.classList.remove('on'));
-  if(!was){el.classList.add('on');track('card_open',{task_id:id});}
-}
-
-/* ---------- 구글폼 이동 ---------- */
-function isClosed(){return META.SEATS_LEFT<=0;}
-var SHARE_TEXT="이거만 해도 퇴근이 빨라집니다 — 이커머스 반복 업무 자동화 도구 8개";
-function shMsg(t){var el=document.getElementById("shMsg");if(el){el.textContent=t;setTimeout(function(){el.textContent="";},2500);}}
+/* ============================================================
+   공유
+   ============================================================ */
+var SHARE_TEXT="이 일, 지난달에도 했는데 — 이커머스 반복 업무 자동화 도구 8개";
+function shMsg(t){var m=el("shMsg");if(m){m.textContent=t;setTimeout(function(){m.textContent="";},2500);}}
 function sharePage(){
   var url=location.origin+location.pathname;
   if(navigator.share){
     navigator.share({title:"이커머스 반복 업무 자동화 도구 8개",text:SHARE_TEXT,url:url})
-      .then(function(){shMsg("고맙습니다.");})
-      .catch(function(){});
+      .then(function(){shMsg("고맙습니다.");}).catch(function(){});
   }else{ copyLink(); }
 }
 function shareSms(){
@@ -2106,75 +955,27 @@ function copyLink(){
     document.body.removeChild(t);
   }
 }
-/* 구글폼 경로는 페이지 내 폼으로 대체되어 제거됨 */
 
-
-/* ---------- 다운로드 게이트 ----------
-   구글폼 제출을 마친 사람만 s5에 도달합니다.
-   판정: 확인 메시지에만 있는 열쇠(k)가 DL_KEY와 일치할 때만 해제 */
+/* ============================================================
+   다운로드
+   ============================================================ */
 function checkGate(){
-  const q=new URLSearchParams(location.search);
+  var q=new URLSearchParams(location.search);
   if(q.get('dl')!=='1') return 'none';
   return q.get('k')===META.DL_KEY ? 'ok' : 'bad';
 }
-
 function startDownload(where){
   if(!state.unlocked){ track('download_blocked',{from:where||'page'}); return false; }
-  if(!META.FILE_URL && (!META.DRIVE_ID || META.DRIVE_ID.includes('REPLACE'))){
-    track('download_misconfig',{});
-    const b=document.getElementById('dlNote');
-    if(b) b.textContent='파일 링크가 아직 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.';
-    return false;
-  }
   track('file_download',{file:META.FILE_NAME,from:where||'page'});
-  var href = META.FILE_URL ? META.FILE_URL : driveURL();
-  if(META.FILE_URL){
-    window.open(href,'_blank','noopener');
-  }else{
-    var a=document.createElement('a');
-    a.href=href; a.rel='noopener'; a.download='';
-    document.body.appendChild(a); a.click(); a.remove();
-  }
-  var n=document.getElementById('dlNote');
+  window.open(META.FILE_URL,'_blank','noopener');
+  var n=el('dlNote');
   if(n) n.textContent='새 창이 열리지 않으면 팝업 차단을 확인해 주세요. 메일로도 링크를 보내드렸습니다.';
   return true;
 }
 
-function go(n){
-  state.screen=n;
-  document.querySelectorAll('.screen').forEach(s=>{ s.classList.remove('on'); s.style.display=''; });
-  document.getElementById('s1').style.display=n===1?'':'none';
-  document.getElementById('s1c').style.display=n===1?'block':'none';
-  var tb=document.getElementById('tailBand'); if(tb) tb.style.display=n===1?'':'none';
-  if(n===1)document.getElementById('s1').classList.add('on');
-  else document.getElementById('s'+n).classList.add('on');
-  window.scrollTo(0,0);
-  if(n===4){renderMap();track('map_open');}
-  updateBar();
-}
-
-function updateBar(){
-  const bar=document.getElementById('bar'),cta=document.getElementById('cta'),cnt=document.getElementById('count');
-  if(!bar||!cta||!cnt) return;   // 하단 바를 없앴으므로 조용히 빠진다
-  const n=state.screen,p=picked().length;
-  if(n===1){bar.classList.add('on');cnt.innerHTML = META.SEATS_LEFT>0
-      ? `신청 받는 중`
-      : `<b>마감</b>`;
-    cta.textContent='신청하고 파일 받기';cta.disabled=false;
-    cta.onclick=gotoForm;}
-  else if(n===5){bar.classList.add('on');cnt.innerHTML='';cta.textContent='도구 열기 →';
-    cta.disabled=false;cta.onclick=()=>startDownload('bar');}
-  else bar.classList.remove('on');
-}
-
-function safe(fn,name){try{fn();}catch(e){console.warn('init skip:',name,e.message);}}
-safe(function(){renderPains('empathy','painEmpathy');},'pains');safe(renderTiers,'tiers');
-
-/* ===== 신청 폼 → Supabase ===== */
-
-/* ===== 유입 경로(UTM) 기억하기 =====
-   첫 진입 때 한 번 저장해두고, 나중에 신청할 때 같이 보냅니다.
-   중간에 스크롤하다 새로고침해도 유지됩니다. */
+/* ============================================================
+   유입 경로(UTM) 기억하기
+   ============================================================ */
 function utmCapture(){
   var q=new URLSearchParams(location.search);
   var keys=["utm_source","utm_medium","utm_campaign","utm_content"];
@@ -2191,65 +992,46 @@ function utmCapture(){
 function utmGet(){
   try{ return JSON.parse(sessionStorage.getItem("utm")||"{}"); }catch(e){ return {}; }
 }
+
+/* ============================================================
+   신청 폼 → Supabase → 웰컴메일
+   ============================================================ */
 function sendWelcome(name,email){
   if(!META.MAIL_URL) return;
   try{
     fetch(META.MAIL_URL,{
-      method:"POST",
-      mode:"no-cors",
+      method:"POST", mode:"no-cors",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify({name:name,email:email})
     }).catch(function(){});
     track("welcome_mail_sent",{});
   }catch(e){}
 }
-function sbSeats(){
-  fetch(META.SUPABASE_URL+"/rest/v1/rpc/seats_left",{method:"POST",
-    headers:{apikey:META.SUPABASE_KEY,"Content-Type":"application/json"},body:"{}"})
-    .then(function(r){return r.json();})
-    .then(function(n){
-      if(typeof n!=="number") return;
-      META.SEATS_COUNTED=n;                 // 참고용으로만 보관한다
-      if(META.SEATS_LIMIT) { META.SEATS_LEFT=n; safe(renderTopbar,"topbar"); safe(updateBar,"bar"); }
-    })
-    .catch(function(){});
-}
-function sbBad(id,on){var el=document.getElementById(id); if(el) el.classList.toggle("bad",!!on);}
+function sbBad(id,on){var x=el(id); if(x) x.classList.toggle("bad",!!on);}
 function sbShow(kind,text){
-  var m=document.getElementById("sbMsg"); if(!m) return;
-  m.className="sb-msg "+kind; m.textContent=text;
-}
-function gotoForm(){
-  try{ track("cta_to_form",{}); }catch(e){}
-  var f=document.getElementById("sbForm");
-  if(!f) return;
-  var y=f.getBoundingClientRect().top+window.scrollY-90;
-  window.scrollTo({top:y,behavior:"smooth"});
-  setTimeout(function(){
-    var n=document.getElementById("f-name");
-    if(n && window.innerWidth>760) n.focus({preventScroll:true});
-  },700);
+  var m=el("sbMsg"); if(!m) return;
+  m.className="msg "+kind; m.textContent=text;
 }
 function sbInit(){
-  var f=document.getElementById("sbForm"); if(!f) return;
-  sbSeats();
+  var f=el("sbForm"); if(!f) return;
   f.addEventListener("submit",function(ev){
     ev.preventDefault();
-    var name=document.getElementById("f-name").value.trim();
-    var email=document.getElementById("f-email").value.trim();
-    var task=document.getElementById("f-task").value;
-    var company=document.getElementById("f-company").value.trim();
-    var ok1=document.getElementById("f-privacy").checked;
-    var news=document.getElementById("f-news").checked;
+    var name=el("f-name").value.trim();
+    var email=el("f-email").value.trim();
+    var task=el("f-task").value.trim();
+    var company=el("f-company").value.trim();
+    var ok1=el("f-privacy").checked;
+    var news=el("f-news").checked;
 
     var bad=false;
     sbBad("r-name",!name); if(!name) bad=true;
-    var okMail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email); sbBad("r-email",!okMail); if(!okMail) bad=true;
-    var pe=document.getElementById("e-privacy"); if(pe) pe.style.display=ok1?"none":"block";
+    var okMail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    sbBad("r-email",!okMail); if(!okMail) bad=true;
+    var pe=el("e-privacy"); if(pe) pe.style.display=ok1?"none":"block";
     if(!ok1) bad=true;
     if(bad){ sbShow("err","빨간 표시된 곳을 확인해 주세요."); return; }
 
-    var btn=document.getElementById("sbSubmit");
+    var btn=el("sbSubmit");
     btn.disabled=true; btn.textContent="보내는 중…";
     sbShow("ok","저장하고 메일을 보내는 중이에요. 잠시만요…");
 
@@ -2267,7 +1049,6 @@ function sbInit(){
         sendWelcome(name,email);
         try{ localStorage.setItem("dl_ok","1"); }catch(e){}
         try{ track("signup_done",{}); }catch(e){}
-        sbSeats();
         btn.disabled=false; btn.textContent="신청하고 파일 받기";
         sbShow("ok","신청되었습니다. 입력하신 메일로 도구를 보내드렸어요.");
         go(5);
@@ -2281,30 +1062,29 @@ function sbInit(){
     });
   });
 }
-safe(utmCapture,"utm");
+
+/* ============================================================
+   시작
+   ============================================================ */
+safe(renderGrid,'grid');
+safe(initChecks,'checks');
+safe(initCalc,'calc');
+safe(utmCapture,'utm');
+safe(sbInit,'signup');
 safe(function(){
-  var b=document.getElementById("shSms");
+  var b=el("shSms");
   if(b && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent||"")) b.style.display="";
-},"sms-btn");
-safe(sbInit,"signup");
+},'sms-btn');
+safe(function(){
+  var d=el('dlBtn'); if(d) d.onclick=function(){ startDownload('card'); };
+},'dl');
 
-safe(renderTopbar,'topbar');safe(renderWeeks,'weeks');safe(renderGrid,'grid');safe(renderProof,'proof');safe(renderLiveMap,'map');safe(updateBar,'bar');
-
-const gf=document.getElementById('goForm'); if(gf) gf.onclick=gotoForm;
-const db=document.getElementById('dlBtn');  if(db) db.onclick=()=>startDownload('card');
-
-/* 구글폼 확인 메시지 → ?dl=1&k=열쇠 로 돌아옵니다 */
 try{ if(localStorage.getItem("dl_ok")==="1") state.unlocked=true; }catch(e){}
-const gate=checkGate();
+var gate=checkGate();
 if(gate==='ok'){
   state.unlocked=true;
   go(5); track('download_view');
-  setTimeout(()=>startDownload('auto'),700);
-}else if(gate==='bad'){
-  go(1); track('download_denied');
-  const n=document.getElementById('gateNote');
-  if(n){ n.style.display='block';
-         setTimeout(()=>{try{n.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}},300); }
+  setTimeout(function(){ startDownload('auto'); },700);
 }else{
   track('check_view');
 }
