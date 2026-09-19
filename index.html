@@ -1202,6 +1202,30 @@ body{ background:#FAFCF2 }
   font-family:var(--head); font-size:11px; font-weight:800; letter-spacing:-.01em;
   color:#1F2A05; background:#DDF56A; border-radius:999px; padding:3px 9px; white-space:nowrap }
 .c8-wk.none{ background:#EFEFE8; color:#8A8F80 }
+
+/* ===== 8칸 지도 — 누수 한 줄 ============================= */
+.cell8{ display:grid; grid-template-columns:auto 1fr auto; column-gap:14px; row-gap:8px;
+  align-items:start; padding:20px 22px; border-radius:16px;
+  background:#fff; border:1px solid #E2E7D0 }
+.c8-no{ font-size:13px; font-weight:700; color:#8A8F80; padding-top:2px;
+  font-variant-numeric:tabular-nums }
+.c8-b{ min-width:0 }
+.c8-nm{ font-size:16px; font-weight:800; letter-spacing:-.01em; color:#262A1C }
+.c8-kw{ display:block; margin-top:3px; font-size:13px; font-weight:500;
+  color:#8A8F80; line-height:1.5 }
+.c8-wk{ justify-self:end; white-space:nowrap; background:#DDF56A; color:#1F2A05;
+  font-size:12px; font-weight:700; line-height:1; padding:7px 11px; border-radius:999px }
+.c8-leak{ grid-column:2 / -1; margin:6px 0 0; padding-left:12px;
+  border-left:2px solid #DDF56A; font-size:13.5px; line-height:1.6; color:#5E6356 }
+
+/* 헤드라인 형광펜 */
+.hl{ display:inline-block; background:#DDF56A; color:#2B3A00;
+  padding:0 .18em; border-radius:6px }
+
+/* 지도 마무리 */
+.mapclose{ margin:28px 0 0; padding:22px 24px; border-radius:16px;
+  background:#F1F6DF; font-size:15px; line-height:1.72; color:#5E6356 }
+.mapclose b{ color:#262A1C }
 </style>
 </head>
 <body>
@@ -1272,10 +1296,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="band plain"><div class="band-in">
     <div class="sect">
       <div class="secno"><i>02</i><span>업무 전체 지도</span></div>
-      <h2>신규 상품 하나가<br>이 8칸을 다 지나갑니다</h2>
-      <p class="lede" style="margin-top:12px">등록하고, 상세 만들고, 행사 넣고, 가격 잡고, 광고 돌리고, 출고하고, 문의 받고, 성과 봅니다. <b>상품이 바뀌어도 순서는 같습니다.</b></p>
+      <h2>8칸은 다 아는데<br><span class="hl">칸과 칸 사이</span>에서 샙니다</h2>
+      <p class="lede" style="margin-top:12px">등록하고, 상세 만들고, 행사 넣고, 가격 잡고, 광고 돌리고, 출고하고, 문의 받고, 성과 봅니다. <b>문제는 칸 자체가 아니라, 칸을 넘길 때마다 같은 숫자를 다시 옮겨 적는 구간입니다.</b></p>
     </div>
     <div class="gx" id="grid"></div>
+    <p class="mapclose"><b>상품이 바뀌어도 순서는 같습니다.</b> 그래서 이 지도는 한 번 그려두면 계속 씁니다. 8주 동안 한 칸씩, <b>새는 구간부터</b> 막습니다.</p>
 
     <div class="sect">
       <div class="secno"><i>03</i><span>1주차 미리보기</span></div>
@@ -1883,9 +1908,9 @@ const WEEKS=[
  {w:5,no:'05',name:'광고 운영',tool:'광고 유입 추적 링크 생성',
   was:'광고 링크에 붙일 추적 코드를 매번 손으로 조합',
   now:'상품 표 붙여넣으면 링크가 한 번에 만들어짐'},
- {w:6,no:'08',name:'데이터 분석',tool:'상품별 광고 분석',
-  was:'매체별 리포트를 상품 기준으로 일일이 합산',
-  now:'어느 상품에 광고비가 얼마 나갔는지 자동 집계'},
+ {w:6,no:'04',name:'가격·수익',tool:'행사가 → 채널별 판가 일괄 생성',
+  was:'확정가 하나를 채널마다 다시 계산해 시트 세 곳에 입력',
+  now:'행사가 한 번 넣으면 채널별 판가와 일괄수정 파일까지 나옴'},
  {w:7,no:'08',name:'데이터 분석',tool:'주간 보고서 자동 작성',
   was:'매주 같은 항목을 처음부터 다시 채움',
   now:'고정 항목은 자동. 쓰는 건 “왜 이렇게 됐나” 한 칸'},
@@ -1913,30 +1938,24 @@ function renderWeeks(){
 
 function renderGrid(){
   const el=document.getElementById('grid'); if(!el) return;
-  /* 칸마다 대표 키워드. 숫자로 세지 않습니다 */
+  /* 칸 · 부제 · 몇 주차 도구가 오나 · 여기서 보통 이렇게 샌다 */
   const CELLS=[
-   ['01','상품 등록','이미지·상세 URL, 일괄등록'],
-   ['02','상세·배너','배너 규격, 가격 계산, 카피'],
-   ['03','프로모션','행사 제안, MD 커뮤니케이션'],
-   ['04','가격·수익','원가, 마진, 할인 설계'],
-   ['05','광고 운영','유입 추적, 소재 운영'],
-   ['06','주문·재고','주문서 변환, 출고, 정산'],
-   ['07','고객 관리','문의 응대, 리셀러 신고, CRM'],
-   ['08','데이터 분석','성과 취합, 상품별 광고 분석, 주간보고']
+   ['01','상품 등록','이미지·상세 URL, 일괄등록','3주차','송신 오류가 나면 어디가 틀렸는지부터 찾습니다.'],
+   ['02','상세·배너','배너 규격, 가격 계산, 카피','1주차 · 4주차','규격은 매번 같은데, 매번 다시 찾습니다.'],
+   ['03','프로모션','행사 제안, MD 커뮤니케이션','6주차','확정가 하나가 시트 세 곳에 따로 들어갑니다.'],
+   ['04','가격·수익','원가, 마진, 할인 설계','6주차','채널이 늘수록 “이 가격 팔아도 되나”가 감으로 갑니다.'],
+   ['05','광고 운영','유입 추적, 소재 운영','5주차','어떤 링크로 들어왔는지 나중에 못 맞춥니다.'],
+   ['06','주문·재고','주문서 변환, 출고, 정산','2주차','양식이 달라서 매번 손으로 옮겨 붙입니다.'],
+   ['07','고객 관리','문의 응대, 리셀러 신고, CRM','8주차','같은 답을 매번 새로 씁니다.'],
+   ['08','데이터 분석','성과 취합, 상품별 광고 분석, 주간보고','7주차','보고 만드느라 정작 해석할 시간이 없습니다.']
   ];
-  /* 칸마다 몇 주차 도구가 오는지 붙인다 — 지도와 로드맵을 한 장으로 */
-  const BYCELL={};
-  WEEKS.forEach(w=>{ (BYCELL[w.no]=BYCELL[w.no]||[]).push(w); });
-  el.innerHTML=CELLS.map(([no,nm,kw])=>{
-    const ws=(BYCELL[no]||[]).sort((a,b)=>a.w-b.w);
-    const tag=ws.length
-      ? `<span class="c8-wk">${ws.map(w=>w.w+'주차').join(' · ')}</span>`
-      : `<span class="c8-wk none">도구 없음</span>`;
-    return `<div class="cell8 ${ws.length?'has':''}">
+  el.innerHTML=CELLS.map(([no,nm,kw,wk,leak])=>
+    `<div class="cell8">
       <span class="c8-no">${no}</span>
       <span class="c8-b"><span class="c8-nm">${nm}</span><span class="c8-kw">${kw}</span></span>
-      ${tag}
-    </div>`;}).join('');
+      <span class="c8-wk">${wk}</span>
+      <p class="c8-leak">${leak}</p>
+    </div>`).join('');
 }
 
 const LOCKED=WEEKS.map(x=>({no:x.no, nm:x.file, wk:x.w, open:!!x.open, fin:!!x.fin}));
