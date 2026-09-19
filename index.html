@@ -1114,6 +1114,24 @@ body{ background:#FAFCF2 }
   .band .band-in > * + .sect{ margin-top:140px }
 }
 .band .band-in > .secno:first-child + .sect{ margin-top:0 }
+
+/* ===== 안내 3단계와 입력칸 분리 ========================== */
+/* 한 카드 안에 있으니 1·2·3 도 사용자가 채워야 할 항목처럼 보였다.
+   안내는 카드 없이 흐르게, 입력칸만 카드 안에 둔다 */
+.steps-out{ margin:0 0 36px; padding:0 }
+.steps-out li{ margin-bottom:22px }
+.steps-out li:last-child{ margin-bottom:0 }
+.steps-out li::before{ background:#1F2A05; color:#DDF56A }
+
+/* 입력칸 카드 — 여기부터 내가 쓰는 곳이라는 신호 */
+.form{ background:#fff; border:1px solid #E2E7D0; border-radius:24px;
+  box-shadow:0 1px 2px rgba(31,42,5,.04), 0 6px 18px rgba(31,42,5,.06) }
+.form-h{ display:block!important; background:#F1F6DF; color:#1F2A05;
+  padding:18px 24px; border-bottom:1px solid #E2E7D0 }
+.form-h b{ display:block; font-family:var(--head); font-size:17px; font-weight:800;
+  letter-spacing:-.02em; color:#1F2A05 }
+.form-h span{ font-size:12.5px; color:#5E6356 }
+.form-b{ padding:26px 24px 28px }
 </style>
 </head>
 <body>
@@ -1328,14 +1346,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>지금 신청하면<br>첫 도구가 바로 열립니다</h2>
       <p class="lede">닉네임과 이메일만 받습니다. 1분이면 끝나고, 같은 내용을 메일로도 보내드려요.</p>
     </div>
+    <ol class="steps steps-out">
+    <li><b>정보만 남기면 바로 받습니다</b><span>닉네임과 이메일만. 첫 도구가 그 자리에서 열립니다</span></li>
+    <li><b>매주 하나씩 메일로 보내드려요</b><span>도움이 될 파일과 쓰는 법. 8주면 끝납니다</span></li>
+    <li><b>받아보시고 피드백만 부탁드려요</b><span>한두 줄이면 충분합니다</span></li>
+    </ol>
     <div class="form" id="formBox">
       <div class="form-h"><b>신청하고 받기</b><span>1분이면 끝</span></div>
       <div class="form-b">
-        <ol class="steps">
-          <li><b>정보만 남기면 바로 받습니다</b><span>닉네임과 이메일만. 첫 도구가 그 자리에서 열립니다</span></li>
-          <li><b>매주 하나씩 메일로 보내드려요</b><span>도움이 될 파일과 쓰는 법. 8주면 끝납니다</span></li>
-          <li><b>받아보시고 피드백만 부탁드려요</b><span>한두 줄이면 충분합니다</span></li>
-        </ol>
         <form class="sb-form" id="sbForm" novalidate>
           <div class="sb-row" id="r-name">
             <label for="f-name">닉네임<i>*</i></label>
