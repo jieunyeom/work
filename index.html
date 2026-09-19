@@ -992,7 +992,7 @@ body{ background:#FAFCF2 }
    히어로 영역에만 두고, 아래 구간은 단색으로 딱 끊는다. */
 .blobs{ position:absolute; inset:0 0 auto 0; height:100vh }
 .blob{ opacity:.55 }
-.top{ background:#FBF9FE }          /* 히어로 바탕 — 구간과 확실히 다른 톤 */
+/* .top 배경 제거 — .shell(860px) 안이라 그 폭만큼만 칠해져 세로 경계선이 생긴다 */
 
 /* 합친 자기소개 카드 */
 .story{ background:#fff; border:1px solid #E2E7D0; border-radius:24px; padding:28px 26px }
@@ -1175,6 +1175,21 @@ body{ background:#FAFCF2 }
 .share{ background:transparent; border:0; border-radius:0;
   margin:56px 0 0; padding:28px 0 0; border-top:1px solid #E2E7D0 }
 .site-foot{ margin-top:0 }
+
+/* ===== 히어로 숨통 ======================================= */
+/* 요소 간격이 20/18/22/32/14 로 촘촘했다. 첫 화면이니 넉넉하게 */
+.top{ padding-top:104px }
+@media(min-width:700px){ .top{ padding-top:136px } }
+
+.top .eyebrow{ margin-bottom:28px }
+.top h1{ margin-bottom:28px }
+.top .lede{ margin-bottom:0 }
+.top .pf{ margin-top:44px }
+.top .hero-cta{ margin-top:48px }
+.top .hero-sub{ margin-top:18px }
+
+/* 카드 안쪽도 조금 더 */
+.pf-c{ padding:26px 18px }
 </style>
 </head>
 <body>
