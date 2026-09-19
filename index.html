@@ -986,6 +986,23 @@ body{ background:#FFFFFF }
 .band.soft{ background:#EFEBF5 }      /* 브랜드 연보라 */
 .band.deep{ background:#1F2A05 }      /* 브랜드 잉크 */
 .band+.band{ border-top:0 }           /* 색으로 구분되니 선은 뺀다 */
+
+/* ===== 배경 경계 선명하게 ================================ */
+/* 흐린 색 덩어리가 fixed 라 스크롤 내내 모든 구간에 번졌다.
+   히어로 영역에만 두고, 아래 구간은 단색으로 딱 끊는다. */
+.blobs{ position:absolute; inset:0 0 auto 0; height:100vh }
+.blob{ opacity:.55 }
+.top{ background:#FBF9FE }          /* 히어로 바탕 — 구간과 확실히 다른 톤 */
+
+/* 합친 자기소개 카드 */
+.story{ background:#fff; border:1px solid #E4DFEE; border-radius:24px; padding:28px 26px }
+.story .role{ font-family:var(--head); font-size:12px; font-weight:800; letter-spacing:.12em;
+  color:#7C3AED; margin:0 0 10px }
+.story h3{ margin:0 0 14px }
+.story-pts{ list-style:none; margin:18px 0 0; padding:18px 0 0; border-top:1px solid #E4DFEE }
+.story-pts li{ font-size:14.5px; line-height:1.7; color:#635F69; padding:5px 0 }
+.story-pts li b{ color:#332F3A }
+.story .sig{ margin:16px 0 0; font-size:13px; color:#635F69 }
 </style>
 </head>
 <body>
@@ -1039,12 +1056,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <hr class="rule">
     <div class="story">
+      <p class="role">WHO MADE THIS</p>
       <h3>왜 만들었냐면</h3>
       <p>이커머스 담당자라면 아실 겁니다. <b>해야 할 일이 정해져 있지 않고, 쳐내도 계속 나옵니다.</b></p>
-      <p>그런데 신규 상품이 하나 나올 때마다 <b>상품 등록부터 정산까지 매번 똑같은 걸</b> 하고 있더군요.
-        이걸 매번 이렇게 해야 하나 싶었습니다.</p>
+      <p>상품 등록부터 상세 · 프로모션 · 가격 · 광고 · 주문 · CS · 데이터까지, <b>한 사람이 다 맡는 자리</b>에서 일해왔습니다.
+        그런데 신규 상품이 하나 나올 때마다 <b>상품 등록부터 정산까지 매번 똑같은 걸</b> 하고 있더군요.</p>
       <p>그래서 파이썬과 클로드로 하나씩 자동화했습니다. 그러고 나니
         <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
+      <ul class="story-pts">
+        <li><b>전 공정</b> — 8칸을 혼자 돌려본 경험에서 도구 목록이 나왔습니다</li>
+        <li><b>파이썬 · 클로드</b> — 외주 견적을 받다가 결국 직접 만들었습니다</li>
+        <li><b>지금도 사용 중</b> — 만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</li>
+      </ul>
       <p class="sig">— 이커머스 마케터 · 5년차</p>
     </div>
     <div class="band plain"><div class="band-in">
@@ -1187,19 +1210,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div></div>
 
-    <div class="band soft"><div class="band-in">
-    <div class="who">
-      <p class="role">WHO MADE THIS</p>
-      <h4>이커머스 마케터 · 5년차</h4>
-      <p>상품 등록부터 상세 · 프로모션 · 가격 · 광고 · 주문 · CS · 데이터까지, <b>한 사람이 다 맡는 자리</b>에서 일해왔습니다.
-        그래서 어느 칸이 막히면 어디가 줄어드는지가 몸으로 남았고, 그 자리를 하나씩 파일로 바꿨습니다.</p>
-      <ul>
-        <li><b>전 공정</b> — 8칸을 혼자 돌려본 경험에서 도구 목록이 나왔습니다</li>
-        <li><b>파이썬 · 클로드</b> — 외주 견적을 받다가 결국 직접 만들었습니다</li>
-        <li><b>지금도 사용 중</b> — 만들어 파는 게 아니라 제가 매주 쓰는 파일입니다</li>
-      </ul>
-    </div>
-    </div></div>
 
     <div class="band plain tail" id="tailBand"><div class="band-in">
     <div class="form" id="formBox">
