@@ -869,8 +869,8 @@ body{padding-top:46px}
 .pain-end span{color:#1F2A05}
 
 /* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:52px 18px}
-@media(min-width:700px){ .band{padding:64px 18px} }
+.band{width:100vw;margin-left:50%;transform:translateX(-50%)}
+
 .band-in{max-width:520px;margin:0 auto}
 .band.soft{background:#F4F1FA}
 .band.plain{background:#fff}
@@ -933,12 +933,12 @@ html,body{overflow-x:hidden}
 
 /* ===== 한 화면에 한 구간 ================================= */
 @media(min-width:700px){
-  .band{ min-height:100vh; display:flex; align-items:center; }
+
   .band>.band-in{ width:100%; }
   .band.tail{ min-height:0; display:block; }   /* 신청 구간은 길어서 제외 */
 }
 @media(max-width:699px){
-  .band{ padding-top:80px; padding-bottom:80px; }
+
 }
 
 /* ===== 글자 체계 ========================================= */
@@ -964,7 +964,7 @@ h1,h2,h3,.lede,p{ word-break:keep-all; }
 /* ===== 구간 구분 강화 ==================================== */
 @media(min-width:700px){
   /* .top 안에 첫 밴드들이 들어 있어 .top 에는 높이를 주지 않는다 */
-  .band{ min-height:92vh }                /* 100vh 는 위아래가 너무 비어 보인다 */
+
 }
 
 /* 구간 배경 대비 — 연보라와 흰색 차이가 거의 안 보였다 */
@@ -1069,6 +1069,32 @@ body{ background:#FAFCF2 }
 .band.tail .sect{ margin-bottom:28px }
 .form{ margin-top:0 }
 .form-h{ display:none }        /* 위에 07 제목이 생겨 중복이다 */
+
+/* ===== 여백 한 체계로 ==================================== */
+/* 규칙이 다섯 개 겹쳐 구간마다 달랐다. 이제 이 블록 하나만 쓴다.
+   모든 구간의 위아래 여백이 같다. 높이는 내용이 정한다. */
+.band{
+  padding-top:96px; padding-bottom:96px;
+  padding-left:20px; padding-right:20px;
+  min-height:0; display:block;
+}
+@media(min-width:700px){
+  .band{ padding-top:140px; padding-bottom:140px }
+}
+/* 히어로도 같은 리듬 */
+.top{ padding-top:64px; padding-bottom:96px }
+@media(min-width:700px){ .top{ padding-top:88px; padding-bottom:140px } }
+
+/* 구간 안쪽 — 제목과 본문 사이만 관리하고 위아래 여백은 안 준다 */
+.band .sect,.band .pain-h,.band .who,.band .story{ margin-top:0 }
+.band .secno{ margin-bottom:20px }
+.band h2{ margin-bottom:20px }
+.band .lede{ margin-bottom:0 }
+.midcta{ margin-top:48px }
+
+/* 신청 구간도 같은 값 */
+.band.tail{ padding-top:96px }
+@media(min-width:700px){ .band.tail{ padding-top:140px } }
 </style>
 </head>
 <body>
