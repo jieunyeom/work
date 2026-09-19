@@ -30,7 +30,7 @@ function doPost(e){
       to      : email,
       bcc     : CFG.BCC || undefined,
       name    : CFG.FROM_NAME,
-      subject : '[도구 8개] 1주차 · 배너 생성기 보내드려요',
+      subject : '[도구 8개] 2주차 · 배너 생성기 보내드려요',
       body    : body(name),
       htmlBody: html(name)
     });
@@ -51,12 +51,12 @@ function out(obj){
 function body(name){
   var NL=String.fromCharCode(10);
   return (name ? name + '님, ' : '') + '반갑습니다.\n\n'
-    + '1주차 도구인 제품 배너 생성기입니다. 방금 새 창으로 열렸을 거예요.\n\n'
+    + '2주차 도구인 제품 배너 생성기입니다. 방금 새 창으로 열렸을 거예요.\n\n'
     + '정상가와 행사가만 넣으면 쿠폰과 적립률까지 반영해서 최대혜택가와 할인율이 나옵니다.\n'
     + '규격이 860×505로 고정이라 매번 같은 크기로 떨어지고요.\n\n'
     + CFG.TOOL_URL + '\n'
     + '설치도 로그인도 없습니다. 링크만 열면 됩니다.\n\n'
-    + '다음 주에는 주문서를 ERP 양식으로 바꾸는 도구를 보내드릴게요.\n'
+    + '다음 주에는 1주차 도구인 상품등록용 이미지 주소 정리를 보내드릴게요.\n'
     + '8주 동안 매주 하나씩입니다.\n\n'
     + '써보시고 아래 중 편한 걸로 알려주세요.' + NL + NL
     + '  이번 도구, 써보셨나요' + NL + '  ' + CFG.FB_URL + '?t=used' + NL + NL
@@ -77,17 +77,20 @@ function html(name){
 
   + '<p>' + (name ? '<b>' + name + '</b>님, ' : '') + '반갑습니다.</p>'
 
-  + '<p><b>1주차 도구인 제품 배너 생성기</b>입니다. 방금 새 창으로 열렸을 거예요.</p>'
+  + '<p><b>2주차 도구인 제품 배너 생성기</b>입니다. 방금 새 창으로 열렸을 거예요.</p>'
 
   + '<p>정상가와 행사가만 넣으면 쿠폰과 적립률까지 반영해서 최대혜택가와 할인율이 나옵니다.<br>'
   + '규격이 860×505로 고정이라 매번 같은 크기로 떨어지고요.</p>'
 
   + '<p style="margin:24px 0"><a href="' + CFG.TOOL_URL + '" '
-  + 'style="display:inline-block;background:#7C3AED;color:#fff;text-decoration:none;'
+  + 'style="display:inline-block;background:#DDF56A;color:#1F2A05;text-decoration:none;'
   + 'padding:13px 24px;border-radius:10px;font-weight:700">도구 열기 →</a><br>'
   + '<span style="font-size:13px;color:#6B7280">설치도 로그인도 없습니다. 링크만 열면 됩니다.</span></p>'
 
-  + '<p>다음 주에는 <b>주문서를 ERP 양식으로 바꾸는 도구</b>를 보내드릴게요.<br>'
+  + '<p>같은 주차 도구로 <b>상세페이지 HTML 자동 생성</b>도 함께 넣었습니다.<br>'
+  + '이미지 목록을 붙여넣으면 상세 코드가 완성됩니다.</p>'
+
+  + '<p>다음 주에는 <b>1주차 도구인 상품등록용 이미지 주소 정리</b>를 보내드릴게요.<br>'
   + '8주 동안 매주 하나씩입니다.</p>'
 
   + '<div style="background:#F5F2FA;border-radius:12px;padding:18px;margin:26px 0">'
@@ -100,7 +103,7 @@ function html(name){
   + '<p>쓰다가 막히면 이 메일에 그냥 회신하셔도 됩니다.</p>'
 
   + '<p style="color:#6B7280;font-size:13px;margin-top:24px">— ' + CFG.FROM_NAME + '<br>'
-  + '<a href="' + CFG.SITE_URL + '" style="color:#7C3AED">' + CFG.SITE_URL + '</a></p>'
+  + '<a href="' + CFG.SITE_URL + '" style="color:#1F2A05">' + CFG.SITE_URL + '</a></p>'
 
   + '<p style="color:#9A93AC;font-size:12px;border-top:1px solid #EFEDF3;padding-top:12px">'
   + '더 받지 않으시려면 회신 한 줄이면 됩니다. 바로 중단할게요. '
@@ -121,7 +124,7 @@ function testSend(){
   MailApp.sendEmail({
     to: Session.getActiveUser().getEmail(),
     name: CFG.FROM_NAME,
-    subject: '[테스트] ' + '[도구 8개] 1주차 · 배너 생성기 보내드려요',
+    subject: '[테스트] ' + '[도구 8개] 2주차 · 배너 생성기 보내드려요',
     body: body('케켈'),
     htmlBody: html('케켈')
   });
