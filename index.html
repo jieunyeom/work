@@ -1190,6 +1190,20 @@ body{ background:#FAFCF2 }
 
 /* 카드 안쪽도 조금 더 */
 .pf-c{ padding:26px 18px }
+
+/* ===== 로드맵 접기 · 지도 안내 =========================== */
+/* 1주차만 펼치고 나머지는 제목 한 줄. 세로 길이를 1/3 로 줄인다 */
+.wk.slim{ padding-top:9px; padding-bottom:9px }
+.wk.slim .wk-t{ font-size:14.5px; opacity:.82 }
+.wk.slim .wk-n{ opacity:.6 }
+
+.mapgift{ margin-top:22px; padding:20px 22px; border-radius:18px;
+  background:rgba(221,245,106,.10); border:1px solid rgba(221,245,106,.28) }
+.mapgift-h{ font-family:var(--head); font-size:14.5px; font-weight:800;
+  letter-spacing:-.02em; color:#DDF56A; margin-bottom:8px }
+.mapgift p{ margin:0 0 6px; font-size:14px; line-height:1.75; color:#EDF3DA }
+.mapgift p b{ color:#DDF56A }
+.mapgift-s{ opacity:.85 }
 </style>
 </head>
 <body>
@@ -1335,6 +1349,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="lede" style="margin-top:12px">한 주에 하나씩. <b>지금 어떻게 하고 있는지</b>와 <b>이후에 어떻게 바뀌는지</b>를 같이 보냅니다.</p>
     </div>
     <div class="wk-box" id="weeks"></div>
+    <div class="mapgift">
+      <div class="mapgift-h">전체 업무 지도는 따로 드립니다</div>
+      <p>8칸 어디에 어떤 도구가 붙는지, 어떤 순서로 손대면 되는지 그린 <b>한 장짜리 지도</b>입니다.</p>
+      <p class="mapgift-s">1주차 도구를 써보시고 <b>한두 줄 피드백</b>을 주시면 메일로 보내드려요.</p>
+    </div>
     <p class="note">지금 안 쓰는 것도 옵니다. <b>그 일이 생겼을 때 이미 갖고 있는 게 낫습니다.</b></p>
 
     <div class="recap">
@@ -1889,18 +1908,21 @@ const WEEKS=[
 
 function renderWeeks(){
   const el=document.getElementById('weeks'); if(!el) return;
-  el.innerHTML=WEEKS.map(x=>
-    `<div class="wk ${x.open?'on':''} ${x.fin?'fin':''}">
+  /* 1주차만 펼치고 나머지는 제목 한 줄. 스크롤을 줄이되
+     「8개가 있다」는 증거는 남긴다 */
+  el.innerHTML=WEEKS.map(x=>{
+    const open = x.w===1;
+    return `<div class="wk ${open?'on':'slim'} ${x.fin?'fin':''}">
       <span class="wk-n">${x.w}주차</span>
       <span class="wk-dot"><i></i></span>
       <span class="wk-b">
-        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool}${x.open?' <em>신청 즉시</em>':''}</span>
-        <span class="wk-3">
+        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool}${open?' <em>신청 즉시</em>':''}</span>
+        ${open?`<span class="wk-3">
           <span><i class="l-was">지금</i>${x.was}</span>
           <span><i class="l-now">이후</i>${x.now}</span>
-        </span>
+        </span>`:''}
       </span>
-    </div>`).join('');
+    </div>`;}).join('');
 }
 
 function renderGrid(){
