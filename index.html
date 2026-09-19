@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
 :root{
-  --canvas:#F4F1FA;
+  --canvas:#FFFFFF;
   --fg:#332F3A;
   --muted:#635F69;
   --accent:#7C3AED;
@@ -52,36 +52,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --body:"Pretendard Variable",Pretendard,-apple-system,"Malgun Gothic",sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  --clayCard:
-    16px 16px 32px rgba(160,150,180,.20),
-    -10px -10px 24px rgba(255,255,255,.9),
-    inset 6px 6px 12px rgba(139,92,246,.03),
-    inset -6px -6px 12px rgba(255,255,255,1);
-  --clayCardHover:
-    22px 26px 44px rgba(160,150,180,.28),
-    -12px -12px 28px rgba(255,255,255,.95),
-    inset 6px 6px 12px rgba(139,92,246,.04),
-    inset -6px -6px 12px rgba(255,255,255,1);
-  --clayButton:
-    12px 12px 24px rgba(139,92,246,.30),
-    -8px -8px 16px rgba(255,255,255,.4),
-    inset 4px 4px 8px rgba(255,255,255,.4),
-    inset -4px -4px 8px rgba(0,0,0,.1);
-  --clayButtonHover:
-    16px 18px 32px rgba(139,92,246,.38),
-    -8px -8px 18px rgba(255,255,255,.5),
-    inset 4px 4px 8px rgba(255,255,255,.45),
-    inset -4px -4px 8px rgba(0,0,0,.1);
-  --clayPressed:
-    inset 10px 10px 20px #E4DFEE,
-    inset -10px -10px 20px #ffffff;
-  --claySoft:
-    10px 10px 22px rgba(160,150,180,.16),
-    -7px -7px 18px rgba(255,255,255,.9);
+  --clayCard:0 1px 2px rgba(24,20,40,.04), 0 8px 24px rgba(24,20,40,.06);
+  --clayCardHover:0 2px 4px rgba(24,20,40,.05), 0 16px 40px rgba(24,20,40,.10);
+  --clayButton:0 6px 18px rgba(124,58,237,.22);
+  --clayButtonHover:0 10px 26px rgba(124,58,237,.30);
+  --clayPressed:inset 0 0 0 1px #E9E5F2;
+  --claySoft:0 1px 2px rgba(24,20,40,.04), 0 6px 18px rgba(24,20,40,.05);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--canvas);color:var(--fg);font-family:var(--body);
-  font-size:16px;line-height:1.65;word-break:keep-all;-webkit-font-smoothing:antialiased}
+  font-size:17px;line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;text-align:left}
 :focus-visible{outline:0;box-shadow:0 0 0 4px rgba(124,58,237,.3)!important;border-radius:20px}
 h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
@@ -102,7 +82,15 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 .screen{display:none;padding-bottom:40px}
 .screen.on{display:block;animation:in .4s ease both}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.top{padding-top:52px;padding-bottom:0}
+.top{padding-top:76px;padding-bottom:0}
+@media(min-width:1024px){
+  .top{padding-top:120px;text-align:center}
+  .top .lede{margin-left:auto;margin-right:auto;max-width:34em}
+  .top .hero-cta{margin-left:auto;margin-right:auto}
+  .top .pf{max-width:840px;margin-left:auto;margin-right:auto}
+  .top .eyebrow{display:inline-block;background:#F2ECFF;color:#7C3AED;
+    border-radius:999px;padding:7px 15px;letter-spacing:.02em;font-size:12.5px}
+}
 @media(min-width:620px){ .top{padding-top:64px;padding-bottom:0} }
 .top .band:first-of-type{margin-top:76px}
 
@@ -719,7 +707,7 @@ body{padding-top:46px}
 .cta:disabled{background:#E4DFEE;color:#635F69;box-shadow:var(--clayPressed);transform:none;cursor:not-allowed}
 
 @media (min-width:620px){
-  .shell{max-width:720px}
+  .shell{max-width:800px}
   h1{font-size:52px} h2{font-size:34px}
   .mg{grid-template-columns:repeat(4,1fr)}
   .proof-i{width:380px}
@@ -797,7 +785,7 @@ body{padding-top:46px}
 .top .pf{margin:22px 0 0}
 .top .pf-c{background:rgba(255,255,255,.72);backdrop-filter:blur(8px);padding:14px 10px}
 @media(max-width:420px){ .pf{gap:7px} .pf-c{padding:12px 7px} .pf-n{font-size:22px} .pf-d{display:none} }
-.pf-c{background:#fff;border:1px solid #E4DFEE;border-radius:14px;padding:16px 12px;text-align:center}
+.pf-c{background:#fff;border:1px solid #E9E5F2;border-radius:18px;padding:22px 16px;text-align:center;box-shadow:var(--claySoft)}
 .pf-n{font-family:var(--head);font-size:26px;font-weight:900;letter-spacing:-.04em;color:#7C3AED;line-height:1.2}
 .pf-l{font-size:12px;font-weight:800;color:#332F3A;margin-top:6px}
 .pf-d{font-size:11.5px;line-height:1.55;color:#635F69;margin-top:5px}
@@ -869,16 +857,25 @@ body{padding-top:46px}
 .pain-end span{color:#7C3AED}
 
 /* ── 배경 띠로 구간 나누기 ───────────── */
-.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:52px 18px}
+.band{width:100vw;margin-left:50%;transform:translateX(-50%);padding:88px 20px}
+@media(min-width:700px){ .band{padding:124px 20px} }
+@media(min-width:1024px){ .band{padding:152px 20px} }
 @media(min-width:700px){ .band{padding:64px 18px} }
 .band-in{max-width:520px;margin:0 auto}
-.band.soft{background:#F4F1FA}
+.band.soft{background:#F6F4FC}
 .band.plain{background:#fff}
-.band.deep{background:#EFEBF5}
+.band.cream{background:#FDF6EC}
+.band.rose{background:#FCF1F4}
+.band.deep{background:#EDF7F3}
 .band.tail{padding-bottom:0}
 
 /* ── 섹션 번호 라벨 ─────────────────── */
-.secno{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.secno{display:flex;align-items:center;gap:10px;margin:0 0 20px}
+@media(min-width:1024px){
+  .band .sect,.band .pain-h{text-align:center}
+  .band .sect .lede,.band .pain-h .lede{margin-left:auto;margin-right:auto;max-width:36em}
+  .band .secno{justify-content:center}
+}
 .secno i{font-style:normal;font-family:var(--head);font-size:13px;font-weight:900;
   letter-spacing:.06em;color:#fff;background:#7C3AED;border-radius:6px;padding:4px 9px}
 .secno span{font-family:var(--head);font-size:12.5px;font-weight:800;letter-spacing:.1em;
@@ -904,7 +901,7 @@ body{padding-top:46px}
 /* ── FAQ ───────────────────────────── */
 .faq{margin-top:26px;border-top:1px solid #E4DFEE}
 .faq details{border-bottom:1px solid #E4DFEE}
-.faq summary{list-style:none;cursor:pointer;padding:17px 30px 17px 0;position:relative;
+.faq summary{list-style:none;cursor:pointer;padding:20px 30px 20px 0;position:relative;
   font-family:var(--head);font-size:16px;font-weight:800;color:#332F3A;letter-spacing:-.02em}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";position:absolute;right:4px;top:15px;font-size:20px;
@@ -913,8 +910,9 @@ body{padding-top:46px}
 .faq p{margin:0 0 18px;font-size:14.5px;line-height:1.8;color:#332F3A}
 .band-in>*:first-child{margin-top:0!important}
 html,body{overflow-x:hidden}
-@media(min-width:700px){ .band-in{max-width:720px} }
-@media(min-width:1024px){ .shell{max-width:860px} .band-in{max-width:860px} }
+@media(min-width:700px){ .band-in{max-width:800px} }
+@media(min-width:1024px){ .shell{max-width:1000px} .band-in{max-width:1000px} }
+@media(min-width:1280px){ .shell{max-width:1080px} .band-in{max-width:1080px} }
 .rule{display:none}
 
 /* ── FAQ ───────────────────────────── */
@@ -991,7 +989,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <b>전체 흐름이 보이고, 다른 일에 손을 댈 수 있게 됐습니다.</b></p>
       <p class="sig">— 이커머스 마케터 · 5년차</p>
     </div>
-    <div class="band soft"><div class="band-in">
+    <div class="band plain"><div class="band-in">
     <div class="sect">
       <div class="secno"><i>02</i><span>업무 전체 지도</span></div>
       <h2>신규 상품 하나가<br>이 8칸을 다 지나갑니다</h2>
@@ -1047,7 +1045,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div></div>
 
-    <div class="band plain"><div class="band-in">
+    <div class="band cream"><div class="band-in">
     <div class="sect">
       <div class="secno"><i>04</i><span>자주 묻는 것</span></div>
       <h2>“그냥 엑셀로<br>하면 안 돼요?”</h2>
@@ -1131,7 +1129,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div></div>
 
-    <div class="band plain"><div class="band-in">
+    <div class="band rose"><div class="band-in">
     <div class="who">
       <p class="role">WHO MADE THIS</p>
       <h4>이커머스 마케터 · 5년차</h4>
