@@ -1160,6 +1160,14 @@ body{ background:#FAFCF2 }
   position:relative }
 .nofit li::before{ content:"—"; position:absolute; left:0; opacity:.5 }
 .nofit li b{ opacity:1 }
+
+/* ===== FAQ 안쪽 여백 ===================================== */
+/* 카드 스타일은 답변을 .a 로 감싼다고 보고 만들어져 있는데
+   지금 마크업은 <p> 라 좌우 여백이 빠져 글자가 카드에 붙었다 */
+.faq details > p{ padding:0 18px 17px; margin:0;
+  font-size:14px; line-height:1.85; color:#5E6356 }
+.faq details > p b{ color:#262A1C }
+.faq summary{ padding:16px 18px }
 </style>
 </head>
 <body>
