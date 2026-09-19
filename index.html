@@ -1103,6 +1103,17 @@ body{ background:#FAFCF2 }
 .hero-sub{ margin-bottom:96px }
 @media(min-width:700px){ .hero-sub{ margin-bottom:140px } }
 .top{ padding-bottom:0 }
+
+/* ===== 한 밴드 안에 구간이 둘일 때 ======================= */
+/* 02 와 03 이 같은 밴드 안에 있어 사이 여백이 0 이었다.
+   밴드 안의 두 번째 이후 .sect 에는 구간 여백만큼 띄운다 */
+.band .band-in > .sect ~ .sect,
+.band .band-in > * + .sect{ margin-top:96px }
+@media(min-width:700px){
+  .band .band-in > .sect ~ .sect,
+  .band .band-in > * + .sect{ margin-top:140px }
+}
+.band .band-in > .secno:first-child + .sect{ margin-top:0 }
 </style>
 </head>
 <body>
@@ -1145,13 +1156,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="pain" id="painEmpathy"></div>
     <p class="pain-end">하나라도 익숙하시다면, <span>이 도구들이 그 자리를 대신합니다.</span></p>
-    </div></div>
-
     <div class="core" style="margin-top:30px">
       <div class="k">그래서</div>
       <p>일이 많은 게 문제가 아닙니다.<br>
       매번 새로 하고 있어서, <b>어디가 막혔는지도 안 보이는 게</b> 문제입니다.</p>
     </div>
+    </div></div>
+
 
 
     <hr class="rule">
