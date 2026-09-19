@@ -135,7 +135,7 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 
 /* ===== 혜택 바 ===== */
 .offer{display:flex;gap:16px;align-items:center;justify-content:space-between;
-  background:linear-gradient(135deg,#DDF56A,#DDF56A);border-radius:32px;padding:22px 24px;
+  background:#DDF56A;border-radius:32px;padding:22px 24px;
   margin-top:28px;box-shadow:16px 16px 32px rgba(160,180,80,.28),
   -10px -10px 24px rgba(255,255,255,.9),inset -6px -6px 12px rgba(255,255,255,.5)}
 .offer-l{list-style:none;margin:0;padding:0;flex:1;min-width:0}
@@ -174,14 +174,14 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .gain-t{display:block;font-family:var(--head);font-size:16px;font-weight:800;
   letter-spacing:-.03em;line-height:1.42;margin-bottom:8px}
 .gain-d{display:block;font-size:15px;line-height:1.68;color:var(--muted);font-weight:500}
-.gain.hero{background:linear-gradient(135deg,#DDF56A,#DDF56A);
+.gain.hero{background:#DDF56A;
   box-shadow:16px 16px 32px rgba(160,180,80,.28),-10px -10px 24px rgba(255,255,255,.9)}
 .gain.hero .gain-n{color:#8A9E2E}
 .gain.hero .gain-t{color:#1F2A05}
 .gain.hero .gain-d{color:#1F2A05}
 
 /* ===== DarkChecklist ===== */
-.dark{background:linear-gradient(150deg,#332F3A,#332F3A);border-radius:36px;padding:26px 24px;
+.dark{background:#1F2A05;border-radius:36px;padding:26px 24px;
   box-shadow:18px 18px 36px rgba(80,70,110,.3),-8px -8px 20px rgba(255,255,255,.7)}
 .dark li{list-style:none;display:flex;gap:12px;align-items:flex-start;margin-bottom:15px;
   font-size:15px;font-weight:600;color:#EFEBF5;line-height:1.5;letter-spacing:-.02em}
@@ -223,9 +223,9 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .tier-l{font-family:var(--head);font-size:12px;font-weight:800;color:var(--muted);
   margin:18px 0 9px;padding-left:6px;letter-spacing:.03em}
 .tier-l:first-child{margin-top:0}
-.tier{background:linear-gradient(150deg,#332F3A,#332F3A);border-radius:24px;padding:18px 20px;
+.tier{background:#1F2A05;border-radius:24px;padding:18px 20px;
   box-shadow:14px 14px 28px rgba(80,70,110,.26),-6px -6px 16px rgba(255,255,255,.7);margin-bottom:8px}
-.tier.hero{background:linear-gradient(135deg,#DDF56A,#DDF56A);
+.tier.hero{background:#DDF56A;
   box-shadow:14px 14px 28px rgba(160,180,80,.3),-6px -6px 16px rgba(255,255,255,.9)}
 .tier .trow{display:flex;gap:11px;align-items:flex-start;font-size:16px;font-weight:700;
   color:#F4F1FA;line-height:1.5;letter-spacing:-.025em}
@@ -234,24 +234,24 @@ h3{font-size:20px;font-weight:800;margin:0 0 12px}
 .tier.hero .trow i{color:#8A9E2E}
 .tier .sub{font-size:13px;color:#C9BEE4;font-weight:500;margin-top:6px;padding-left:24px;line-height:1.55}
 .tier.hero .sub{color:#1F2A05}
-.warn{background:linear-gradient(135deg,#DDF56A,#DDF56A);border-radius:24px;padding:18px 20px;
+.warn{background:#DDF56A;border-radius:24px;padding:18px 20px;
   margin-top:16px;font-size:14px;font-weight:600;color:#1F2A05;line-height:1.62;
   box-shadow:var(--claySoft)}
 .warn b{font-weight:800}
 
 /* ===== 상단 마감 바 ===== */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:60;
-  background:linear-gradient(135deg,#DDF56A,#DDF56A);
-  box-shadow:0 6px 20px rgba(160,180,80,.28);
+  background:#1F2A05;
+  box-shadow:0 6px 20px rgba(31,42,5,.22);
   padding:calc(9px + env(safe-area-inset-top)) 16px 9px}
 .topbar-in{max-width:520px;margin:0 auto;display:flex;align-items:center;
   justify-content:center;gap:10px;flex-wrap:wrap}
-.tb-t{font-family:var(--head);font-size:13.5px;font-weight:900;color:#1F2A05;letter-spacing:-.03em}
-.tb-d{font-family:var(--head);font-size:11.5px;font-weight:900;color:#DDF56A;
-  background:#1F2A05;padding:3px 11px;border-radius:9999px;letter-spacing:.02em}
-.topbar.closed{background:linear-gradient(135deg,#E4DFEE,#E4DFEE);box-shadow:0 6px 20px rgba(120,110,150,.2)}
-.topbar.closed .tb-t{color:#635F69}
-.topbar.closed .tb-d{background:#635F69;color:#EFEBF5}
+.tb-t{font-family:var(--head);font-size:13.5px;font-weight:900;color:#DDF56A;letter-spacing:-.03em}
+.tb-d{font-family:var(--head);font-size:11.5px;font-weight:900;color:#1F2A05;
+  background:#DDF56A;padding:3px 11px;border-radius:9999px;letter-spacing:.02em}
+.topbar.closed{background:#332F3A;box-shadow:0 2px 12px rgba(51,47,58,.22)}
+.topbar.closed .tb-t{color:#C9BEE4}
+.topbar.closed .tb-d{background:#C9BEE4;color:#332F3A}
 body{padding-top:46px}
 @media (min-width:620px){ .tb-t{font-size:15px} }
 
@@ -274,7 +274,7 @@ body{padding-top:46px}
 .dl-note{font-size:13px;color:#1F2A05;font-weight:700;margin:12px 0 0;line-height:1.6;text-align:center}
 
 /* ===== 다운로드 카드 ===== */
-.dlcard{background:linear-gradient(135deg,#DDF56A,#DDF56A);border-radius:36px;padding:26px 24px;
+.dlcard{background:#DDF56A;border-radius:36px;padding:26px 24px;
   margin-top:26px;box-shadow:16px 16px 32px rgba(160,180,80,.3),-10px -10px 24px rgba(255,255,255,.9)}
 .dlcard-h{display:flex;gap:16px;align-items:center}
 .dlicon{font-size:34px;flex:none;filter:drop-shadow(3px 3px 6px rgba(120,140,50,.3))}
@@ -363,7 +363,7 @@ body{padding-top:46px}
 .wk.on .wk-n{color:var(--accent)}
 .wk.on .wk-t{color:var(--fg)}
 .wk.on .wk-f{color:var(--accent)}
-.wk.fin .wk-dot i{background:linear-gradient(135deg,#DDF56A,#DDF56A);
+.wk.fin .wk-dot i{background:#DDF56A;
   box-shadow:6px 6px 14px rgba(160,180,80,.35)}
 .wk.fin .wk-t{color:var(--fg)}
 .wk-box{background:rgba(255,255,255,.7);backdrop-filter:blur(16px);border-radius:32px;
@@ -461,7 +461,7 @@ body{padding-top:46px}
   display:block;margin-bottom:4px;letter-spacing:.06em}
 .locked .nm{display:block;font-family:var(--head);font-size:13.5px;font-weight:800;color:#635F69;
   letter-spacing:-.03em;line-height:1.4}
-.locked div.open{background:linear-gradient(135deg,#DDF56A,#DDF56A);
+.locked div.open{background:#DDF56A;
   box-shadow:12px 12px 26px rgba(160,180,80,.3),-6px -6px 16px rgba(255,255,255,.9)}
 .locked div.open .lk{opacity:1}
 .locked div.open .st-n{color:#8A9E2E}
@@ -690,7 +690,7 @@ body{padding-top:46px}
 .mini.full{color:var(--fg);background:#fff;box-shadow:var(--claySoft)}
 .mini.full:hover{transform:translateY(-3px)}
 .mini.full::after{content:" +";color:var(--accent);font-weight:900}
-.mini.hl{background:linear-gradient(135deg,#DDF56A,#DDF56A);color:#1F2A05;box-shadow:var(--claySoft)}
+.mini.hl{background:#DDF56A;color:#1F2A05;box-shadow:var(--claySoft)}
 .dt{display:none;margin-top:16px;background:var(--recess);box-shadow:var(--clayPressed);
   border-radius:24px;padding:20px}
 .dt.on{display:block}
@@ -960,6 +960,25 @@ b,strong{ font-weight:700 }
 /* 한글 줄바꿈 */
 h1,h2,h3,.lede,p{ word-break:keep-all; }
 @media(min-width:1024px){ h1,h2{ text-wrap:balance } }
+
+/* ===== 구간 구분 강화 ==================================== */
+@media(min-width:700px){
+  /* .top 안에 첫 밴드들이 들어 있어 .top 에는 높이를 주지 않는다 */
+  .band{ min-height:92vh }                /* 100vh 는 위아래가 너무 비어 보인다 */
+}
+
+/* 구간 배경 대비 — 연보라와 흰색 차이가 거의 안 보였다 */
+.band.soft{ background:#EDE9F6 }
+.band.plain{ background:#FFFFFF }
+.band.deep{ background:#1F2A05 }
+.band.deep h2,.band.deep h3,.band.deep p,.band.deep .lede,.band.deep b{ color:#F3F7E4 }
+.band.deep .secno i{ background:#DDF56A; color:#1F2A05 }
+.band.deep .secno span{ color:#A9BF4E }
+.band.deep .midcta button{ background:#DDF56A; color:#1F2A05 }
+.band.deep .midcta p{ color:#A9BF4E }
+
+/* 경계선 — 색만으로 부족할 때 */
+.band+.band{ border-top:1px solid rgba(31,42,5,.06) }
 </style>
 </head>
 <body>
