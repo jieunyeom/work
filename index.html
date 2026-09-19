@@ -1226,6 +1226,9 @@ body{ background:#FAFCF2 }
 .mapclose{ margin:28px 0 0; padding:22px 24px; border-radius:16px;
   background:#F1F6DF; font-size:15px; line-height:1.72; color:#5E6356 }
 .mapclose b{ color:#262A1C }
+/* ===== 2주차 도구 2개 ===== */
+.plus2{ display:inline-block; margin-left:6px; font-size:12.5px; font-weight:700;
+  color:#1F2A05; background:#DDF56A; border-radius:999px; padding:2px 9px }
 </style>
 </head>
 <body>
@@ -1375,7 +1378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="mapgift">
       <div class="mapgift-h">전체 업무 지도는 따로 드립니다</div>
       <p>8칸 어디에 어떤 도구가 붙는지, 어떤 순서로 손대면 되는지 그린 <b>한 장짜리 지도</b>입니다.</p>
-      <p class="mapgift-s">2주차 도구를 써보시고 <b>한두 줄 피드백</b>을 주시면 메일로 보내드려요.</p>
+      <p class="mapgift-s">1주차와 2주차를 써보시고 <b>어땠는지 한두 줄</b>만 주시면 메일로 보내드려요.</p>
     </div>
     <p class="note">지금 안 쓰는 것도 옵니다. <b>그 일이 생겼을 때 이미 갖고 있는 게 낫습니다.</b></p>
 
@@ -1896,9 +1899,9 @@ const WEEKS=[
  {w:1,no:'01',name:'상품 등록',tool:'상품등록용 이미지 주소 정리',
   was:'일괄등록용 이미지 주소를 상품마다 하나씩 확인',
   now:'폴더 목록 넣으면 등록 양식에 맞게 정리'},
- {w:2,no:'02',name:'상세·배너',tool:'배너 이미지 자동 생성', open:true,
-  was:'가격 계산해서 포토샵으로 배너를 하나씩 만듦',
-  now:'가격만 넣으면 할인율까지 계산해서 이미지로 나옴'},
+ {w:2,no:'02',name:'상세·배너',tool:'배너 이미지 자동 생성', open:true, plus:'상세페이지 HTML 자동 생성',
+  was:'가격 계산해서 배너를 하나씩 만들고, 상세 HTML 을 손으로 타이핑',
+  now:'가격만 넣으면 배너가 나오고, 이미지 목록 붙여넣으면 상세 코드까지 완성'},
  {w:3,no:'03',name:'프로모션',tool:'행사 제안 양식 · MD 메일 문구',
   was:'제안서와 메일을 매번 처음부터 다시 씀',
   now:'행사 정보만 넣으면 제안 양식과 메일 문구가 나옴'},
@@ -1927,7 +1930,7 @@ function renderWeeks(){
       <span class="wk-n">${x.w}주차</span>
       <span class="wk-dot"><i></i></span>
       <span class="wk-b">
-        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool} <em>신청 즉시</em></span>
+        <span class="wk-t"><span class="cno">${x.no}</span>${x.tool}${x.plus?' <span class="plus2">+ '+x.plus+'</span>':''} <em>신청 즉시</em></span>
         <span class="wk-3">
           <span><i class="l-was">지금</i>${x.was}</span>
           <span><i class="l-now">이후</i>${x.now}</span>
@@ -1941,7 +1944,7 @@ function renderGrid(){
   /* 칸 · 부제 · 몇 주차 도구가 오나 · 여기서 보통 이렇게 샌다 */
   const CELLS=[
    ['01','상품 등록','이미지·상세 URL, 일괄등록','1주차','송신 오류가 나면 어디가 틀렸는지부터 찾습니다.'],
-   ['02','상세·배너','배너 규격, 가격 계산, 카피','2주차','규격은 매번 같은데, 매번 다시 찾습니다.'],
+   ['02','상세·배너','배너 규격, 가격 계산, 카피','2주차 · 도구 2개','규격은 매번 같은데, 매번 다시 찾습니다.'],
    ['03','프로모션','행사 제안, MD 커뮤니케이션','3주차','확정가 하나가 시트 세 곳에 따로 들어갑니다.'],
    ['04','가격·수익','원가, 마진, 할인 설계','4주차','채널이 늘수록 “이 가격 팔아도 되나”가 감으로 갑니다.'],
    ['05','광고 운영','유입 추적, 소재 운영','5주차','어떤 링크로 들어왔는지 나중에 못 맞춥니다.'],
