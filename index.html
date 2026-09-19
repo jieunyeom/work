@@ -104,7 +104,7 @@ h1,h2,h3,.hd,.num{font-family:var(--head);letter-spacing:-.02em}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .top{padding-top:52px;padding-bottom:0}
 @media(min-width:620px){ .top{padding-top:64px;padding-bottom:0} }
-.top .band:first-of-type{margin-top:76px}
+/* .top .band:first-of-type 는 첫 div 가 .pf 라 잡히지 않아 제거 */
 
 /* ===== type ===== */
 .eyebrow{font-family:var(--head);font-size:12px;font-weight:800;letter-spacing:.14em;
@@ -1095,6 +1095,14 @@ body{ background:#FAFCF2 }
 /* 신청 구간도 같은 값 */
 .band.tail{ padding-top:96px }
 @media(min-width:700px){ .band.tail{ padding-top:140px } }
+
+/* ===== 히어로 아래 여백 ================================== */
+/* 첫 구간이 .top 안에 있어서 .top 의 아래 여백이 히어로 밑이 아니라
+   맨 마지막 구간 뒤에 붙었다. 히어로 마지막 줄에 직접 여백을 준다.
+   (.top .band:first-of-type 은 첫 div 가 .pf 라서 잡히지 않는다) */
+.hero-sub{ margin-bottom:96px }
+@media(min-width:700px){ .hero-sub{ margin-bottom:140px } }
+.top{ padding-bottom:0 }
 </style>
 </head>
 <body>
