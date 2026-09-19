@@ -930,6 +930,36 @@ html,body{overflow-x:hidden}
 .faq details[open] summary::after{content:"−"}
 .faq .a{padding:0 18px 17px;font-size:13.5px;line-height:1.8;color:#635F69}
 .faq .a b{color:#332F3A}
+
+/* ===== 한 화면에 한 구간 ================================= */
+@media(min-width:700px){
+  .band{ min-height:100vh; display:flex; align-items:center; }
+  .band>.band-in{ width:100%; }
+  .band.tail{ min-height:0; display:block; }   /* 신청 구간은 길어서 제외 */
+}
+@media(max-width:699px){
+  .band{ padding-top:80px; padding-bottom:80px; }
+}
+
+/* ===== 글자 체계 ========================================= */
+body{ font-size:17px; line-height:1.78; letter-spacing:-.011em; }
+
+h1{ font-size:clamp(32px,6.2vw,52px); line-height:1.16; font-weight:800; letter-spacing:-.035em }
+.band h2, h2{ font-size:clamp(26px,4.4vw,40px); line-height:1.22; font-weight:800;
+  letter-spacing:-.032em; margin:0 0 18px }
+h3{ font-size:clamp(18px,2.4vw,22px); line-height:1.44; font-weight:700; letter-spacing:-.02em }
+
+.lede{ font-size:clamp(16px,1.9vw,19px); line-height:1.8; letter-spacing:-.012em }
+.secno i{ font-size:12px; letter-spacing:.08em }
+.secno span{ font-size:12px; letter-spacing:.12em }
+
+/* 굵기 대비 — 강조가 강조로 읽히게 */
+b,strong{ font-weight:700 }
+.lede b{ font-weight:700 }
+
+/* 한글 줄바꿈 */
+h1,h2,h3,.lede,p{ word-break:keep-all; }
+@media(min-width:1024px){ h1,h2{ text-wrap:balance } }
 </style>
 </head>
 <body>
